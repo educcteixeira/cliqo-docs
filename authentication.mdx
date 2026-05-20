@@ -1,0 +1,61 @@
+---
+title: Autenticação
+description: Autentique suas requisições com API keys.
+---
+
+# Autenticação
+
+A Cliqo usa **API keys** para autenticar requisições. Você pode ver e gerenciar suas API keys no [Dashboard](https://app.cliqo.io/settings/api-keys).
+
+Suas API keys carregam muitos privilégios — mantenha-as seguras. Não as exponha em código client-side, repositórios públicos ou logs.
+
+## Formato
+
+Inclua sua API key no header `Authorization` de todas as requisições:
+
+```bash
+Authorization: Bearer cliqo_sk_live_xxxxxxxxxxxxxxxx
+```
+
+## Exemplo
+
+<CodeGroup>
+
+```bash cURL
+curl https://api.cliqo.io/v1/contacts \
+  -H "Authorization: Bearer cliqo_sk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json"
+```
+
+```javascript Node.js
+const cliqo = new Cliqo("cliqo_sk_live_xxxxxxxxxxxxxxxx");
+```
+
+```python Python
+import cliqo
+cliqo.api_key = "cliqo_sk_live_xxxxxxxxxxxxxxxx"
+```
+
+</CodeGroup>
+
+## Onde encontrar sua API key
+
+1. Acesse [app.cliqo.io](https://app.cliqo.io)
+2. Vá em **Configurações → API Keys**
+3. Clique em **Criar nova API key**
+4. Copie e armazene em local seguro — ela só é exibida uma vez
+
+<Warning>
+  Nunca commite sua API key em repositórios públicos. Use variáveis de ambiente.
+</Warning>
+
+## Variáveis de ambiente
+
+```bash
+# .env
+CLIQO_API_KEY=cliqo_sk_live_xxxxxxxxxxxxxxxx
+```
+
+```javascript
+const cliqo = new Cliqo(process.env.CLIQO_API_KEY);
+```

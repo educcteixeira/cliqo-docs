@@ -1,0 +1,101 @@
+---
+title: "Instalar o Pixel"
+description: "Rastreie comportamento de navegação e alimente seus segmentos automaticamente."
+---
+
+# Pixel de Rastreamento
+
+O Pixel Cliqo é um snippet JavaScript que captura eventos de navegação na sua loja e alimenta automaticamente os segmentos comportamentais na plataforma.
+
+## Eventos capturados automaticamente
+
+| Evento | Quando dispara | Segmento criado |
+|--------|----------------|-----------------|
+| `page_view` | Toda página visitada | Todos os visitantes |
+| `product_view` | Página de produto aberta | Navegou sem comprar |
+| `category_view` | Página de categoria aberta | Interesse por categoria |
+| `cart_add` | Produto adicionado ao carrinho | Quase comprou |
+| `checkout_start` | Início do checkout | Abandono de checkout |
+| `purchase` | Compra finalizada | Converteram |
+
+## Instalação
+
+### Via Google Tag Manager (recomendado)
+
+1. Abra seu container no [Google Tag Manager](https://tagmanager.google.com)
+2. Clique em **Nova tag → Tag HTML personalizada**
+3. Cole o snippet abaixo
+4. Acionamento: **All Pages**
+5. Salve e publique
+
+```html
+<!-- Cliqo Tracking Pixel -->
+<script>
+(function(w,d,i){
+  w._cliqo=w._cliqo||[];
+  var s=d.createElement('script');
+  s.async=true;
+  s.src='https://cdn.cliqo.io/px.js';
+  s.setAttribute('data-id',i);
+  d.head.appendChild(s);
+})(window,document,'SEU_TENANT_ID');
+</script>
+```
+
+### Instalação manual
+
+Cole antes de `</head>` em todas as páginas da sua loja:
+
+```html
+<!-- Cliqo Pixel -->
+<script async src="https://cdn.cliqo.io/px.js" data-id="SEU_TENANT_ID"></script>
+```
+
+### Loja Integrada
+
+1. Acesse o painel da Loja Integrada
+2. Vá em **Design → Editar HTML do tema**
+3. Localize `</head>` e cole o snippet logo acima
+4. Salve as alterações
+
+## Verificar instalação
+
+Após instalar, acesse qualquer página da sua loja e verifique no painel:
+
+```bash
+curl https://api.cliqo.io/v1/pixel/verify \
+  -H "Authorization: Bearer cliqo_sk_live_xxxx"
+```
+
+```json
+{
+  "status": "active",
+  "last_event_at": "2026-05-20T10:05:00Z",
+  "events_today": 142
+}
+```
+
+## Eventos customizados
+
+Além dos eventos automáticos, você pode disparar eventos customizados:
+
+```javascript
+// Produto visualizado com detalhes
+window._cliqo.push(['track', 'product_view', {
+  product_id: '12345',
+  product_name: 'Forno Combinado 10 GN',
+  category: 'Fornos',
+  price: 18900.00
+}]);
+
+// Compra realizada
+window._cliqo.push(['track', 'purchase', {
+  order_id: 'PED-4821',
+  total: 18900.00,
+  products: [{ id: '12345', name: 'Forno Combinado 10 GN', qty: 1 }]
+}]);
+```
+
+<Note>
+  O Tenant ID está disponível em **Configurações → API Keys** no painel da Cliqo.
+</Note>

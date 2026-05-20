@@ -1,0 +1,92 @@
+---
+title: "Integração Loja Integrada"
+description: "Conecte sua loja à Cliqo em minutos e ative automações de email AMP + WhatsApp."
+---
+
+# Loja Integrada
+
+Integre sua loja Loja Integrada com a Cliqo para ativar automações de **carrinho abandonado**, **boas-vindas** e **abandono de navegação** com emails AMP interativos.
+
+## O que você vai conseguir
+
+- ✅ Sincronização automática de contatos
+- ✅ Eventos de carrinho capturados via webhook LI
+- ✅ Email AMP 1h após abandono com produto do carrinho
+- ✅ Roleta de desconto automática para recuperação
+- ✅ WhatsApp de follow-up 72h depois se não converteu
+- ✅ Pixel Cliqo rastreia navegação de produtos e categorias
+
+## Pré-requisitos
+
+- Conta Cliqo com plano **Starter** ou superior
+- Loja ativa na Loja Integrada
+- Domínio verificado na Cliqo (DKIM/SPF/DMARC)
+
+## Passo 1 — Obtenha suas credenciais LI
+
+1. Acesse o painel da Loja Integrada
+2. Vá em **Minha conta → Dados da API**
+3. Copie a **API Key** e o **ID da loja**
+
+## Passo 2 — Configure no painel Cliqo
+
+```bash
+curl -X POST https://api.cliqo.io/v1/integrations/loja-integrada \
+  -H "Authorization: Bearer cliqo_sk_live_xxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "li_api_key": "sua_api_key_li",
+    "li_store_id": "12345",
+    "sync_contacts": true,
+    "automations": {
+      "abandoned_cart": true,
+      "welcome": true,
+      "browse_abandonment": true
+    }
+  }'
+```
+
+## Passo 3 — Instale o Pixel
+
+Cole no HTML do tema da sua loja (antes de `</head>`):
+
+```html
+<script async src="https://cdn.cliqo.io/px.js" data-id="SEU_TENANT_ID"></script>
+```
+
+## Passo 4 — Ative as automações
+
+Após a conexão, as automações ficam disponíveis em **Campanhas → Automação**:
+
+| Automação | Gatilho | Email | WhatsApp |
+|-----------|---------|-------|----------|
+| Boas-vindas | Novo cadastro | Confetti AMP (imediato) | Cupom (dia 5) |
+| Carrinho abandonado | Carrinho criado +1h sem compra | Roleta AMP (1h) | Oferta final (72h) |
+| Abandono de navegação | Visita produto sem compra | Variantes AMP (2h) | Oferta (7 dias) |
+
+## Eventos sincronizados
+
+A integração escuta os seguintes webhooks da Loja Integrada automaticamente:
+
+```json
+{
+  "event": "cart/created",
+  "data": {
+    "cart_id": "4821",
+    "customer_email": "ana@gmail.com",
+    "products": [
+      {
+        "id": "12345",
+        "name": "Forno Combinado 10 GN",
+        "price": 18900.00,
+        "image": "https://loja.com.br/produto.jpg"
+      }
+    ],
+    "total": 18900.00
+  }
+}
+```
+
+<Tip>
+  A Cliqo usa os dados do produto no email AMP automaticamente — o cliente vê a imagem e o preço do produto que abandonou diretamente dentro do email, sem precisar configurar nada.
+</Tip>

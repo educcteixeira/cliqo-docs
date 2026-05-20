@@ -1,0 +1,117 @@
+---
+title: "Criar contato"
+api: "POST https://api.cliqo.io/v1/contacts"
+description: "Cria um novo contato na sua base."
+---
+
+## Body
+
+<ParamField body="email" type="string" required>
+  Endereço de email do contato. Deve ser único por tenant.
+</ParamField>
+
+<ParamField body="first_name" type="string">
+  Primeiro nome do contato.
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Sobrenome do contato.
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Telefone no formato E.164. Ex: `+5511999999999`
+</ParamField>
+
+<ParamField body="subscribed" type="boolean" default="true">
+  Se o contato está inscrito para receber emails.
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Atributos customizados em pares chave-valor. Ex: `{"plano": "gold", "loja_id": "123"}`
+</ParamField>
+
+## Resposta
+
+<ResponseField name="id" type="string">
+  ID único do contato. Formato: `con_xxxxxxxxxxxxxxxx`
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Email do contato.
+</ResponseField>
+
+<ResponseField name="subscribed" type="boolean">
+  Status de inscrição do contato.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  Data de criação no formato ISO 8601.
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X POST https://api.cliqo.io/v1/contacts \
+  -H "Authorization: Bearer cliqo_sk_live_xxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "ana@acimaq.com.br",
+    "first_name": "Ana",
+    "last_name": "Souza",
+    "phone": "+5511999234567",
+    "subscribed": true,
+    "metadata": {
+      "origem": "site",
+      "segmento": "padaria"
+    }
+  }'
+```
+
+```javascript Node.js
+const contact = await cliqo.contacts.create({
+  email: "ana@acimaq.com.br",
+  first_name: "Ana",
+  last_name: "Souza",
+  phone: "+5511999234567",
+  subscribed: true,
+  metadata: {
+    origem: "site",
+    segmento: "padaria"
+  }
+});
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 201 Created
+{
+  "id": "con_01H9Z3X2Y1K8M4N5P6Q7R8S9T0",
+  "object": "contact",
+  "email": "ana@acimaq.com.br",
+  "first_name": "Ana",
+  "last_name": "Souza",
+  "phone": "+5511999234567",
+  "subscribed": true,
+  "amp_score": 0,
+  "metadata": {
+    "origem": "site",
+    "segmento": "padaria"
+  },
+  "created_at": "2026-05-20T10:00:00Z",
+  "updated_at": "2026-05-20T10:00:00Z"
+}
+```
+
+```json 400 Email já existe
+{
+  "error": {
+    "code": "contact_already_exists",
+    "message": "A contact with this email already exists.",
+    "param": "email"
+  }
+}
+```
+
+</ResponseExample>

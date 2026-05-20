@@ -1,0 +1,125 @@
+---
+title: "Enviar campanha"
+api: "POST https://api.cliqo.io/v1/campaigns/send"
+description: "Envia uma campanha imediatamente para uma lista ou segmento."
+---
+
+<Info>
+  A Cliqo gera automaticamente a versão **AMP HTML** (para Gmail), **HTML** (fallback) e **texto puro** a partir do template. Você não precisa gerenciar os três formatos.
+</Info>
+
+## Body
+
+<ParamField body="from" type="string" required>
+  Endereço de envio no formato `"Nome <email@dominio.com>"`. O domínio deve estar verificado no painel.
+</ParamField>
+
+<ParamField body="to" type="array | string">
+  Um email, array de emails, ID de lista (`list_xxx`) ou ID de segmento (`seg_xxx`).
+</ParamField>
+
+<ParamField body="subject" type="string" required>
+  Linha de assunto do email. Suporta variáveis: `{{nome}}`, `{{empresa}}`.
+</ParamField>
+
+<ParamField body="preview_text" type="string">
+  Texto de pré-header exibido na caixa de entrada abaixo do assunto.
+</ParamField>
+
+<ParamField body="template" type="string" required>
+  Slug do template Cliqo. Ex: `quiz_recommendation`, `spin_wheel`, `cashback`, `catalog`.
+</ParamField>
+
+<ParamField body="variables" type="object">
+  Variáveis de personalização injetadas no template.
+</ParamField>
+
+<ParamField body="whatsapp_trigger" type="string">
+  Quando disparar WhatsApp. Valores: `on_form_submit`, `on_click`, `none` (padrão).
+</ParamField>
+
+<ParamField body="scheduled_at" type="string">
+  Data e hora de envio agendado no formato ISO 8601. Se omitido, envia imediatamente.
+</ParamField>
+
+<ParamField body="reply_to" type="string">
+  Endereço de reply-to. Padrão: mesmo que `from`.
+</ParamField>
+
+## Resposta
+
+<ResponseField name="id" type="string">
+  ID único da campanha. Use para consultar status e métricas.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  `queued` | `sending` | `sent` | `scheduled` | `failed`
+</ResponseField>
+
+<ResponseField name="recipients" type="number">
+  Total de destinatários.
+</ResponseField>
+
+<ResponseField name="amp_supported_count" type="number">
+  Quantidade de destinatários que receberão a versão AMP (Gmail/Yahoo).
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X POST https://api.cliqo.io/v1/campaigns/send \
+  -H "Authorization: Bearer cliqo_sk_live_xxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": "Acimaq <contato@acimaq.com.br>",
+    "to": "list_01H9Z3X2Y1K8M4N5P6Q7R",
+    "subject": "Qual equipamento é ideal para você? 🔍",
+    "preview_text": "Responda 3 perguntas e veja nossa recomendação",
+    "template": "quiz_recommendation",
+    "variables": {
+      "empresa": "Acimaq",
+      "logo_url": "https://acimaq.com.br/logo.svg"
+    },
+    "whatsapp_trigger": "on_form_submit"
+  }'
+```
+
+```javascript Node.js
+const campaign = await cliqo.campaigns.send({
+  from: "Acimaq <contato@acimaq.com.br>",
+  to: "list_01H9Z3X2Y1K8M4N5P6Q7R",
+  subject: "Qual equipamento é ideal para você? 🔍",
+  preview_text: "Responda 3 perguntas e veja nossa recomendação",
+  template: "quiz_recommendation",
+  variables: {
+    empresa: "Acimaq",
+    logo_url: "https://acimaq.com.br/logo.svg"
+  },
+  whatsapp_trigger: "on_form_submit"
+});
+
+console.log(`Campanha enviada: ${campaign.id}`);
+console.log(`${campaign.amp_supported_count} contatos receberão AMP`);
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 201 Enviada
+{
+  "id": "cmp_01H9Z3X2Y1K8M4N5P6Q7R8S9T0",
+  "object": "campaign",
+  "status": "queued",
+  "recipients": 3847,
+  "amp_supported_count": 2810,
+  "html_fallback_count": 1037,
+  "subject": "Qual equipamento é ideal para você? 🔍",
+  "template": "quiz_recommendation",
+  "whatsapp_trigger": "on_form_submit",
+  "created_at": "2026-05-20T10:00:00Z",
+  "estimated_delivery": "2026-05-20T10:02:00Z"
+}
+```
+
+</ResponseExample>
