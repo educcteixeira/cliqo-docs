@@ -1,61 +1,47 @@
 ---
 title: Autenticação
-description: Autentique suas requisições com API keys.
+description: Como a chave funciona, como tirar e como revogar.
 ---
 
 # Autenticação
 
-A Cliqo usa **API keys** para autenticar requisições. Você pode ver e gerenciar suas API keys no [Dashboard](https://app.cliqo.io/settings/api-keys).
+Toda chamada leva a chave no cabeçalho:
 
-Suas API keys carregam muitos privilégios — mantenha-as seguras. Não as exponha em código client-side, repositórios públicos ou logs.
-
-## Formato
-
-Inclua sua API key no header `Authorization` de todas as requisições:
-
-```bash
-Authorization: Bearer cliqo_sk_live_xxxxxxxxxxxxxxxx
+```
+Authorization: Bearer cliqo_<64 caracteres hexadecimais>
 ```
 
-## Exemplo
+O formato da chave é `cliqo_` seguido de **64 hexadecimais** — 32 bytes de
+aleatório.
 
-<CodeGroup>
+## Como tirar uma chave
 
-```bash cURL
-curl https://api.cliqo.io/v1/contacts \
-  -H "Authorization: Bearer cliqo_sk_live_xxxxxxxxxxxxxxxx" \
-  -H "Content-Type: application/json"
-```
-
-```javascript Node.js
-const cliqo = new Cliqo("cliqo_sk_live_xxxxxxxxxxxxxxxx");
-```
-
-```python Python
-import cliqo
-cliqo.api_key = "cliqo_sk_live_xxxxxxxxxxxxxxxx"
-```
-
-</CodeGroup>
-
-## Onde encontrar sua API key
-
-1. Acesse [app.cliqo.io](https://app.cliqo.io)
-2. Vá em **Configurações → API Keys**
-3. Clique em **Criar nova API key**
-4. Copie e armazene em local seguro — ela só é exibida uma vez
+No painel: **Configurações › API › Criar chave**. Só perfis *owner* e *admin*
+conseguem criar.
 
 <Warning>
-  Nunca commite sua API key em repositórios públicos. Use variáveis de ambiente.
+**A chave aparece uma única vez.** Guardamos apenas o `sha256` dela — não há
+como recuperá-la depois. Copie no momento da criação. Se perder, revogue e crie
+outra.
 </Warning>
 
-## Variáveis de ambiente
+## Escopos
 
-```bash
-# .env
-CLIQO_API_KEY=cliqo_sk_live_xxxxxxxxxxxxxxxx
-```
+Cada chave nasce com um escopo, e ele decide o que ela pode:
 
-```javascript
-const cliqo = new Cliqo(process.env.CLIQO_API_KEY);
-```
+| Escopo | Ler | Enviar | Escrever contatos |
+|---|---|---|---|
+| `read_only` | sim | não | não |
+| `send_only` | não | sim | sim |
+| `full` | sim | sim | sim |
+
+Escopo desconhecido **nega tudo**: uma chave emitida antes de um escopo novo não
+ganha permissão por omissão. E o `GET /v1/me` devolve as capacidades da própria
+chave em `can` — é a forma programática de descobrir o que ela pode, sem
+depender desta tabela.
+
+## Revogar
+
+Pelo mesmo painel, e é **terminal**: não existe des-revogar. Uma chave revogada
+devolve `401` com código próprio (`API_KEY_REVOKED`), justamente para você saber
+que não adianta tentar de novo com ela.

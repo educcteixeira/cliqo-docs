@@ -1,117 +1,69 @@
 ---
-title: "Criar contato"
-api: "POST https://api.cliqo.io/v1/contacts"
-description: "Cria um novo contato na sua base."
+title: POST /v1/contacts
+description: Cria ou atualiza um contato.
 ---
 
-## Body
+# `POST /v1/contacts`
 
-<ParamField body="email" type="string" required>
-  Endereço de email do contato. Deve ser único por tenant.
-</ParamField>
+Cria um contato. Se o e-mail já existir **na mesma marca**, atualiza em vez de
+duplicar.
 
-<ParamField body="first_name" type="string">
-  Primeiro nome do contato.
-</ParamField>
+**Escopo exigido:** `escreverContatos`.
 
-<ParamField body="last_name" type="string">
-  Sobrenome do contato.
-</ParamField>
-
-<ParamField body="phone" type="string">
-  Telefone no formato E.164. Ex: `+5511999999999`
-</ParamField>
-
-<ParamField body="subscribed" type="boolean" default="true">
-  Se o contato está inscrito para receber emails.
-</ParamField>
-
-<ParamField body="metadata" type="object">
-  Atributos customizados em pares chave-valor. Ex: `{"plano": "gold", "loja_id": "123"}`
-</ParamField>
-
-## Resposta
-
-<ResponseField name="id" type="string">
-  ID único do contato. Formato: `con_xxxxxxxxxxxxxxxx`
-</ResponseField>
-
-<ResponseField name="email" type="string">
-  Email do contato.
-</ResponseField>
-
-<ResponseField name="subscribed" type="boolean">
-  Status de inscrição do contato.
-</ResponseField>
-
-<ResponseField name="created_at" type="string">
-  Data de criação no formato ISO 8601.
-</ResponseField>
-
-<RequestExample>
-
-```bash cURL
-curl -X POST https://api.cliqo.io/v1/contacts \
-  -H "Authorization: Bearer cliqo_sk_live_xxxx" \
+```bash
+curl -s -X POST https://app.cliqo.io/v1/contacts \
+  -H "Authorization: Bearer cliqo_<sua-chave>" \
   -H "Content-Type: application/json" \
-  -d '{
-    "email": "ana@acimaq.com.br",
-    "first_name": "Ana",
-    "last_name": "Souza",
-    "phone": "+5511999234567",
-    "subscribed": true,
-    "metadata": {
-      "origem": "site",
-      "segmento": "padaria"
-    }
-  }'
+  -d '{"email":"cliente@exemplo.com","name":"Cliente","opt_in":true}'
 ```
 
-```javascript Node.js
-const contact = await cliqo.contacts.create({
-  email: "ana@acimaq.com.br",
-  first_name: "Ana",
-  last_name: "Souza",
-  phone: "+5511999234567",
-  subscribed: true,
-  metadata: {
-    origem: "site",
-    segmento: "padaria"
-  }
-});
-```
+## Corpo
 
-</RequestExample>
+| Campo | Tipo | Obrigatório | Nota |
+|---|---|---|---|
+| `email` | string | **sim** | Normalizado: espaços removidos, minúsculas |
+| `name` | string | não | Nome completo |
+| `phone_whatsapp` | string | não | Necessário se `whatsapp_opt_in` for `true` |
+| `tags` | string[] | não | Valores não-string são descartados |
+| `custom_fields` | objeto | não | Campos personalizados da conta |
+| `source` | string | não | Padrão `api`; até 50 caracteres |
+| `opt_in` | boolean | não | Declara opt-in de **e-mail marketing** |
+| `whatsapp_opt_in` | boolean | não | Declara opt-in de **WhatsApp marketing** |
 
-<ResponseExample>
+## A marca não é escolhida por quem chama
 
-```json 201 Created
-{
-  "id": "con_01H9Z3X2Y1K8M4N5P6Q7R8S9T0",
-  "object": "contact",
-  "email": "ana@acimaq.com.br",
-  "first_name": "Ana",
-  "last_name": "Souza",
-  "phone": "+5511999234567",
-  "subscribed": true,
-  "amp_score": 0,
-  "metadata": {
-    "origem": "site",
-    "segmento": "padaria"
-  },
-  "created_at": "2026-05-20T10:00:00Z",
-  "updated_at": "2026-05-20T10:00:00Z"
-}
-```
+O contato nasce na marca da **chave**. Isso é deliberado: sem essa regra, a chave
+de uma integração poderia gravar na base de outra marca da mesma conta.
 
-```json 400 Email já existe
-{
-  "error": {
-    "code": "contact_already_exists",
-    "message": "A contact with this email already exists.",
-    "param": "email"
-  }
-}
-```
+## Erros deste endpoint
 
-</ResponseExample>
+| Código | HTTP | Quando |
+|---|---|---|
+| `EMAIL_INVALID` | 400 | E-mail ausente ou sem `@` |
+| `WHATSAPP_OPTIN_WITHOUT_PHONE` | 400 | `whatsapp_opt_in: true` sem `phone_whatsapp` |
+| `CONTACT_SUPPRESSED` | 409 | O e-mail está na lista de supressão |
+| `CONTACT_UPSERT_FAILED` | 500 | Falha ao gravar |
+| `SUPPRESSION_LOOKUP_FAILED` | 503 | Não conseguimos consultar a supressão — tente de novo, não contorne |
+
+<Warning>
+**`CONTACT_SUPPRESSED` — leia antes de integrar.**
+
+Se o e-mail foi descadastrado ou excluído, a criação é recusada com `409`. Não é
+falha da sua integração: sem essa guarda, um sync recriaria como ativo justamente
+quem pediu para sair — em lote e em silêncio.
+
+Trate `409` como "este contato optou por sair" e não tente contornar. Remover a
+supressão é ato deliberado, feito no painel por uma pessoa.
+</Warning>
+
+<Warning>
+**Sobre `opt_in` — isto tem peso legal.**
+
+`opt_in: true` cria um **registro de consentimento**, com a origem gravada e o
+identificador da chave no rastro. É esse registro que responde, numa auditoria de
+LGPD, quem declarou o opt-in e por qual porta.
+
+Só mande `true` se o consentimento foi de fato coletado. E um contato criado com
+`opt_in: true` pode entrar num fluxo de boas-vindas e receber e-mail — para carga
+inicial de base, **prefira a importação de CSV do painel**.
+</Warning>

@@ -1,70 +1,87 @@
 ---
 title: Introdução
-description: A API de email AMP para e-commerce brasileiro.
+description: A API pública da Cliqo — o que existe hoje, inteiro.
 ---
 
-# Cliqo API
+# API Cliqo `/v1`
 
-Cliqo é a única plataforma brasileira com suporte a **AMP for Email** — emails interativos que funcionam dentro do Gmail, sem redirect, sem nova aba.
+Esta página é a **fonte de verdade** da API. Cada afirmação aqui foi conferida
+contra o comportamento real em 25/08/2026 — se algo divergir, é erro desta
+página e a gente quer saber.
 
-A API REST da Cliqo permite que você envie campanhas, gerencie contatos, rastreie comportamento de navegação e dispare automações de WhatsApp — tudo em uma única integração.
+## O que existe hoje
+
+A superfície pública é esta, inteira:
+
+| Método | Caminho | O que faz | Escopo |
+|---|---|---|---|
+| `GET` | `/v1/me` | Devolve a identidade e as capacidades da chave | qualquer |
+| `POST` | `/v1/contacts` | Cria ou atualiza um contato | `escreverContatos` |
+
+<Warning>
+**O que ainda não tem API:** criar campanha, disparar envio, ler relatórios,
+listar contatos, listas, modelos, segmentos, pixel, webhooks, SDK de Node, SDK
+de Python.
+
+Preferimos listar isto a deixar você descobrir tentando. Quando algum existir,
+entra na tabela acima — e se você precisa de um deles, fale com a gente: a ordem
+do que construímos sai de pedido real.
+</Warning>
 
 ## Base URL
 
 ```
-https://api.cliqo.io/v1
+https://app.cliqo.io/v1
 ```
 
-Todas as requisições devem usar HTTPS. Requisições HTTP são rejeitadas.
+Todas as requisições usam HTTPS.
 
-## Formato de resposta
+## Carregar base ou sincronizar?
 
-A API retorna JSON em todas as respostas, incluindo erros.
+Vale escolher o caminho antes de escrever código, porque os dois existem e
+servem a coisas diferentes:
+
+| Você quer | Use | Por quê |
+|---|---|---|
+| Carregar uma base que já existe | **Importação de CSV**, no painel | Uma tela, milhares de linhas, com mapeamento de colunas e relatório de erros |
+| Manter loja e Cliqo em sincronia | `POST /v1/contacts` | Um contato por chamada, no momento em que ele muda na sua base |
+
+<Note>
+O `POST /v1/contacts` aceita **um contato por chamada**. Uma planilha de cinco
+mil linhas viraria cinco mil requisições — se esse for o seu caso, a importação
+do painel resolve numa tela. Se você precisa de um endpoint de lote, diga: é
+decisão de prioridade, não limitação técnica.
+</Note>
+
+## Formato de erro
 
 ```json
-{
-  "id": "cmp_01H9Z3X2Y1K8M4N5P6Q7R8S9T0",
-  "object": "campaign",
-  "status": "sent",
-  "created_at": "2026-05-20T10:00:00Z"
-}
+{ "error": "mensagem legível", "code": "CODIGO_ESTAVEL" }
 ```
 
-## Códigos HTTP
+**Programe contra o `code`, não contra o `error`.** A mensagem pode mudar de
+redação ou de idioma; o código é contrato.
 
-| Código | Significado |
-|--------|-------------|
-| `200` | Sucesso |
-| `201` | Criado com sucesso |
-| `400` | Requisição inválida — verifique os parâmetros |
-| `401` | Não autenticado — API key inválida ou ausente |
-| `403` | Sem permissão para este recurso |
-| `404` | Recurso não encontrado |
-| `422` | Entidade não processável — dados inválidos |
-| `429` | Rate limit atingido |
-| `500` | Erro interno do servidor |
+| Código | HTTP | Significa | O que fazer |
+|---|---|---|---|
+| `API_KEY_INVALID` | 401 | Chave ausente, malformada ou inexistente | Conferir o cabeçalho e a chave |
+| `API_KEY_REVOKED` | 401 | A chave existe e foi revogada | Criar uma chave nova — insistir não resolve |
+| `API_KEY_SCOPE_INSUFICIENTE` | 403 | A chave é válida, o escopo não permite | Usar uma chave com o escopo certo |
+| `API_KEY_RATE_LIMITED` | 429 | Falhas de autenticação demais deste IP | Esperar alguns minutos |
+| `API_KEY_LOOKUP_FAILED` | 503 | **Nós** não conseguimos validar agora | Tentar de novo — não troque a chave |
+| `METHOD_NOT_ALLOWED` | 405 | Método errado no caminho certo | Ver a tabela de endpoints |
 
-## Rate Limits
+<Note>
+`401` e `503` são deliberadamente distintos. Colapsar os dois faria uma queda
+nossa parecer uma chave revogada — e você trocaria a chave em vez de
+simplesmente tentar de novo.
+</Note>
 
-| Plano | Requisições / minuto |
-|-------|---------------------|
-| Free | 60 |
-| Starter | 300 |
-| Growth | 1.000 |
-| Enterprise | Sob consulta |
+## Limite de tentativas
 
-## Ambientes
+Não há teto de requisições para chamadas **autenticadas**. Integração legítima
+não esbarra em limite nenhum.
 
-Use a mesma API key para todos os ambientes. O campo `mode` na API key indica se é `live` ou `test`.
-
-```bash
-# Live (produção)
-cliqo_sk_live_...
-
-# Test (sandbox)
-cliqo_sk_test_...
-```
-
-<Card title="Comece em 5 minutos" icon="rocket" href="/quickstart">
-  Envie seu primeiro email AMP com 3 linhas de código.
-</Card>
+O que tem teto é a **falha de autenticação**: 10 por IP em 10 minutos, depois
+`429`. Com duas exceções deliberadas: chave revogada não conta (a mensagem que
+diz o que fazer precisa sobreviver), e falha nossa (`503`) não conta.

@@ -1,122 +1,46 @@
 ---
-title: Quickstart
-description: Envie seu primeiro email AMP em menos de 5 minutos.
+title: Começo rápido
+description: Da chave à primeira chamada, em dois passos.
 ---
 
-# Quickstart
+# Começo rápido
 
-Envie um email AMP interativo com a API da Cliqo em 3 passos.
+## 1. Tire uma chave
 
-## 1. Instale o SDK
+No painel: **Configurações › API › Criar chave**. Escolha o escopo — para criar
+contatos, `send_only` ou `full`.
 
-<CodeGroup>
+A chave aparece **uma vez só**. Copie na hora.
 
-```bash npm
-npm install cliqo
+## 2. Confirme que ela funciona
+
+```bash
+curl -s https://app.cliqo.io/v1/me \
+  -H "Authorization: Bearer cliqo_<sua-chave>"
 ```
 
-```bash pip
-pip install cliqo-python
-```
+Resposta:
 
-```bash yarn
-yarn add cliqo
-```
-
-</CodeGroup>
-
-## 2. Envie um email
-
-<CodeGroup>
-
-```javascript Node.js
-import { Cliqo } from "cliqo";
-
-const cliqo = new Cliqo("cliqo_sk_live_xxxxxxxxxxxxxxxx");
-
-const { data, error } = await cliqo.campaigns.send({
-  from: "Sua Loja <contato@sualolja.com.br>",
-  to: ["cliente@gmail.com"],
-  subject: "Novidades da semana 🎯",
-  template: "quiz_recommendation", // template AMP da Cliqo
-  variables: {
-    nome: "Ana",
-    empresa: "Sua Loja"
-  }
-});
-
-if (error) {
-  console.error(error);
-  return;
-}
-
-console.log(data.id); // cmp_01H9Z3X2Y1K8M4N5P6Q7R8S9T0
-```
-
-```python Python
-import cliqo
-
-cliqo.api_key = "cliqo_sk_live_xxxxxxxxxxxxxxxx"
-
-response = cliqo.campaigns.send(
-    from_="Sua Loja <contato@sualoja.com.br>",
-    to=["cliente@gmail.com"],
-    subject="Novidades da semana 🎯",
-    template="quiz_recommendation",
-    variables={"nome": "Ana", "empresa": "Sua Loja"}
-)
-
-print(response.id)
-```
-
-```bash cURL
-curl -X POST https://api.cliqo.io/v1/campaigns/send \
-  -H "Authorization: Bearer cliqo_sk_live_xxxxxxxxxxxxxxxx" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "from": "Sua Loja <contato@sualoja.com.br>",
-    "to": ["cliente@gmail.com"],
-    "subject": "Novidades da semana 🎯",
-    "template": "quiz_recommendation",
-    "variables": {
-      "nome": "Ana",
-      "empresa": "Sua Loja"
-    }
-  }'
-```
-
-</CodeGroup>
-
-## 3. Verifique o envio
-
-```json Resposta
+```json
 {
-  "id": "cmp_01H9Z3X2Y1K8M4N5P6Q7R8S9T0",
-  "object": "campaign",
-  "status": "queued",
-  "recipients": 1,
-  "amp_supported": true,
-  "created_at": "2026-05-20T10:00:00Z"
+  "account": { "id": "…", "name": "Nome da conta" },
+  "brand":   { "id": "…", "name": "Marca", "slug": "principal" },
+  "key":     { "id": "…", "name": "nome que você deu à chave" },
+  "can":     { "ler": true, "enviar": true, "escreverContatos": true }
 }
 ```
 
-O campo `amp_supported` indica se o destinatário receberá a versão AMP interativa ou o fallback HTML automaticamente.
+Se voltar `401`, confira o cabeçalho e a chave. Se voltar `503`, é falha nossa —
+tente de novo, **não troque a chave**.
 
-<Check>Pronto! Seu email foi enviado. Veja no [Dashboard](https://app.cliqo.io) as métricas em tempo real.</Check>
+## 3. Crie um contato
 
-## Próximos passos
+```bash
+curl -s -X POST https://app.cliqo.io/v1/contacts \
+  -H "Authorization: Bearer cliqo_<sua-chave>" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"cliente@exemplo.com","name":"Cliente"}'
+```
 
-<CardGroup cols={2}>
-  <Card title="Instalar o Pixel" icon="crosshairs" href="/guides/pixel-installation">
-    Rastreie comportamento de navegação na sua loja.
-  </Card>
-  <Card title="Integrar com Loja Integrada" icon="store" href="/guides/loja-integrada">
-    Ative automações de carrinho abandonado.
-  </Card>
-  <Card title="Configurar Webhooks" icon="webhook" href="/guides/webhooks">
-    Receba eventos de abertura, clique e conversão.
-  </Card>
-  <Card title="Gatilho WhatsApp" icon="whatsapp" href="/guides/whatsapp-trigger">
-    Dispare WhatsApp após interações no email AMP.
-  </Card>
-</CardGroup>
+Pronto — é toda a API que existe hoje. A referência completa de
+`POST /v1/contacts` está [aqui](/api-reference/contacts/create).

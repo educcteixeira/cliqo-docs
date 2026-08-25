@@ -11,15 +11,24 @@
     "dark": "#e11d48"
   },
   "topbarLinks": [
-    { "name": "Dashboard", "url": "https://app.cliqo.io" }
+    {
+      "name": "Dashboard",
+      "url": "https://app.cliqo.io"
+    }
   ],
   "topbarCtaButton": {
     "name": "Começar grátis",
     "url": "https://app.cliqo.io/signup"
   },
   "tabs": [
-    { "name": "Guides", "url": "guides" },
-    { "name": "API Reference", "url": "api-reference" }
+    {
+      "name": "Guides",
+      "url": "guides"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
   ],
   "anchors": [
     {
@@ -36,71 +45,17 @@
   "navigation": [
     {
       "group": "Introdução",
-      "pages": ["introduction", "quickstart", "authentication"]
-    },
-    {
-      "group": "Guides",
       "pages": [
-        "guides/send-first-email",
-        "guides/pixel-installation",
-        "guides/whatsapp-trigger",
-        "guides/loja-integrada",
-        "guides/webhooks"
+        "introduction",
+        "quickstart",
+        "authentication"
       ]
     },
     {
-      "group": "SDKs",
-      "pages": ["sdks/nodejs", "sdks/python"]
-    },
-    {
-      "group": "Contacts",
+      "group": "Referência",
       "pages": [
-        "api-reference/contacts/create",
-        "api-reference/contacts/retrieve",
-        "api-reference/contacts/update",
-        "api-reference/contacts/delete",
-        "api-reference/contacts/list"
-      ]
-    },
-    {
-      "group": "Lists",
-      "pages": [
-        "api-reference/lists/create",
-        "api-reference/lists/retrieve",
-        "api-reference/lists/list",
-        "api-reference/lists/add-contact",
-        "api-reference/lists/remove-contact"
-      ]
-    },
-    {
-      "group": "Campaigns",
-      "pages": [
-        "api-reference/campaigns/create",
-        "api-reference/campaigns/send",
-        "api-reference/campaigns/retrieve",
-        "api-reference/campaigns/list",
-        "api-reference/campaigns/cancel"
-      ]
-    },
-    {
-      "group": "Templates",
-      "pages": [
-        "api-reference/templates/list",
-        "api-reference/templates/render"
-      ]
-    },
-    {
-      "group": "Events",
-      "pages": [
-        "api-reference/events/list",
-        "api-reference/events/webhooks"
-      ]
-    },
-    {
-      "group": "Pixel",
-      "pages": [
-        "api-reference/pixel/track",
-        "api-reference/pixel/identify"
+        "api-reference/me",
+        "api-reference/contacts/create"
       ]
     }
   ],
