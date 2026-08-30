@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <style>
-    .r1{animation:pulse 2s ease-out infinite}
-    .r2{animation:pulse 2s ease-out infinite 0.4s}
-    .r3{animation:pulse 2s ease-out infinite 0.8s}
-    @keyframes pulse{
-      0%,100%{opacity:1}
-      50%{opacity:0.5}
-    }
-  </style>
-  <circle class="r1" cx="16" cy="16" r="14" fill="none" stroke="#DD1F26" stroke-width="2.5"/>
-  <circle class="r2" cx="16" cy="16" r="9" fill="none" stroke="#DD1F26" stroke-width="2.5"/>
-  <circle class="r3" cx="16" cy="16" r="4" fill="#DD1F26"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="7" fill="#7C5CF6"/><path d="M13.4 4.6 6.9 12.9h4.1l-.5 6.5 6.6-8.4h-4.2z" fill="#fff"/></svg>
