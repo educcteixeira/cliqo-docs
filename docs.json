@@ -1,0 +1,266 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Central de Ajuda Cliqo",
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#7C5CF6",
+    "light": "#B794F6",
+    "dark": "#5B3FD4"
+  },
+  "navigation": {
+    "languages": [
+      {
+        "language": "pt-BR",
+        "groups": [
+          {
+            "group": "Primeiros passos",
+            "pages": [
+              "pt-BR/primeiros-passos/bem-vindo",
+              "pt-BR/primeiros-passos/tour-pelo-painel",
+              "pt-BR/primeiros-passos/configure-sua-conta",
+              "pt-BR/primeiros-passos/contas-marcas-membros",
+              "pt-BR/primeiros-passos/glossario"
+            ]
+          },
+          {
+            "group": "E-mail interativo (AMP)",
+            "pages": [
+              "pt-BR/email-interativo/entenda-o-amp",
+              "pt-BR/email-interativo/registro-do-remetente",
+              "pt-BR/email-interativo/por-que-chegou-estatico"
+            ]
+          },
+          {
+            "group": "Campanhas de e-mail",
+            "pages": [
+              "pt-BR/campanhas/criar-e-enviar",
+              "pt-BR/campanhas/audiencia",
+              "pt-BR/campanhas/agendar-e-ritmo",
+              "pt-BR/campanhas/pre-envio-e-teste",
+              "pt-BR/campanhas/ler-o-relatorio"
+            ]
+          },
+          {
+            "group": "Entregabilidade e domínio",
+            "pages": [
+              "pt-BR/entregabilidade/configurar-dns",
+              "pt-BR/entregabilidade/checklist-primeiro-envio",
+              "pt-BR/entregabilidade/aquecimento"
+            ]
+          },
+          {
+            "group": "Gestão de dados",
+            "pages": [
+              "pt-BR/gestao-de-dados/importar-contatos",
+              "pt-BR/gestao-de-dados/campos-tipados",
+              "pt-BR/gestao-de-dados/criar-segmentos",
+              "pt-BR/gestao-de-dados/supressoes",
+              "pt-BR/gestao-de-dados/entenda-consentimento"
+            ]
+          },
+          {
+            "group": "Relatórios e análises",
+            "pages": [
+              "pt-BR/relatorios/dashboard",
+              "pt-BR/relatorios/visao-por-canal",
+              "pt-BR/relatorios/entenda-metricas"
+            ]
+          },
+          {
+            "group": "Automações",
+            "pages": [
+              "pt-BR/automacoes/primeiros-passos",
+              "pt-BR/automacoes/gatilhos",
+              "pt-BR/automacoes/regras-do-motor"
+            ]
+          },
+          {
+            "group": "WhatsApp",
+            "pages": [
+              "pt-BR/whatsapp/primeiros-passos",
+              "pt-BR/whatsapp/conectar-seu-numero",
+              "pt-BR/whatsapp/opt-in",
+              "pt-BR/whatsapp/modelos-de-mensagem",
+              "pt-BR/whatsapp/enviar-em-massa",
+              "pt-BR/whatsapp/numero-e-qualidade"
+            ]
+          },
+          {
+            "group": "Pop-ups",
+            "pages": [
+              "pt-BR/popups/primeiros-passos",
+              "pt-BR/popups/criar-boas-vindas"
+            ]
+          },
+          {
+            "group": "Lojas e integrações",
+            "pages": [
+              "pt-BR/lojas/instalar-o-pixel",
+              "pt-BR/lojas/conectar-loja-integrada"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "en/primeiros-passos/bem-vindo",
+              "en/primeiros-passos/tour-pelo-painel",
+              "en/primeiros-passos/configure-sua-conta",
+              "en/primeiros-passos/contas-marcas-membros",
+              "en/primeiros-passos/glossario"
+            ]
+          },
+          {
+            "group": "Interactive email (AMP)",
+            "pages": [
+              "en/email-interativo/entenda-o-amp",
+              "en/email-interativo/registro-do-remetente",
+              "en/email-interativo/por-que-chegou-estatico"
+            ]
+          },
+          {
+            "group": "Email campaigns",
+            "pages": [
+              "en/campanhas/criar-e-enviar",
+              "en/campanhas/audiencia",
+              "en/campanhas/agendar-e-ritmo",
+              "en/campanhas/pre-envio-e-teste",
+              "en/campanhas/ler-o-relatorio"
+            ]
+          },
+          {
+            "group": "Deliverability and domain",
+            "pages": [
+              "en/entregabilidade/configurar-dns",
+              "en/entregabilidade/checklist-primeiro-envio",
+              "en/entregabilidade/aquecimento"
+            ]
+          },
+          {
+            "group": "Data management",
+            "pages": [
+              "en/gestao-de-dados/importar-contatos",
+              "en/gestao-de-dados/campos-tipados",
+              "en/gestao-de-dados/criar-segmentos",
+              "en/gestao-de-dados/supressoes",
+              "en/gestao-de-dados/entenda-consentimento"
+            ]
+          },
+          {
+            "group": "Reports and analytics",
+            "pages": [
+              "en/relatorios/dashboard",
+              "en/relatorios/visao-por-canal",
+              "en/relatorios/entenda-metricas"
+            ]
+          },
+          {
+            "group": "Automations",
+            "pages": [
+              "en/automacoes/primeiros-passos",
+              "en/automacoes/gatilhos",
+              "en/automacoes/regras-do-motor"
+            ]
+          },
+          {
+            "group": "WhatsApp",
+            "pages": [
+              "en/whatsapp/primeiros-passos",
+              "en/whatsapp/conectar-seu-numero",
+              "en/whatsapp/opt-in",
+              "en/whatsapp/modelos-de-mensagem",
+              "en/whatsapp/enviar-em-massa",
+              "en/whatsapp/numero-e-qualidade"
+            ]
+          },
+          {
+            "group": "Pop-ups",
+            "pages": [
+              "en/popups/primeiros-passos",
+              "en/popups/criar-boas-vindas"
+            ]
+          },
+          {
+            "group": "Stores and integrations",
+            "pages": [
+              "en/lojas/instalar-o-pixel",
+              "en/lojas/conectar-loja-integrada"
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              "en/developers/api-overview",
+              "en/developers/api-reference"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {}
+  },
+  "redirects": [
+    {
+      "source": "/api-reference",
+      "destination": "/en/developers/api-reference",
+      "permanent": true
+    },
+    {
+      "source": "/api-reference/:slug*",
+      "destination": "/en/developers/api-reference",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/:slug*",
+      "destination": "/en/developers/api-overview",
+      "permanent": true
+    },
+    {
+      "source": "/authentication",
+      "destination": "/en/developers/api-overview",
+      "permanent": true
+    },
+    {
+      "source": "/guides/webhooks",
+      "destination": "/en/developers/api-reference",
+      "permanent": true
+    },
+    {
+      "source": "/introduction",
+      "destination": "/en/primeiros-passos/bem-vindo",
+      "permanent": true
+    },
+    {
+      "source": "/quickstart",
+      "destination": "/en/primeiros-passos/configure-sua-conta",
+      "permanent": true
+    },
+    {
+      "source": "/guides/send-first-email",
+      "destination": "/en/campanhas/criar-e-enviar",
+      "permanent": true
+    },
+    {
+      "source": "/guides/whatsapp-trigger",
+      "destination": "/en/whatsapp/primeiros-passos",
+      "permanent": true
+    },
+    {
+      "source": "/guides/pixel-installation",
+      "destination": "/en/lojas/instalar-o-pixel",
+      "permanent": true
+    },
+    {
+      "source": "/guides/loja-integrada",
+      "destination": "/en/lojas/conectar-loja-integrada",
+      "permanent": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+---
+title: "Como criar segmentos"
+description: "Os segmentos prontos, o construtor com nove dimensões e o modo avançado com grupos."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: Listas & Segmentos (construtor unificado) · revisão: pendente */}
+
+## O que você vai aprender
+
+O que já vem pronto, como montar um segmento do zero e como combinar condições com E/OU no modo avançado.
+
+## Os que já vêm prontos
+
+Em **Público › Listas & Segmentos › Segmentos**, três famílias prontas, com janela de dias ajustável:
+
+- **Engajamento por e-mail** — Engajados com AMP, Abriram recentemente, Inativos, Converteram, Abriram sem converter, Novos contatos.
+- **Navegação na loja** (exige o pixel instalado) — Todos os visitantes, Navegaram sem comprar, Interesse por categoria, Carrinho sem compra, Checkout abandonado.
+- **RFM** — os nove por valor × recência: Campeões, Fiéis, Não posso perder, Promissores, Precisam de atenção, Em risco, Novos, Hibernando, Perdidos.
+
+Segmentos são **dinâmicos**: a pessoa entra e sai sozinha conforme o comportamento muda — diferente de lista, que é fixa.
+
+## Criar um segmento
+
+Clique em **Criar segmento**. No modo simples, escolha se o contato precisa atender **todas**, **alguma** ou **nenhuma** das condições, e adicione condições pelas nove dimensões:
+
+| Dimensão | Exemplos de condição |
+|---|---|
+| ⚡ Interação com AMP | girou a roleta, respondeu o quiz, enviou o formulário |
+| ✉️ Ação de e-mail | recebeu, abriu, clicou, converteu — numa campanha ou em qualquer |
+| 💬 Ação de WhatsApp | recebeu, leu, respondeu, converteu |
+| 🔒 Consentimento | aceita e-mail / recusou / sem opt-in ainda — por canal |
+| 🛒 Compra de produto | comprou X, comprou qualquer coisa na janela |
+| 🧭 Navegação na loja | viu produto, viu carrinho, foi ao checkout |
+| 🎯 Segmento RFM | está em Campeões, Em Risco… |
+| 👤 Dados do cliente | ticket médio, total gasto, nº de pedidos, sem comprar há N dias — e os seus [campos tipados](/pt-BR/gestao-de-dados/campos-tipados) |
+| 📊 Evento personalizado | eventos que o seu sistema envia pela API |
+
+Enquanto monta, a tela mostra a **frase em linguagem natural** do que você está definindo e a **contagem ao vivo** de quantos contatos se encaixam.
+
+{/* print: construtor de segmento com contagem */}
+
+## Modo avançado: grupos
+
+Para lógica composta, ative o **modo avançado**: dentro de um grupo as condições são **OU**; entre grupos, **E**. Exemplo — *(abriu nos últimos 30 dias OU interagiu com AMP) E (não comprou nos últimos 60 dias)*: dois grupos, três condições.
+
+## Usar, exportar e apagar
+
+- **Criar campanha** direto do segmento, ou **Exportar** os contatos em CSV.
+- Cada segmento mostra onde está em uso ("usado em N campanhas · M fluxos"). Um segmento que alimenta um fluxo ativo ou uma campanha agendada **não pode ser apagado** — a tela explica o bloqueio em vez de deixar você quebrar uma automação sem querer.
+
+## Artigos relacionados
+
+- [Como definir a audiência da campanha](/pt-BR/campanhas/audiencia)
+- [Campos personalizados e tipados](/pt-BR/gestao-de-dados/campos-tipados)

@@ -1,0 +1,39 @@
+---
+title: "Supressões e blocklist"
+description: "Quem nunca recebe — descadastros, reclamações, hard bounces e a blocklist — e como importar a do seu ESP anterior."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: Público › Contatos › Supressões · revisão: pendente */}
+
+Supressão é a lista de quem **não recebe, em nenhuma hipótese** — aplicada automaticamente em todo envio, de campanha ou de fluxo. Ela existe para proteger duas coisas: o direito de quem saiu, e a sua reputação de remetente.
+
+## As quatro categorias
+
+Em **Público › Contatos › Supressões**:
+
+- **Descadastros** — quem clicou em sair (pelo link do e-mail ou pelo descadastro em um clique do Gmail/Yahoo). Entram sozinhos, na hora.
+- **Reclamações** — quem marcou seu e-mail como spam. Entram automaticamente via retorno dos provedores. É o sinal mais caro: acima de 0,1% dos envios, sua reputação sofre.
+- **Hard bounces** — endereços que não existem. Após a rejeição permanente, o contato é suprimido para não gerar novos bounces.
+- **Blocklist** — quem **você** adiciona: e-mails individuais (com motivo opcional) ou em massa.
+
+Entradas automáticas aparecem como **protegidas** — reverter exige contato com o suporte, de propósito: reinscrever quem reclamou ou bounçou machuca sua entrega.
+
+## Importar a supressão do seu ESP anterior
+
+Se você migrou de ferramenta, este é um passo **obrigatório antes do primeiro envio**: exporte lá a lista de supressão (bounces, reclamações, descadastros) e importe aqui em **Importar em massa** — cole os endereços ou suba um CSV/TXT.
+
+Sem isso, seu primeiro disparo "redescobre" um a um todos os endereços mortos que a ferramenta anterior já conhecia — um pico de bounces que os provedores leem como remetente ruim. A ferramenta antiga pagou por esse aprendizado; traga-o com você.
+
+Domínios inteiros inválidos também podem ser bloqueados — e a proteção de domínios mortos é compartilhada: a base de domínios inválidos que protege sua conta melhora com cada cliente da plataforma.
+
+{/* print: aba Supressões com as categorias */}
+
+## O que a supressão não é
+
+- **Não é lista de exclusão de campanha** — para tirar um público de um envio específico, use "Excluir da audiência" na campanha.
+- **Não some com seus dados** — o contato suprimido continua na base, com o histórico; ele só não recebe.
+
+## Artigos relacionados
+
+- [Checklist antes do primeiro envio](/pt-BR/entregabilidade/checklist-primeiro-envio)
+- [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento)

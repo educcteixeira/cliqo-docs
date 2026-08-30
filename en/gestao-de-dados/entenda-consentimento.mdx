@@ -1,0 +1,44 @@
+---
+title: "Understand consent and opt-in"
+description: "How Cliqo records each contact's authorization, per channel — and why importing a spreadsheet never becomes an opt-in."
+---
+
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: pendente */}
+
+Consent, in Cliqo, is not a checked box — it is a **record with proof**: who authorized, for which channel, when and through where. This article explains how that record works and what each contact origin unlocks.
+
+## Consent is per channel
+
+Email and WhatsApp are **separate** authorizations. A contact can accept email and not accept WhatsApp; unsubscribing from one channel does not remove the other. On the contact profile (360 view), you see the state of each channel, and Gmail's one-click unsubscribe revokes **email only** — that is what the person asked for.
+
+## What Cliqo records
+
+For each consent: the channel, the date, and the **origin** — form inside the email, store pop-up, manual signup, import, checkout. This trail exists because the LGPD (Brazil's general data-protection law, similar to the GDPR) requires proof of how the authorization was obtained, and on WhatsApp Meta puts the burden of proof on the sender: an opt-in you can't prove is an opt-in you don't have.
+
+**Roles**: you (the brand) are the data controller; Cliqo operates on your behalf and keeps the provenance record.
+
+## What counts as an opt-in
+
+| Origin | Creates an opt-in? |
+|---|---|
+| Form inside the email (AMP) | ✅ Yes, for the channel authorized in the form |
+| Store pop-up | ✅ Yes — email and WhatsApp are separate boxes, both unchecked by default |
+| Manual signup with the consent box checked | ✅ Yes |
+| Store purchase (checkout) | ✅ For utility messages about that order |
+| **Spreadsheet import** | ❌ **Never** |
+
+## Why an import is never an opt-in
+
+A CSV file proves nothing — any purchased list would arrive as "authorized". On import, what you do is **declare** the state of the base: if it was already opted in on your previous tool, that declaration unlocks marketing sends (and is recorded as your declaration, with a date). What the import does not do, by design: it does not trigger the welcome flow — an imported contact is not a contact who just signed up — and it does not create a silent opt-in for anyone who didn't have one.
+
+For WhatsApp, the bar for that declaration is higher: check the WhatsApp opt-in column only if you have proof of each authorization. Blocks and reports drag down your number's quality rating with Meta — and that limits your future sends.
+
+## Email vs WhatsApp in practice
+
+- **Email**: your current customer base, with a visible opt-out in every send, is a legitimate base. The cost of getting it wrong is low — the person unsubscribes.
+- **WhatsApp**: **marketing requires an explicit, recorded opt-in**. The exception is **utility** messages tied to the customer's own order (confirmation, delivery, payment). The cost of getting it wrong is high: people who receive messages they never asked for block you, and blocks drag down the number's quality rating. In any send, **"SAIR" (Portuguese for "leave" — i.e. unsubscribe) is honored immediately** — the engine recognizes the variants (parar, stop, cancelar, descadastrar).
+
+## Related articles
+
+- [How to import contacts](/en/gestao-de-dados/importar-contatos)
+- [Opt-in and consent for WhatsApp](/en/whatsapp/opt-in)

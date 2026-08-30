@@ -1,0 +1,62 @@
+---
+title: "Conectar a Loja Integrada"
+description: "Ligar a sua loja da Loja Integrada à Cliqo: produtos, pedidos e o webhook que mantém o catálogo em dia."
+---
+
+{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: pendente */}
+
+Ligar a Loja Integrada à Cliqo traz três coisas: o **catálogo de produtos** (para usar nos e-mails com vitrine), o **histórico de pedidos** (que alimenta a régua RFM e a receita atribuída) e um **webhook** que mantém o catálogo em dia sem você fazer nada.
+
+## Antes de começar
+
+Você vai precisar de duas credenciais, e uma delas depende do seu plano.
+
+**Chave para API.** Gere no painel da Loja Integrada em **Configurações → Chave para API → Cadastrar nova chave**. Essa opção **só existe em plano pago** da Loja Integrada — se ela não aparece no seu painel, é o plano, não a Cliqo.
+
+**Chave de aplicação.** É solicitada à equipe técnica da Loja Integrada. Uma única chave de aplicação vale para todas as lojas, então se você já usa a Cliqo em outra loja, é a mesma.
+
+## Conectar
+
+Em **Configurações → Integrações**, escolha Loja Integrada e cole as duas chaves. A partir daí a Cliqo consegue ler o seu catálogo e os seus pedidos.
+
+## Puxar os pedidos
+
+Na mesma tela há a ação que **puxa os pedidos da Loja Integrada** para dentro da Cliqo. É o que popula a régua RFM — a classificação que separa quem compra sempre de quem sumiu.
+
+A primeira execução varre o **histórico inteiro** e pode levar várias passadas: ela vai lendo em blocos e guardando onde parou. Enquanto essa primeira varredura acontece, **nenhum cliente é matriculado em fluxo por essas compras** — seria disparar mensagem de pós-compra por um pedido de meses atrás. Só os pedidos que chegarem depois, no dia a dia, entram nos gatilhos.
+
+## Manter o catálogo em dia
+
+A Loja Integrada avisa a Cliqo quando um produto é criado, alterado ou excluído — mas só se você colar o endereço de aviso no painel dela.
+
+O endereço é individual da sua conta e tem esta forma:
+
+```
+https://app.cliqo.io/api/integrations/webhook/lojaintegrada/<seu-id>
+```
+
+Você encontra o endereço completo, já com o seu identificador, em **Configurações → Integrações**.
+
+**Sobre a segurança desse endereço:** a Loja Integrada não assina os avisos que envia — verificamos isso em maio de 2026, e não é uma limitação da Cliqo. Para compensar, você pode definir um **token de webhook** em Configurações → Integrações; quando ele existe, a Cliqo só aceita avisos que o apresentem. Recomendamos definir.
+
+Receber o mesmo aviso duas vezes não causa problema: o produto é gravado por SKU, então reprocessar regrava a mesma linha.
+
+## Se preferir sem integração
+
+Dá para trazer o catálogo por arquivo, sem conectar nada: em **Configurações → Produtos**, a importação aceita o **export oficial da Loja Integrada** (XLSX) ou um CSV simples. A Cliqo reconhece o formato da Loja Integrada sozinha e avisa na tela quando o detecta.
+
+É o caminho para quem está em plano sem acesso à API, ou para uma carga única antes de decidir integrar.
+
+## O que a conexão não faz
+
+- **Não sincroniza estoque em tempo real.** O catálogo entra por importação e pelos avisos de alteração; não há consulta a cada envio.
+- **Não altera nada na sua loja.** A conexão é de leitura — a Cliqo não cria, edita nem cancela pedidos.
+- **Não substitui o pixel.** Pedido conta o que foi comprado; o pixel conta o que foi olhado e não comprado. As duas coisas alimentam segmentos diferentes.
+
+## Quando algo não bate
+
+Se o catálogo veio incompleto, o motivo mais comum é produto sem SKU — a Cliqo grava por SKU e ignora linhas sem ele. Confira no export da Loja Integrada se a coluna está preenchida.
+
+Se os pedidos não aparecem, confirme que a chave para API foi gerada no plano pago e ainda está ativa no painel da Loja Integrada.
+
+Persistindo, fale com a gente em [contato@cliqo.io](mailto:contato@cliqo.io).

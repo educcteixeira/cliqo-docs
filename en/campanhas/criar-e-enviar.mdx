@@ -1,0 +1,57 @@
+---
+title: "How to create and send a campaign"
+description: "The five tabs of campaign setup — Settings, Template, Audience, Delivery and Summary."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Nova campanha · idioma: EN · revisão: pendente */}
+
+## What you will learn
+
+The complete path of an email campaign: from settings to the send button, through template, audience and delivery.
+
+## Before you start
+
+- Verified domain and sending identity configured ([first-send checklist](/en/entregabilidade/checklist-primeiro-envio)).
+- **Editor** role or above.
+
+To get started, click **New campaign** in the top bar (or under Campaigns › Email). Campaign setup has five tabs — you can save a draft at any time.
+
+## Tab 1 · Settings
+
+- **Internal name** — visible only to your team (e.g. "Black Friday — VIP customers").
+- **Subject and preheader** — both accept personalization tags, such as `{{primeiro_nome|Olá}}`.
+- **Sender** — display name + any address on your verified domain. The screen warns you if the address doesn't have its [AMP registration](/en/email-interativo/registro-do-remetente) yet or if DKIM is inactive. Reply-To is optional.
+- **Tracking** — opens and clicks, on by default.
+- **Campaign tags** — tag the campaign type (e.g. `black-friday`, `launch`) to compare campaigns of the same type in your reports.
+- **UTMs for Google Analytics** — preconfigured; you can customize each field. Validation warns you if `utm_medium` isn't one of the values GA recognizes, and links that already carry your site's own UTMs are not overwritten.
+
+{/* print: Settings tab */}
+
+## Tab 2 · Template
+
+Pick a template from the gallery — all interactive in Gmail, with automatic HTML fallback and **your brand applied** (logo and colors). To adjust the content, **Edit in builder** opens the full editor.
+
+## Tab 3 · Audience
+
+Build the audience by adding **lists and segments** — the final audience is the union, with no duplicates. Details in [How to define the audience](/en/campanhas/audiencia).
+
+## Tab 4 · Delivery
+
+- **When**: send now or schedule a date and time.
+- **Send pacing**: instant, or spread over 1, 4, 8 or 24 hours — recommended for large lists ([why](/en/campanhas/agendar-e-ritmo)).
+- **WhatsApp trigger** (optional): fire a message to anyone who fills in the email's form or clicks any link.
+
+## Tab 5 · Summary
+
+The X-ray before sending: sender (with the "⚡ Interactive AMP" badge, or the warning that it will go out static), content, audience with the total of unique recipients, delivery and UTMs. From here you run the **pre-send analysis** and send a **test email** — both are covered in detail in [Pre-send analysis and test](/en/campanhas/pre-envio-e-teste).
+
+All green? **Send campaign** (or **Schedule campaign**).
+
+## Result
+
+The campaign starts sending — the report screen follows along live, and you can close it: sending continues on the server. How to read the numbers: [How to read the campaign report](/en/campanhas/ler-o-relatorio).
+
+## Next steps
+
+- [How to define the audience](/en/campanhas/audiencia)
+- [Pre-send analysis and test email](/en/campanhas/pre-envio-e-teste)

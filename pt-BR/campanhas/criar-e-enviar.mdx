@@ -1,0 +1,57 @@
+---
+title: "Como criar e enviar uma campanha"
+description: "As cinco abas da montagem de campanha — Configurações, Template, Audiência, Entrega e Resumo."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Nova campanha · revisão: pendente */}
+
+## O que você vai aprender
+
+O caminho completo de uma campanha de e-mail: da configuração ao botão de enviar, passando por template, audiência e entrega.
+
+## Antes de começar
+
+- Domínio verificado e identidade de envio configurada ([checklist do primeiro envio](/pt-BR/entregabilidade/checklist-primeiro-envio)).
+- Papel de **Editor** ou acima.
+
+Para começar, clique em **Nova campanha** na barra superior (ou em Campanhas › E-mail). A montagem tem cinco abas — você pode salvar rascunho a qualquer momento.
+
+## Aba 1 · Configurações
+
+- **Nome interno** — visível só para a equipe (ex.: "Black Friday — Clientes VIP").
+- **Assunto e pré-header** — aceitam tags de personalização, como `{{primeiro_nome|Olá}}`.
+- **Remetente** — nome de exibição + qualquer endereço do seu domínio verificado. A tela avisa se o endereço ainda não tem [registro AMP](/pt-BR/email-interativo/registro-do-remetente) ou se o DKIM está inativo. Reply-To é opcional.
+- **Rastreamento** — aberturas e cliques, ligados por padrão.
+- **Tags da campanha** — marque o tipo (ex.: `black-friday`, `lançamento`) para comparar campanhas do mesmo tipo nos relatórios.
+- **UTMs para Google Analytics** — já vêm configuradas; você pode personalizar cada campo. A validação avisa se o `utm_medium` não é um dos que o GA reconhece, e links que já têm UTMs do seu site não são sobrescritos.
+
+{/* print: aba Configurações */}
+
+## Aba 2 · Template
+
+Escolha um modelo da galeria — todos interativos no Gmail, com fallback HTML automático e **a sua marca aplicada** (logo e cores). Para ajustar o conteúdo, **Editar no builder** abre o editor completo.
+
+## Aba 3 · Audiência
+
+Monte a audiência somando **listas e segmentos** — a audiência final é a união, sem duplicados. Detalhes em [Como definir a audiência](/pt-BR/campanhas/audiencia).
+
+## Aba 4 · Entrega
+
+- **Quando**: enviar agora ou agendar data e hora.
+- **Ritmo de envio**: imediato ou distribuído em 1, 4, 8 ou 24 horas — recomendado para listas grandes ([por quê](/pt-BR/campanhas/agendar-e-ritmo)).
+- **Gatilho WhatsApp** (opcional): dispare uma mensagem para quem preencher o formulário do e-mail ou clicar em qualquer link.
+
+## Aba 5 · Resumo
+
+O raio-X antes de enviar: remetente (com o selo "⚡ AMP interativo" ou o aviso de que sairá estático), conteúdo, audiência com o total de destinatários únicos, entrega e UTMs. Daqui você roda a **análise pré-envio** e manda um **e-mail de teste** — os dois estão detalhados em [Análise pré-envio e teste](/pt-BR/campanhas/pre-envio-e-teste).
+
+Tudo verde? **Enviar campanha** (ou **Agendar campanha**).
+
+## Resultado
+
+A campanha entra em envio — a tela de relatório acompanha ao vivo, e você pode fechá-la: o envio continua no servidor. Como ler os números: [Como ler o relatório da campanha](/pt-BR/campanhas/ler-o-relatorio).
+
+## Próximos passos
+
+- [Como definir a audiência](/pt-BR/campanhas/audiencia)
+- [Análise pré-envio e e-mail de teste](/pt-BR/campanhas/pre-envio-e-teste)

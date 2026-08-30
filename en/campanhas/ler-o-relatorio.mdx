@@ -1,0 +1,47 @@
+---
+title: "How to read the campaign report"
+description: "Metrics, delivery funnel, interactions by block, the per-contact list and the exports."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · idioma: EN · revisão: pendente */}
+
+## What you will learn
+
+What each section of the report shows and how to investigate from the aggregate number down to the individual contact. Metric definitions live in [Understand the metrics](/en/relatorios/entenda-metricas) — this is the map of the screen.
+
+## The top: campaign numbers
+
+Sent (with delivered), clicks (human, % of delivered), **AMP interactions** (people who acted inside the email) and the **AMP rate** (the fraction who saw the interactive version), placed revenue, conversions, average ticket, opens (estimated ⓘ) and unsubscribes. Next to them, the **render type** shows how many opened AMP vs. HTML.
+
+If **"AMP disabled for this dispatch"** appears, the interactive part failed validation and the send went out in the safety version (HTML) — the notice lists the errors found.
+
+{/* print: top of the report */}
+
+## Dispatch details
+
+Who fired it (a person or a schedule), audience, sender, template, UTMs (with "Copy query string"), duration and the **dispatch preview** — a snapshot of exactly what went out, the way the recipient received it.
+
+## Delivery of the sent
+
+The funnel splits the sent into seven destinations that **always add up to the total**: delivered, soft bounce (temporary rejection), hard bounce (permanent), complaint (marked as spam), suppressed (blocked before going out), pending and failures.
+
+Right below, **Excluded from send** explains who was in the audience and didn't receive, reason by reason: were already blocklisted, had already unsubscribed, hard bounce history, no consent, collision with a recent flow, already received (on a re-send).
+
+## Interactions by block
+
+For interactive emails: each block (wheel, survey, form, carousel…) with unique and total interactions and the most frequent values — which prize came up most, how many spins, how many products selected. This is where interactivity turns into insight.
+
+## Per contact
+
+The table lists every recipient: delivery, opened, clicked, interacted, which version they saw, **purchased**. The filters make investigating fast — only those who purchased, only those who complained, only delivery failures. Bot clicks and machine opens (Apple) appear **flagged**, not hidden.
+
+## Export and act
+
+- **Export CSV** — the campaign summary or the full per-contact list.
+- **Send test** — straight from the report, with the `[Test]` prefix, outside the metrics.
+- **Resume sending** — for interrupted sends, continues without duplicating.
+
+## Related articles
+
+- [Understand Cliqo's metrics](/en/relatorios/entenda-metricas)
+- [How to schedule and set the send pacing](/en/campanhas/agendar-e-ritmo)

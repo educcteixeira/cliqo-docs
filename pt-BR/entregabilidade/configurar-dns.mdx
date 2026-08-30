@@ -1,0 +1,59 @@
+---
+title: "Como configurar seu domínio de envio (DNS)"
+description: "Autorize a Cliqo a enviar pelo seu domínio: DKIM, SPF e DMARC, com verificação guiada."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Configurações › Domínio + api/dns · revisão: pendente */}
+
+## O que você vai aprender
+
+Como autorizar a Cliqo a enviar e-mails pelo seu domínio, para que Gmail, Outlook e Yahoo reconheçam você como remetente legítimo.
+
+## Antes de começar
+
+- Acesso ao painel de DNS do seu domínio (Registro.br, Locaweb, GoDaddy, Cloudflare ou outro).
+- Papel de **Administrador** ou **Proprietário** na conta.
+
+## Passo 1 · Informe o domínio
+
+1. Vá em **Configurações › Domínio**.
+2. Digite o domínio que vai assinar seus e-mails (ex.: `suamarca.com.br`) e gere os registros.
+
+{/* print: Configurações › Domínio, passo 1 */}
+
+## Passo 2 · Escolha seu provedor de DNS
+
+Selecione o provedor para ver o guia específico dele — a tela mostra um link direto para a ajuda de cada um (Registro.br, Locaweb, GoDaddy, Cloudflare).
+
+## Passo 3 · Adicione os registros
+
+Copie cada registro com o botão ao lado e crie-o no seu DNS:
+
+| Registro | Para quê |
+|---|---|
+| **DKIM** (3 CNAMEs) | Assinatura criptográfica que prova que o e-mail é seu. **É o essencial** — é o DKIM que autentica seus envios. |
+| **SPF** (TXT) | Autoriza a Cliqo a enviar em nome do domínio. |
+| **DMARC** (TXT) | Política de autenticação e relatórios. `p=none` já atende — inclusive para o registro AMP. |
+
+> **Já tem um registro SPF?** Não crie um segundo — dois registros SPF invalidam os dois. **Edite o existente** e inclua `include:amazonses.com` na mesma linha.
+
+{/* print: lista de registros com botões de copiar */}
+
+## Passo 4 · Verifique
+
+1. Clique em **Verificar registros**. Cada linha mostra **Verificado** ou **Não encontrado**.
+2. A propagação pode levar **até 48 horas**. Registros parciais são normais no começo — volte e verifique de novo.
+
+## Resultado
+
+O domínio aparece como **Verificado**, o aviso "DKIM inativo" some da montagem de campanhas e o sininho de Pendências deixa de listar o domínio. A partir daí você pode enviar de **qualquer endereço** do domínio verificado (ofertas@, news@, contato@…).
+
+## Problemas comuns
+
+- **"Não encontrado" depois de 48 h** — confira se o registro foi criado no domínio certo (sem duplicar o domínio no nome, erro comum em alguns painéis) e se não há espaços extras no valor colado.
+- **DKIM não verifica** — os 3 CNAMEs precisam existir exatamente como gerados; alguns painéis adicionam o domínio ao final automaticamente.
+
+## Próximos passos
+
+- [Checklist antes do primeiro envio](/pt-BR/entregabilidade/checklist-primeiro-envio)
+- [Como registrar o remetente para e-mails AMP](/pt-BR/email-interativo/registro-do-remetente)

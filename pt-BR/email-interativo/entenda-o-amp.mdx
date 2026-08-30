@@ -1,0 +1,45 @@
+---
+title: "Entenda o AMP para e-mail"
+description: "O que é o e-mail interativo, onde ele renderiza, como funciona o fallback e por que ninguém recebe e-mail quebrado."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: compiler + playbook AMP · revisão: pendente */}
+
+AMP for Email é a tecnologia, criada pelo Google, que permite que um e-mail tenha comportamento de aplicação: botões que respondem, carrosséis que deslizam, formulários que enviam — tudo dentro da caixa de entrada, sem abrir uma aba nova. É a base da Cliqo.
+
+## Onde a versão interativa aparece
+
+No **Gmail** e no **Yahoo Mail**, depois que o seu remetente passa pelo [registro de remetente](/pt-BR/email-interativo/registro-do-remetente). No Gmail, o e-mail interativo aparece com um **raiozinho ⚡** ao lado do remetente.
+
+Um detalhe que surpreende: o Gmail decide entre a versão interativa e a estática **na hora da abertura, não do recebimento**. O mesmo e-mail pode abrir estático hoje e interativo amanhã (por exemplo, quando um registro recém-aprovado termina de propagar).
+
+## E quem não vê o AMP?
+
+Recebe automaticamente a **versão HTML equivalente** — Outlook, Apple Mail e todos os demais clientes. Esse fallback é metade do produto, e a Cliqo o trata como primeira classe:
+
+- O conteúdo que no AMP aparece ao interagir já nasce **visível** no HTML: o quiz vira lista aberta, o carrossel vira cards empilhados, a sanfona vira FAQ expandido.
+- O texto **nunca instrui uma interação que não existe** — nada de "deslize" ou "toque" na versão estática.
+- Nenhum e-mail chega quebrado, nunca. Essa é a diferença entre um fallback de verdade e o de ferramentas que apenas removem o código interativo.
+
+A cobertura da versão interativa nunca é 100% mesmo entre usuários de Gmail — contas corporativas podem ter o e-mail dinâmico desativado pelo administrador. O fallback garante que a mensagem funciona para todos.
+
+## As três versões de cada envio
+
+Todo envio da Cliqo sai com três partes, geradas automaticamente:
+
+| Parte | Quem vê |
+|---|---|
+| Texto puro | Clientes muito antigos e leitores de tela |
+| **Interativa (AMP)** | Gmail e Yahoo, com remetente registrado |
+| **HTML responsivo** | Todos os demais (Outlook, Apple Mail…) |
+
+Antes de qualquer envio, a parte interativa passa pelo validador oficial do Google no dialeto correto de e-mail. Se algo estiver fora do padrão, a Cliqo envia a versão de segurança (HTML) e avisa no relatório — nunca envia AMP inválido.
+
+## O que dá para fazer dentro do e-mail
+
+Roleta de prêmios, raspadinha, quiz (inclusive com fotos), pesquisa de satisfação e NPS, avaliação com estrelas, catálogo navegável por categorias, carrosséis, formulário de interesse, sanfona de FAQ, contador regressivo — e **pagamento por Pix dentro do e-mail**, com o QR code gerado na hora pelo seu gateway.
+
+## Artigos relacionados
+
+- [Como registrar o remetente para e-mails AMP](/pt-BR/email-interativo/registro-do-remetente)
+- [Por que meu e-mail chegou estático?](/pt-BR/email-interativo/por-que-chegou-estatico)

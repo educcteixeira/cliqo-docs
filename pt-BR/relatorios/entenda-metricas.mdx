@@ -1,0 +1,40 @@
+---
+title: "Entenda as métricas da Cliqo"
+description: "O que significa cada número dos relatórios — e por que alguns são diferentes do que você via em outras ferramentas."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: léxico de métricas do produto · revisão: pendente */}
+
+A Cliqo mede com uma regra editorial: **número que engana é pior que número menor**. Por isso algumas métricas aqui são menores — e mais honestas — do que as de outras ferramentas. Este artigo define cada uma.
+
+## Do envio à entrega
+
+**Enviados** é quantos e-mails saíram. **Entregues** é quantos chegaram — a diferença se divide em: *soft bounce* (rejeição temporária, o provedor tenta de novo), *hard bounce* (endereço inexistente — o contato é suprimido automaticamente dos próximos envios), *reclamação* (marcou como spam — também suprimido), *suprimidos* (bloqueados pela sua blocklist antes de sair) e falhas. O relatório mostra os sete destinos, e a soma sempre bate com os enviados.
+
+## Abertura — sempre "estimada"
+
+Abertura é medida por um pixel invisível. O problema: o **Apple Mail Privacy Protection** carrega esse pixel automaticamente, mesmo que a pessoa nunca abra o e-mail — inflando aberturas em qualquer ferramenta. A Cliqo marca essas aberturas de máquina separadamente e rotula a métrica como *estimada*. Consequência prática: **decida por cliques e conversões, não por abertura** — é assim que os fluxos da Cliqo funcionam por padrão.
+
+## Clique humano
+
+Antes de contar, a Cliqo remove o que não é gente: scanners de segurança corporativos (que "clicam" em todos os links do e-mail em segundos), pré-carregamentos e robôs. E cada pessoa conta **uma vez por envio** — quem clicou cinco vezes no mesmo e-mail não vira cinco cliques. O número bruto, com bots, fica disponível para auditoria; o relatório usa o humano.
+
+## Interações AMP e Taxa AMP
+
+**Interações** são ações dentro do e-mail — girou a roleta, respondeu o quiz, enviou o formulário — contadas por pessoa e detalhadas por bloco no relatório. A **Taxa AMP** mostra que fração dos destinatários viu a versão interativa (em vez do fallback HTML): a Cliqo detecta qual versão cada pessoa abriu.
+
+## Conversões e receita atribuída
+
+Uma venda conta **uma vez**, mesmo que o cliente tenha sido tocado por várias campanhas — o modelo de atribuição decide quem leva o crédito (padrão: **último clique**, janela de **30 dias** — alternável para 7 dias, e o modelo para primeiro toque ou linear, nas Análises). O que não tem toque rastreado aparece como **"Orgânico / outros canais"**, não é distribuído à força. Abertura **não** atribui venda — só clique e interação.
+
+Por isso o número difere do Google Analytics: o GA não enxerga interações dentro do e-mail nem o Pix pago no próprio e-mail — e usa outro modelo de atribuição. Os dois estão "certos"; medem coisas diferentes.
+
+## Duas convenções que você vai notar
+
+- **Falha de leitura não é zero.** Quando uma métrica não pôde ser lida, o relatório diz isso ("métricas indisponíveis") em vez de mostrar 0 — zero de verdade e falha de leitura são coisas diferentes.
+- **Traço em vez de R$ 0.** Receita que ainda não é medida (por exemplo, em canais recém-lançados) aparece como "ainda não medimos", nunca como R$ 0 — que sugeriria que a medição existe e deu zero.
+
+## Artigos relacionados
+
+- [Entenda a atribuição de receita](/pt-BR/relatorios/atribuicao) *(em breve nesta central)*
+- [Aquecimento: como enviar para uma base nova](/pt-BR/entregabilidade/aquecimento)

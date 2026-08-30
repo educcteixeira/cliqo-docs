@@ -1,0 +1,43 @@
+---
+title: "Checklist antes do primeiro envio"
+description: "As seis verificações que protegem sua reputação antes da primeira campanha."
+---
+
+{/* tipo: primeiros passos · prioridade: P0 · fonte: fluxo real do produto + prática de deliverability · revisão: pendente */}
+
+## O que você vai aprender
+
+O que conferir — na ordem — antes de disparar a primeira campanha por uma conta nova. Caixa de entrada se conquista; esta lista evita começar devendo.
+
+## 1 · Domínio verificado
+
+**Configurações › Domínio** com DKIM, SPF e DMARC verificados. Sem isso, você não envia da sua marca. Guia completo em [Como configurar seu domínio de envio](/pt-BR/entregabilidade/configurar-dns).
+
+## 2 · Identidade de envio completa
+
+Em **Configurações › Envio**: o endereço remetente (From), o Reply-To e os dados de conformidade — **razão social, CNPJ e endereço físico**. Gmail e Yahoo exigem esses dados de quem envia em volume, e eles entram automaticamente no rodapé dos seus e-mails junto com o link de descadastro (que é obrigatório e a Cliqo nunca remove).
+
+## 3 · Blocklist do seu ESP anterior importada
+
+Se você migrou de outra ferramenta, **exporte de lá a lista de supressão** (hard bounces, reclamações, descadastros) e importe em **Público › Contatos › Supressões** antes de qualquer envio. Sem isso, o primeiro disparo redescobre um a um todos os endereços mortos que a ferramenta antiga já conhecia — e cada bounce desses cobra da sua reputação.
+
+## 4 · Contatos importados com o consentimento certo
+
+Na importação, declare a origem da base com honestidade — o que ela destrava (e o que não) está em [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento). Baixe o arquivo de inválidos ao final e não tente reimportá-los.
+
+## 5 · Análise pré-envio e e-mail de teste
+
+Na revisão da campanha, rode a **análise pré-envio** — ela confere domínio, autenticação, palavras de risco no assunto, tags de personalização quebradas e o link de descadastro — e mande um **e-mail de teste** para você mesmo. Abra no Gmail e em pelo menos mais um cliente. Teste não conta nas métricas.
+
+## 6 · Primeira campanha pequena, com ritmo
+
+Não dispare para a base inteira de uma vez: comece por uma fatia engajada e use o **ritmo de envio** para distribuir o disparo. O porquê e o como estão em [Aquecimento: como enviar para uma base nova](/pt-BR/entregabilidade/aquecimento).
+
+## Resultado
+
+Primeiro envio saindo autenticado, para quem pode recebê-lo, com supressões ativas e métricas limpas para você medir e crescer a partir daí.
+
+## Próximos passos
+
+- [Aquecimento: como enviar para uma base nova](/pt-BR/entregabilidade/aquecimento)
+- [Como criar e enviar uma campanha](/pt-BR/campanhas/criar-e-enviar)

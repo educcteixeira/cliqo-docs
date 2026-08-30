@@ -1,0 +1,41 @@
+---
+title: "Understand the triggers and who enters the flow"
+description: "The five available triggers, who each one enrolls — and the protections that prevent accidental mass sends."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: motor de fluxos (gatilhos e matrícula) · idioma: EN · revisão: pendente */}
+
+The trigger is the flow's entry door. Understanding **who enters — and who deliberately does not** — avoids the two classic surprises: "why didn't this contact receive it?" and "why did 6,000 people receive it at once?".
+
+## The available triggers
+
+| Trigger | Who enters |
+|---|---|
+| **New Signup** | Anyone who just signed up **with consent**: popup, form inside the email, or manual signup with the box checked. |
+| **Specific List** | Anyone added individually to the chosen list. |
+| **Custom Segment** | Anyone who **enters** the segment from the flow's activation onward. |
+| **Abandoned Cart** | Anyone who left items in the cart and went inactive (requires the pixel). |
+| **Post-Purchase** | Anyone with a paid order, via the store integration. |
+
+## The deliberate protections
+
+Three behaviors that look like bugs the first time, but are protection:
+
+- **An import never enrolls.** Uploading a base of 6,000 contacts with an active welcome flow does *not* fire 6,000 welcomes — imported is not a new signup. The same goes for **bulk** additions to a list with a trigger: only individual additions enroll.
+- **A segment starts from zero.** When you activate a flow with a segment trigger, whoever was **already** in the segment doesn't enter — only those who enter from then on. Otherwise, activating the flow would be a mass send in disguise.
+- **Cart has a repeat interval.** The same customer who abandons a cart every week doesn't get the sequence every week: there's a default interval of 7 days between enrollments (adjustable per flow).
+
+If you **do** want to send to an existing base, the right instrument is a campaign, not a flow.
+
+## How the contact exits
+
+Besides completing the steps, the contact exits early upon reaching the flow's **goal** — opening, clicking or purchasing, depending on the configuration (the welcome flow uses the first purchase). Anyone who unsubscribes or loses consent for the channel also exits. The live funnel shows the two destinations separately: *exited on conversion* and *finished without converting*.
+
+## A special case: birthdays
+
+Birthday is not a trigger of its own — it's a **segment** over a date [typed field](/en/gestao-de-dados/campos-tipados), used with the segment trigger. That's why the field's "date" type matters.
+
+## Related articles
+
+- [Getting started with flows](/en/automacoes/primeiros-passos)
+- [The engine's sending rules](/en/automacoes/regras-do-motor)

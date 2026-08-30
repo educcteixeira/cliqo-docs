@@ -1,0 +1,153 @@
+---
+title: "API v1 reference"
+description: "The three endpoints: identity, contact upsert and campaign reports — with fields, examples and error cases."
+---
+
+{/* tipo: dev/referência · prioridade: P0 · idioma: EN · fonte: docs/api-v1.md medido contra o código · revisão: pendente */}
+
+All endpoints require the `Authorization: Bearer cliqo_…` header — see [Overview and authentication](/en/developers/api-overview).
+
+## GET /v1/me
+
+Returns the identity and capabilities of the calling key — and the server's clock. Use it as your connectivity test.
+
+**It works with any scope**, including `send_only`, which cannot read anything else. That is deliberate: a key must be able to introduce itself even when it is not allowed to read data.
+
+`server_time` is ISO-8601 UTC. It is there so you can spot a clock or timezone difference *before* concluding that a report is wrong — `GET /v1/reports/campaigns` takes dates, and an off-by-one day is much easier to explain when you can compare clocks.
+
+```json
+{
+  "server_time": "2026-08-28T21:52:00.000Z",
+  "account": { "id": "…", "name": "…" },
+  "brand":   { "id": "…", "name": "…", "slug": "principal" },
+  "key":     { "id": "…", "name": "backend-prod" },
+  "can":     { "ler": false, "enviar": true, "escreverContatos": true }
+}
+```
+
+## POST /v1/contacts
+
+Creates or updates a contact (upsert by email, within the key's brand). Requires a scope that writes contacts (`full` or `send_only`).
+
+```json
+{
+  "email": "maria@example.com",
+  "name": "Maria Silva",
+  "phone_whatsapp": "+5511999990000",
+  "tags": ["vip"],
+  "custom_fields": { "aniversario": "1990-03-15" },
+  "source": "meu-erp",
+  "opt_in": true,
+  "whatsapp_opt_in": false
+}
+```
+
+Field notes:
+
+- `email` — required; normalized (trimmed, lowercased).
+- `opt_in` / `whatsapp_opt_in` — booleans that **record consent with source and date**. Only send `true` when your system actually collected that consent; the API call becomes the consent's provenance record.
+- `whatsapp_opt_in: true` without a phone → `400 WHATSAPP_OPTIN_WITHOUT_PHONE`.
+- `source` — free-text origin label (max 50 chars), shown in the contact's profile.
+- `mode` — what to do when the contact **already exists**; defaults to `update`. See the table below.
+- `custom_fields` — stored exactly as sent (no normalization on this path). Send keys already in lowercase `snake_case` and dates as `YYYY-MM-DD`, matching the fields created by import and forms — otherwise you create a parallel field.
+
+Error worth handling explicitly: **`409 CONTACT_SUPPRESSED`** — the address unsubscribed or was suppressed. Do **not** work around it by mutating the email — the suppression protects the recipient and your sender reputation, whether it came from an unsubscribe, a spam complaint, a hard bounce or a blocklist entry.
+
+### `mode` — the same rules as the CSV import
+
+The four modes the import screen already offers, now here too. All of them decide **one thing**: what to do when the e-mail already exists in that brand.
+
+| `mode` | NEW contact | contact that ALREADY EXISTS |
+|---|---|---|
+| `update` *(default)* | creates | updates the fields you sent (`custom_fields` merges) |
+| `ignore` | creates | **touches nothing** — "only add new ones" |
+| `updateonly` | **404** | updates — "only update if found" |
+| `replace` | creates | becomes a mirror of what you sent: an absent field is **deleted** |
+
+Two details about `replace`, so they don't surprise you: `tags` is only written when you send it (never deleted by omission), and the `source` of an existing contact is never rewritten — it records how the contact **came in**, not the latest call.
+
+**An unknown `mode` is refused with `400 MODE_INVALID`**, never silently treated as `update`. A `mode: "only_new"` quietly becoming "update everything" would make the platform do the opposite of what you asked, across your whole base.
+
+The response says what actually happened: `created`, `updated` and the `mode` that was applied.
+
+### Three things no mode changes — and all three carry legal weight
+
+**① Suppressed stays suppressed.** An unsubscribed contact *exists*. If `ignore` ("only add new ones") treated it as non-existent, we would re-subscribe someone who asked to leave. The suppression guard runs **before** the mode, so all four return the same `409`.
+
+**② An existing contact is never re-subscribed.** `status` and `subscribed` are set only when the contact is *born*. On an existing contact they stay untouched: a `POST` does not make someone who had stopped receiving e-mail start again.
+
+**③ `opt_in: true` does not resurrect refused consent.** If the contact had already opted out of marketing, consent is **not** rewritten — and the response says so in `email_consent: "skipped_previous_opt_out"`, so you don't find out only at audit time.
+
+Reactivating is a deliberate act, done in the app by a person.
+
+## GET /v1/contacts
+
+Read the contacts of one list — this is the endpoint for pulling your data out:
+
+```
+GET /v1/contacts?list=12&limit=100&offset=0
+```
+
+- **`list` is required** — the humanised list number or its UUID. There is no "export everything" default: returning the whole base because someone forgot a parameter is not a safe default.
+- `limit` — 1 to 1000; defaults to 100.
+- `offset` — defaults to 0.
+
+Each contact carries `id`, `email`, `name`, `phone_whatsapp`, `status`, `subscribed`, `tags`, `custom_fields`, `source`, `created_at` and `updated_at`.
+
+**Requires a key that can read** — scope "Read only" or "Everything". A "Send only" key gets `403 API_KEY_SCOPE_INSUFICIENTE`; it can write contacts but deliberately cannot read them back.
+
+One number that surprises people: **`meta.total` here counts *eligible recipients*, while `contact_count` in `/v1/lists` counts *memberships*.** The same list legitimately shows two different numbers — unsubscribed and suppressed contacts stay in the list but would not receive the campaign. Neither is wrong; they answer different questions.
+
+## GET /v1/lists
+
+Every list in the brand the key belongs to:
+
+```
+GET /v1/lists?limit=100&offset=0
+```
+
+- `limit` — 1 to 1000; defaults to 100.
+- `offset` — defaults to 0.
+
+Each item carries the list's humanised `number` (the same one shown in the app), its `id`, `name`, `description`, `contact_count`, `created_at` and `updated_at`.
+
+The `meta` object always states `count`, `total`, `limit`, `offset` and `has_more`. **`has_more` is always present, including when it is `false`** — so you never have to tell "absent" from "false", which is how integrations quietly stop at the first page.
+
+## GET /v1/lists/{id}
+
+One list, by either identifier:
+
+```
+GET /v1/lists/12          # humanised number, as shown in the app
+GET /v1/lists/8f3e...     # UUID
+```
+
+Two things worth knowing:
+
+- **The object comes bare, with no `data` envelope** — same as `GET /v1/me`, the other single-resource endpoint, and the convention you expect from a retrieve.
+- **It is byte-identical to an item of the plural's `data[]`**, because both are produced by the same serialiser. Code written against one works against the other.
+
+A list that does not exist in this brand returns `404` with code `LIST_NOT_FOUND` — the same answer whether the id is unknown or belongs to another brand, so the endpoint never confirms the existence of somebody else's data.
+
+## GET /v1/reports/campaigns
+
+Campaign metrics, filterable by period and channel:
+
+```
+GET /v1/reports/campaigns?from=2026-08-01&to=2026-08-31&channel=email
+```
+
+- `from` / `to` — ISO-8601 dates.
+- `channel` — `email` or `whatsapp`; omit for both.
+
+Each item includes sends, delivered, opens (estimated), human `clicks` (plus `clicks_including_bots`), AMP interactions and rate (email only), conversions and attributed revenue. The response's `meta` object always states `count` and whether the list was `truncated`.
+
+Reading rules (by design):
+
+- A metric that doesn't exist for the channel is `null`, never `0` — e.g. `opens`, `open_rate` and `amp_rate` for WhatsApp.
+- A rate with no denominator is `null` (`0/0` is not `0%`).
+- A campaign whose dispatch failed may have `sent_at: null` and still appear — a failed send inside your date window is information, not noise.
+
+## Custom events (site/pixel)
+
+Beyond the v1 surface, your store can push custom events (for the "custom event" segment dimension) through the pixel endpoint using your account's pixel token — details on the [pixel reference] *(coming to this help center)*, or ask us at [contato@cliqo.io](mailto:contato@cliqo.io).

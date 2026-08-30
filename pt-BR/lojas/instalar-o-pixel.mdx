@@ -1,0 +1,92 @@
+---
+title: "Instalar o pixel"
+description: "O trecho de código que faz a Cliqo enxergar o comportamento na sua loja — e como conferir que ele está funcionando."
+---
+
+{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: pendente */}
+
+O pixel é um trecho de código que você cola na sua loja. Com ele, a Cliqo passa a saber **o que a pessoa fez antes de comprar** — que produto olhou, que categoria navegou, onde parou — e usa isso para montar segmentos sozinha.
+
+Sem o pixel, a Cliqo só conhece quem já está na sua lista e o que já comprou. Com ele, você alcança quem esteve interessado e não voltou.
+
+## O trecho
+
+Em **Configurações → Integrações**, o painel *Pixel de Rastreamento* mostra o seu snippet já personalizado, com o botão **Copiar tudo**. Ele tem esta forma:
+
+```html
+<script async src="https://app.cliqo.io/px.js" data-tenant="SEU-ID"></script>
+```
+
+Cole no `<head>` de **todas as páginas** da loja — não só na home. É o `<head>`, não o fim do `<body>`: o pixel precisa carregar antes do conteúdo para medir o tempo de página corretamente.
+
+## Onde colar, por plataforma
+
+O painel oferece três caminhos:
+
+- **Loja Integrada** — há um botão que abre o painel da plataforma direto na tela certa.
+- **Google Tag Manager** — há um botão que abre o GTM.
+- **Manual** — para qualquer outra loja: cole no template do tema.
+
+**Se você usa GTM, use o snippet que o painel entrega para GTM.** O Tag Manager remove atributos `data-*`, e o `data-tenant` é justamente um deles — o pixel carregaria sem saber de quem é. A versão para GTM leva o seu identificador dentro do endereço do script (`?t=…`), que o GTM não tem como apagar.
+
+## Conferir que funcionou
+
+No mesmo painel há o botão **Verificar agora**. Depois de colar o snippet, abra uma página da sua loja em outra aba e clique nele.
+
+⚠️ **Leia o resultado com cuidado — ele responde uma pergunta mais estreita do que parece.** A verificação conta os acessos das **últimas 24 horas**. Ela não responde "o pixel está instalado?", e sim "chegou movimento nas últimas 24 horas?".
+
+Na prática isso significa:
+
+- **Pixel ativo** — chegou movimento. Está tudo certo.
+- **Aguardando instalação** — não chegou movimento nas últimas 24 horas. Isso pode ser pixel não instalado **ou** loja instalada com pouco tráfego num dia parado.
+
+Se a sua loja tem movimento baixo e a tela diz "aguardando instalação", abra uma página da loja você mesmo e clique em **Verificar agora** de novo. Se aparecer o acesso, está instalado.
+
+## O que ele captura sozinho
+
+Você não precisa marcar nada. Depois de instalado, o pixel identifica o tipo de página e emite os eventos abaixo — e cada um alimenta um segmento automático em **Contatos → Segmentos**:
+
+| Evento | Alimenta o segmento |
+|---|---|
+| Visualização de página | Todos os visitantes |
+| Visualização de produto | Navegou sem comprar |
+| Navegação por categoria | Interesse por categoria |
+| Adição ao carrinho | Quase comprou |
+| Início de checkout | Abandono de checkout |
+
+Além desses, o pixel mede **profundidade de rolagem** em páginas de produto (25%, 50%, 75%, 90%) e o **tempo real na página** — sinais de interesse que a taxa de abertura não captura.
+
+Para reconhecer o tipo de página, ele lê primeiro as marcações padrão do seu tema (`og:type`, `og:title`, `og:price`), depois dados estruturados de produto, e só então recorre a heurísticas. Isso é o que faz funcionar em qualquer plataforma, sem integração dedicada.
+
+## Marcar uma compra
+
+Quando o cliente conclui o pedido, chame na página de obrigado:
+
+```js
+window.cliqo.purchase(valor, idDoPedido, nomeDoProduto);
+```
+
+É isso que fecha a conta: sem essa chamada, a Cliqo vê a navegação mas não sabe que virou venda, e a receita atribuída fica subestimada.
+
+Se a pessoa já se identificou na loja (login ou e-mail no checkout), você também pode ligar a navegação anônima ao contato:
+
+```js
+window.cliqo.identify(idDoContato);
+```
+
+## Privacidade e LGPD
+
+O pixel guarda um identificador anônimo no navegador do visitante e registra que páginas ele viu. Isso é **dado pessoal pseudonimizado** pela LGPD, mesmo sem nome ou e-mail.
+
+Duas obrigações que são suas, não da Cliqo:
+
+1. **A sua política de privacidade precisa dizer que a loja usa pixel de rastreamento**, para que serve e com quem os dados são compartilhados.
+2. **Se a sua loja exibe aviso de cookies, o pixel entra nele.**
+
+Nada disso impede o uso — é o mesmo enquadramento de qualquer ferramenta de análise. Só precisa estar escrito.
+
+## Quando parar de esperar e pedir ajuda
+
+Se o snippet está no `<head>`, você acessou a loja e mesmo assim o painel não registra acesso nenhum, o motivo mais comum é o snippet estar num template que aquela página não usa. Confira olhando o código-fonte da página no navegador: procure por `px.js`. Se não aparecer ali, ele não foi carregado.
+
+Persistindo, fale com a gente em [contato@cliqo.io](mailto:contato@cliqo.io) com o endereço de uma página onde deveria estar.

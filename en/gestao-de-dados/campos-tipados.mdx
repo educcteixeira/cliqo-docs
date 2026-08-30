@@ -1,0 +1,44 @@
+---
+title: "Custom fields and typed fields"
+description: "The six field types, how a type is set — and why 'date' unlocks the birthday segment."
+---
+
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: motor de campos tipados (import + formulários) · revisão: pendente */}
+
+Custom fields store what is specific to your business: date of birth, favorite store, size, plan. In Cliqo, every field has a **type** — and the type defines what segments can do with it.
+
+## The six types
+
+| Type | Example | What it unlocks in segments |
+|---|---|---|
+| **Text** | "blue", "downtown store" | equals, contains, starts with… |
+| **Number** | 42, 1250 | greater than, less than |
+| **Date** | 15/03/1990 | before, after, between — and the **birthday** |
+| **Date and time** | 15/03/2026 14:00 | same, with time |
+| **Yes/no** | accepted, has the app | is yes / is no |
+| **List** | sizes: S, M, L | contains the value |
+
+Without a declared type, every value is treated as **text** — and then a date of birth can't feed a birthday segment, and an amount spent won't accept "greater than". That's why the import runs automatic detection and asks for your review.
+
+## How the type is set
+
+- **On import**: when creating a new field from a column, Cliqo detects the type from the values and shows review notes — ambiguous dates (is 12/05 May 12 or December 5?), postal codes that would lose their leading zero if turned into numbers, yes/no columns with empty cells.
+- **In forms** (pop-up and form inside the email): every extra field you create is born with the type you chose.
+
+## Rules that save you headaches
+
+- **Dates** accept the Brazilian format (`15/03/1990`) and the international one (`1990-03-15`), with real calendar validation — 31/02 doesn't pass.
+- **A value that doesn't match the type becomes text**, never discarded — you don't lose data because of one nonconforming cell.
+- **The field key is normalized** (lowercase, spaces become `_`; accents and symbols are **removed**): "Data de Nascimento" and "data_de_nascimento" are the same field. Prefer keys without accents — "aniversário" becomes `aniversrio`.
+- **Different forms add up, they don't overwrite**: a pop-up that saves "size" doesn't erase the "birthday" another form saved on the same contact.
+
+## Where the fields show up
+
+- **Segments** — as the "Customer data" dimension, with the operators of the type.
+- **Personalization** — in the editor, Personalize menu › "Custom fields": `{{aniversario|em breve}}`.
+- **Contact profile** — in the 360 view, Custom fields section.
+
+## Related articles
+
+- [How to import contacts](/en/gestao-de-dados/importar-contatos)
+- [How to create segments](/en/gestao-de-dados/criar-segmentos)

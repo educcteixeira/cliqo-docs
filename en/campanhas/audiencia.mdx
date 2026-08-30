@@ -1,0 +1,44 @@
+---
+title: "How to define the campaign audience"
+description: "Lists, segments, exclusions and how Cliqo removes duplicates and suppressed contacts before sending."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: aba Audiência + seletor de segmentos · idioma: EN · revisão: pendente */}
+
+## What you will learn
+
+How to build the audience by adding lists and segments, exclude those who shouldn't receive, and understand the final recipient count.
+
+## How the selector works
+
+On the **Audience** tab, the selector groups the options the way you think about them:
+
+- **Lists** — the ones you built manually or by import.
+- **Engagement** — ready-made segments by email behavior (AMP engaged, recently opened, inactive, converted…).
+- **RFM** — the nine segments by value and recency (Champions, Loyal, At risk…).
+- **Browsing** — behavior on your store via the pixel (cart without purchase, abandoned checkout…).
+- **My segments** — the ones you created.
+
+Each option shows its count and when it was calculated — the **Refresh** button recalculates on the spot.
+
+{/* print: audience selector with groups */}
+
+## The final math
+
+**The audience is the union of everything you selected, with no duplicates** — someone in three segments counts once. The summary shows the unique recipients and the overlap between sources.
+
+On top of that, you can **exclude from the audience** entire lists or segments — for example, send to "Recently opened" while excluding "Purchased in the last 7 days".
+
+## Who drops out on their own, without you doing anything
+
+At send time, Cliqo automatically removes: unsubscribes, complaints and hard bounces (the [suppressions](/en/gestao-de-dados/supressoes)), anyone on the blocklist, anyone without consent for the channel, and anyone who already received this same send (on re-sends). The campaign report lists **how many were removed and for which reason** — full transparency about the difference between "selected" and "received".
+
+## Tips
+
+- Audience too small? Check whether the segment has a short window (e.g. "opened in the last 7 days") and look at the per-source count in the summary.
+- For recurring campaigns to the same audience, create a named segment instead of rebuilding the sum of lists for every send.
+
+## Related articles
+
+- [How to create segments](/en/gestao-de-dados/criar-segmentos)
+- [Suppressions and blocklist](/en/gestao-de-dados/supressoes)

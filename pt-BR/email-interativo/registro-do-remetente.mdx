@@ -1,0 +1,48 @@
+---
+title: "Como registrar o remetente para e-mails AMP"
+description: "O processo de aprovação no Gmail e no Yahoo — o que é exigido, quanto tempo leva e como manter o registro ativo."
+---
+
+{/* tipo: como fazer / entenda · prioridade: P0 · fonte: playbook AMP (registros reais aprovados) · revisão: pendente */}
+
+## O que você vai aprender
+
+Por que o Gmail exige um registro para renderizar e-mails interativos, o que é preciso para aprovar, e o que muda depois da aprovação. **A Cliqo conduz esse processo para você** — este artigo existe para você saber o que está acontecendo e o que esperar.
+
+## Como funciona o registro
+
+O Google só renderiza AMP de remetentes previamente aprovados. Três regras definem tudo:
+
+1. **O registro é por endereço exato de remetente**, não por domínio. `ofertas@suamarca.com.br` aprovado não registra `news@suamarca.com.br` — cada From que você usa precisa do seu registro.
+2. **A aprovação é do Google**, num processo manual: um e-mail de demonstração real é enviado da infraestrutura de produção para a caixa de avaliação do Google, acompanhado do formulário oficial de registro. O Yahoo tem processo próprio, equivalente.
+3. **A permanência é condicional a envios regulares** — registro não é certificado, é assinatura que se mantém ativa.
+
+## Antes de submeter
+
+O que o Google verifica (e a Cliqo confere com você antes):
+
+- **Domínio autenticado**: DKIM passando e alinhado ao remetente, SPF e DMARC configurados. DMARC com política `p=none` **é suficiente** — não é preciso endurecer para quarantine/reject por causa do registro.
+- **Remetente com histórico**: um endereço que já envia volume regular com boa reputação. Endereço recém-criado tende a ser recusado em silêncio — por isso o registro entra *depois* do [aquecimento](/pt-BR/entregabilidade/aquecimento), não antes.
+- **E-mail de demonstração real**: uma campanha de verdade da sua marca (branding, links e descadastro reais), não um teste. O Google rejeita demonstrações com cara de teste.
+
+## Depois da aprovação
+
+- **Aprovação ≠ ativação.** A propagação leva **até 7 dias**, e só e-mails enviados *depois* da ativação renderizam interativos. Como o Gmail decide na abertura, um e-mail já entregue pode passar a renderizar dias depois, sem reenvio.
+- **O registro precisa ficar ativo**: primeira campanha interativa em até 15 dias da aprovação e cadência pelo menos mensal depois. Registro parado por meses caduca silenciosamente — os e-mails voltam a chegar estáticos, sem nenhum aviso do Google. A Cliqo monitora essa cadência com você.
+
+## Como acompanhar na Cliqo
+
+O status do registro é **por endereço remetente** e aparece na plataforma: ao montar uma campanha, se o remetente escolhido ainda não estiver registrado, a tela avisa — *"Este endereço não está registrado para envio AMP. A parte interativa será ignorada pelo Gmail."* — com o atalho para iniciar o registro. O e-mail sai normalmente na versão HTML enquanto isso.
+
+## Perguntas frequentes
+
+**Tem custo?** Não — o registro no Google e no Yahoo é gratuito. O que ele exige é processo e configuração técnica bem-feita.
+
+**Quanto tempo leva?** A avaliação do Google não tem prazo oficial; após a aprovação, até 7 dias de propagação.
+
+**Preciso registrar de novo se trocar o remetente?** Sim — cada endereço de From tem registro próprio.
+
+## Artigos relacionados
+
+- [Entenda o AMP para e-mail](/pt-BR/email-interativo/entenda-o-amp)
+- [Por que meu e-mail chegou estático?](/pt-BR/email-interativo/por-que-chegou-estatico)

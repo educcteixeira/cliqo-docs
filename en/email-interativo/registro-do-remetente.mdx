@@ -1,0 +1,48 @@
+---
+title: "How to register your sender for AMP emails"
+description: "The approval process at Gmail and Yahoo — what is required, how long it takes, and how to keep the registration active."
+---
+
+{/* tipo: como fazer / entenda · prioridade: P0 · idioma: EN · fonte: playbook AMP (registros reais aprovados) · revisão: pendente */}
+
+## What you'll learn
+
+Why Gmail requires a registration to render interactive emails, what it takes to get approved, and what changes after approval. **Cliqo conducts this process for you** — this article exists so you know what's happening and what to expect.
+
+## How registration works
+
+Google only renders AMP from previously approved senders. Three rules define everything:
+
+1. **Registration is per exact sender address**, not per domain. An approved `ofertas@suamarca.com.br` does not register `news@suamarca.com.br` — every From address you use needs its own registration.
+2. **Approval comes from Google**, in a manual process: a real demonstration email is sent from the production infrastructure to Google's evaluation inbox, along with the official registration form. Yahoo has its own, equivalent process.
+3. **Staying registered is conditional on regular sending** — a registration isn't a certificate, it's a subscription that stays active.
+
+## Before submitting
+
+What Google checks (and Cliqo verifies with you beforehand):
+
+- **Authenticated domain**: DKIM passing and aligned with the sender, SPF and DMARC configured. DMARC with a `p=none` policy **is sufficient** — you don't need to harden to quarantine/reject because of the registration.
+- **A sender with history**: an address that already sends regular volume with good reputation. A freshly created address tends to be silently refused — which is why registration comes *after* [warm-up](/en/entregabilidade/aquecimento), not before.
+- **A real demonstration email**: an actual campaign from your brand (real branding, links, and unsubscribe), not a test. Google rejects demonstrations that look like tests.
+
+## After approval
+
+- **Approval ≠ activation.** Propagation takes **up to 7 days**, and only emails sent *after* activation render interactive. Since Gmail decides at open time, an already-delivered email can start rendering interactive days later, without a resend.
+- **The registration must stay active**: first interactive campaign within 15 days of approval and at least a monthly cadence after that. A registration idle for months lapses silently — emails go back to arriving static, with no warning from Google. Cliqo monitors this cadence with you.
+
+## How to follow it in Cliqo
+
+Registration status is **per sender address** and shows in the platform: when building a campaign, if the chosen sender isn't registered yet, the screen warns you — *"This address isn't registered for AMP sending. The interactive part will be ignored by Gmail."* — with a shortcut to start the registration. The email goes out normally in the HTML version in the meantime.
+
+## FAQ
+
+**Does it cost anything?** No — registration at Google and Yahoo is free. What it demands is process and well-done technical configuration.
+
+**How long does it take?** Google's evaluation has no official deadline; after approval, up to 7 days of propagation.
+
+**Do I need to register again if I change the sender?** Yes — each From address has its own registration.
+
+## Related articles
+
+- [Understand AMP for email](/en/email-interativo/entenda-o-amp)
+- [Why did my email arrive static?](/en/email-interativo/por-que-chegou-estatico)

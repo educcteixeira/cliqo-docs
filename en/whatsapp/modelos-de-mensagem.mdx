@@ -1,0 +1,58 @@
+---
+title: "How to create and get a message template approved (Meta)"
+description: "Categories, variables with examples, buttons and click tracking — and how to avoid the number 1 cause of rejection."
+---
+
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Modelos WhatsApp (Meta) · revisão: pendente */}
+
+## What you will learn
+
+How to create a WhatsApp template, submit it for Meta's approval and use buttons with click tracking — which is what ties a sale to a message.
+
+## Why approval exists
+
+To start a conversation outside the [24-hour window](/en/whatsapp/primeiros-passos), Meta requires a template it has approved in advance. Approval is usually fast (minutes to a few hours), and the templates stay **in your account** — approved once, used forever.
+
+## Create a template
+
+In **WhatsApp › Templates**, click to create a new template:
+
+1. **Name** — lowercase and underscores (the screen normalizes it for you). E.g. `oferta_semana`.
+2. **Category** — Meta charges and judges by it:
+   - **Utility** — order, delivery, payment. Cheaper; inside the 24h window, no template cost.
+   - **Marketing** — promotion, news, coupon.
+   - **Authentication** — access codes.
+   Don't try to pass marketing off as utility: Meta reclassifies it and can pause the template.
+3. **Message** — the text, with variables `{{1}}`, `{{2}}` for whatever changes per person or per campaign (name, coupon, product).
+4. **An example for each variable** — mandatory. **A variable without an example is the most common cause of rejection** — Meta needs to see what the message looks like filled in.
+5. **Buttons** — quick reply (e.g. "Tell me more") and/or a **link** button.
+
+{/* print: template creation with variables and examples */}
+
+## Track the button click
+
+On the link button, turn on **Track clicks on this button**: each recipient gets a unique link, the clicks show up in the report and the **revenue is attributed** to the WhatsApp campaign. With tracking off, the destination is a fixed URL frozen by Meta at approval — no attribution and no changing the destination per campaign.
+
+Tip: include the opt-out instruction ("reply SAIR to stop receiving messages") — the screen offers to insert it with one click when the template doesn't have it.
+
+## Statuses and what to do in each one
+
+The statuses come straight from Meta and appear as Meta reports them:
+
+| Status | Meaning |
+|---|---|
+| **PENDING** (in review) | Waiting on Meta — usually minutes to hours. |
+| **APPROVED** | Ready to use in sends and flows. |
+| **REJECTED** | The screen shows the reason; fix and resubmit. Common causes: a variable without an example, text that violates the policy, wrong category. |
+| **PAUSED** | Meta paused it for low quality (too many blocks/reports) — review audience and frequency before insisting. |
+
+Deleting a template removes it **on Meta as well** — and breaks campaigns and flows that use it; the screen warns you first.
+
+## Ready-made message gallery
+
+So you don't start from scratch: the gallery brings ready-made templates by use case (welcome, cart, payment notice, post-delivery…), which you personalize with your brand name and submit for approval.
+
+## Related articles
+
+- [How to send a bulk message](/en/whatsapp/enviar-em-massa)
+- [Number & quality](/en/whatsapp/numero-e-qualidade)

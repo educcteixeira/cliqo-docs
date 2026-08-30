@@ -1,0 +1,43 @@
+---
+title: "Análise pré-envio e e-mail de teste"
+description: "As verificações automáticas antes do disparo e como testar o e-mail de verdade — com a parte interativa."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: aba Resumo (pré-envio, teste, bloqueios) · revisão: pendente */}
+
+## O que você vai aprender
+
+O que a análise pré-envio verifica, como enviar um teste real e quais problemas bloqueiam o envio até serem resolvidos.
+
+## Rodar a análise pré-envio
+
+Na aba **Resumo**, clique em **Rodar análise pré-envio**. Ela confere:
+
+- **Domínio de envio** — verificado e com DKIM ativo.
+- **Autenticação** — assinatura e retorno configurados para o remetente escolhido.
+- **Reputação** — consulta de blacklist pública (Spamhaus). Quando a consulta não pode ser feita dali, a análise diz isso — em vez de fingir um "ok".
+- **Assunto** — palavras associadas a spam, texto todo em maiúsculas, excesso de exclamações.
+- **Tags de personalização** — tags quebradas ou com erro de digitação. A análise pega inclusive o clássico `|` trocado por `l` (`{{primeiro_nomelOlá}}`), que faria o e-mail sair com o código literal no texto.
+- **Link de descadastro** — presente no corpo; o cabeçalho de descadastro em um clique (exigência do Gmail e do Yahoo) é injetado automaticamente em todo envio.
+
+{/* print: resultado da análise pré-envio */}
+
+## Enviar um e-mail de teste
+
+No mesmo Resumo, **Enviar teste** aceita vários endereços separados por vírgula. O teste envia o e-mail **real** — com a parte interativa e o fallback — e **não conta nas métricas** da campanha.
+
+Abra o teste no Gmail e em pelo menos mais um cliente (Outlook ou Apple Mail) para ver as duas versões. Se o teste chegar estático no seu Gmail, veja [Por que meu e-mail chegou estático](/pt-BR/email-interativo/por-que-chegou-estatico) — em conta sem o registro do remetente propagado, isso é esperado.
+
+## O que bloqueia o envio
+
+Alguns problemas impedem o disparo até serem corrigidos, com o motivo na tela:
+
+- **Campos obrigatórios vazios** — assunto, remetente, audiência.
+- **Produtos não cadastrados** — o template referencia SKUs que não existem no catálogo ("Cadastre os produtos antes de enviar").
+- **Tags de outra plataforma** — o e-mail importado ainda tem variáveis de outro ESP que sairiam como texto literal; o editor converte as reconhecidas e aponta as demais.
+- **Permissão** — enviar campanha exige papel de Editor ou acima.
+
+## Artigos relacionados
+
+- [Como criar e enviar uma campanha](/pt-BR/campanhas/criar-e-enviar)
+- [Checklist antes do primeiro envio](/pt-BR/entregabilidade/checklist-primeiro-envio)

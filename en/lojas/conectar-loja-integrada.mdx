@@ -1,0 +1,62 @@
+---
+title: "Connect Loja Integrada"
+description: "Linking your Loja Integrada store to Cliqo: products, orders, and the webhook that keeps the catalogue current."
+---
+
+{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: pendente */}
+
+Loja Integrada is one of Brazil's most widely used e-commerce platforms. Connecting it to Cliqo brings three things: your **product catalogue** (for emails with a product showcase), your **order history** (which feeds the RFM segmentation and attributed revenue), and a **webhook** that keeps the catalogue current without you doing anything.
+
+## Before you start
+
+You will need two credentials, and one of them depends on your plan.
+
+**API key.** Generate it in the Loja Integrada panel under **Settings → API key → Register new key**. That option **only exists on a paid Loja Integrada plan** — if it does not appear in your panel, that is the plan, not Cliqo.
+
+**Application key.** This one is requested from Loja Integrada's technical team. A single application key covers every store, so if you already use Cliqo on another store, it is the same key.
+
+## Connecting
+
+In **Settings → Integrations**, choose Loja Integrada and paste both keys. From then on Cliqo can read your catalogue and your orders.
+
+## Pulling the orders
+
+The same screen has the action that **pulls orders from Loja Integrada** into Cliqo. This is what populates RFM — the segmentation that separates frequent buyers from people who drifted away.
+
+The first run sweeps your **entire history** and may take several passes: it reads in blocks and remembers where it stopped. While that first sweep runs, **no customer is enrolled into a flow because of those orders** — that would fire a post-purchase message about a months-old order. Only orders that arrive afterwards, day to day, reach the triggers.
+
+## Keeping the catalogue current
+
+Loja Integrada notifies Cliqo when a product is created, changed or deleted — but only once you paste the notification address into their panel.
+
+The address is specific to your account and looks like this:
+
+```
+https://app.cliqo.io/api/integrations/webhook/lojaintegrada/<your-id>
+```
+
+You will find the full address, already carrying your identifier, under **Settings → Integrations**.
+
+**About the security of that address:** Loja Integrada does not sign the notifications it sends — we verified this in May 2026, and it is not a Cliqo limitation. To compensate, you can set a **webhook token** under Settings → Integrations; when one exists, Cliqo only accepts notifications that present it. We recommend setting one.
+
+Receiving the same notification twice causes no harm: the product is stored by SKU, so reprocessing rewrites the same row.
+
+## If you would rather not integrate
+
+You can bring the catalogue in as a file, connecting nothing: under **Settings → Products**, the import accepts Loja Integrada's **official export** (XLSX) or a plain CSV. Cliqo recognises the Loja Integrada format on its own and says so on screen when it detects it.
+
+That is the route for anyone on a plan without API access, or for a one-off load before deciding whether to integrate.
+
+## What the connection does not do
+
+- **It does not sync stock in real time.** The catalogue arrives through import and change notifications; there is no lookup at send time.
+- **It does not change anything in your store.** The connection is read-only — Cliqo never creates, edits or cancels orders.
+- **It does not replace the pixel.** Orders tell you what was bought; the pixel tells you what was looked at and not bought. The two feed different segments.
+
+## When something does not add up
+
+If the catalogue came in incomplete, the most common cause is a product with no SKU — Cliqo stores by SKU and skips rows without one. Check the SKU column in your Loja Integrada export.
+
+If orders do not appear, confirm the API key was generated on a paid plan and is still active in the Loja Integrada panel.
+
+If it persists, write to us at [contato@cliqo.io](mailto:contato@cliqo.io).

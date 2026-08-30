@@ -1,0 +1,39 @@
+---
+title: "Understand accounts, brands, and members"
+description: "How Cliqo is organized: the account that groups everything, the brands that send, and the four access roles."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: modelo org → marcas + tela Membros · revisão: pendente */}
+
+Three concepts organize everything in Cliqo — and understanding the difference avoids confusion from day one.
+
+## Account and brands
+
+The **account** is the organization — who contracts Cliqo and invites the team. **The brand is what sends**: each brand has its **own, isolated** sending domain, WhatsApp number, logo and colors, templates, contacts, lists, and campaigns.
+
+Every account is born with one brand. If you operate a single brand, you'll never think about this — Cliqo doesn't show the switcher. When you create the second one (name, identifier, domain, and color), the **brand switcher** appears in the top bar, and everything you see and do belongs to the active brand.
+
+**When to use multiple brands**: groups with more than one store, agencies operating clients, or brands under the same owner with separate identities. A contact that exists in both brands is, to Cliqo, two independent records — each with its own consent, which is exactly what the LGPD expects.
+
+## Members and roles
+
+In **Members** (avatar menu), you invite the team by email — the invitation expires in 7 days — and set the role:
+
+| Role | What it can do |
+|---|---|
+| **Owner** | Everything, including transferring ownership and closing the account. |
+| **Admin** | Everything day-to-day: members, API keys, tags, trash, audit log, permanent LGPD deletions. |
+| **Editor** | Creates, edits, and **sends** campaigns; works with lists, segments, and templates. |
+| **Viewer** | View only — ideal for an agency or leadership to follow results with no risk of changing anything. |
+
+Permissions are enforced on the server, not just in the interface — a Viewer can't send a campaign even through a direct API call.
+
+## Traceability and safety
+
+- **Audit log** — administrative actions (invitations, role changes, deletions, API keys) are recorded with author and date.
+- **Trash** — deleted lists, templates, campaigns, and contacts stay restorable for 30 days; deleting permanently is an Owner action, with typed confirmation.
+
+## Related articles
+
+- [A tour of the dashboard](/en/primeiros-passos/tour-pelo-painel)
+- [Set up your account in 5 steps](/en/primeiros-passos/configure-sua-conta)

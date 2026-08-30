@@ -1,0 +1,43 @@
+---
+title: "Entenda as regras de envio do motor"
+description: "Horário silencioso, orçamento de mensagens e anticolisão — as regras que valem para todo fluxo, e por quê."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · revisão: pendente */}
+
+Antes de cada mensagem de fluxo sair, o motor da Cliqo faz uma última pergunta: *este contato deveria receber isto, agora?* As regras abaixo valem para **todos** os fluxos, automaticamente — elas existem para proteger o contato de excesso de mensagens e a sua marca de queimar a própria base.
+
+## Horário silencioso
+
+Mensagens de marketing **não saem entre 21h e 8h** (horário de Brasília). Um passo que venceria de madrugada não é perdido: ele **espera** e sai quando a janela abre.
+
+## Orçamento de mensagens
+
+Cada contato recebe **no máximo 3 mensagens de marketing por período de 7 dias** — somando campanhas e fluxos. É o freio contra o cenário clássico: a pessoa está no fluxo de boas-vindas, entra no de carrinho abandonado e ainda recebe a campanha da semana. Sem o orçamento, seriam 6 mensagens em poucos dias; com ele, o excedente é segurado.
+
+## Anticolisão
+
+Depois de **qualquer** mensagem de marketing, o contato tem **24 horas de silêncio** antes da próxima. Duas automações que dispararam juntas não chegam juntas — a segunda espera a vez.
+
+## A exceção: utilidade
+
+Mensagens de **utilidade** — confirmação de pedido, aviso de pagamento, status de entrega — são isentas do orçamento e da anticolisão: o cliente está esperando por elas. Um aviso urgente e transacional (como um Pix prestes a expirar) pode inclusive furar o horário silencioso — segurar esse aviso até as 8h seria pior para o cliente.
+
+## O que isso significa na prática
+
+- Um contato "não recebeu" um passo do fluxo? Antes de suspeitar de erro, olhe as regras: pode estar no silêncio das 24 h, no teto da semana ou aguardando as 8h. O funil vivo mostra quem está **esperando agora**.
+- As regras não descartam mensagens à toa: o que é adiável espera; o que perderia o sentido (a pessoa saiu do segmento, perdeu o consentimento) é suprimido com o motivo registrado.
+
+## As redes de segurança
+
+Duas proteções extras param o motor antes de um estrago, e avisam:
+
+- **Disjuntor de entrada** — se uma enxurrada anormal de contatos entra num fluxo de uma vez (o sintoma típico de uma integração com defeito), o fluxo pausa **antes** de enviar qualquer coisa.
+- **Disjuntor de volume** — se os envios de fluxo de uma conta explodem além do padrão, tudo pausa para investigação.
+
+Fluxo pausado por disjuntor fica sinalizado na lista, com o motivo — retomar é decisão sua, nunca automática.
+
+## Artigos relacionados
+
+- [Entenda os gatilhos e quem entra no fluxo](/pt-BR/automacoes/gatilhos)
+- [Entenda as métricas da Cliqo](/pt-BR/relatorios/entenda-metricas)

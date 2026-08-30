@@ -1,0 +1,46 @@
+---
+title: "Troubleshooting: the email arrived static"
+description: "The reasons an interactive email arrives without the lightning bolt, from the most common to the rarest — and how to test each one."
+---
+
+{/* tipo: solução de problemas · prioridade: P0 · idioma: EN · fonte: playbook AMP (diagnósticos reais) · revisão: pendente */}
+
+You sent an interactive email and it arrived as a plain email, without the lightning bolt ⚡ in Gmail. This almost always comes down to one of these causes — check them in order.
+
+## 1. The recipient opens it in a client without AMP
+
+Outlook, Apple Mail, and most email apps don't render AMP — for them, **receiving the HTML version is the correct behavior**, not an error. The interactive version appears in Gmail and Yahoo. Check which client the email was opened in before investigating anything else.
+
+## 2. The sender isn't registered yet
+
+Gmail only renders AMP from senders approved through [sender registration](/en/email-interativo/registro-do-remetente) — and the registration applies to the **exact** From address. Cliqo warns you while building the campaign when the chosen sender isn't registered. Until the registration comes through, sends arrive in the HTML version, with no visible error.
+
+## 3. The registration was approved less than 7 days ago
+
+Approval isn't activation: propagation takes up to 7 days, and only emails sent after it render. Since Gmail decides at open time, the same email can start opening interactive on its own once propagation finishes. To test without waiting, use developer mode (below).
+
+## 4. The registration lapsed for lack of sending
+
+A registration without regular interactive sends lapses silently — Google doesn't warn you. If the emails from a sender that *used to work* went back to arriving static and nothing changed in the sending, this is the prime suspect. The fix is to re-register, and the prevention is keeping a cadence of at least one interactive campaign per month.
+
+## 5. Corporate account with dynamic email disabled
+
+On Google Workspace accounts, the administrator can disable dynamic email for the whole company. The recipient will always see the fallback — there's nothing to be done on the sender's side.
+
+## 6. The interactive part was blocked for this dispatch
+
+Before every send, Cliqo validates the interactive part against Google's official validator. If it doesn't pass — or exceeds the size limit — the send goes out **in the safety version (HTML)** and the campaign report shows the "AMP disabled for this dispatch" notice, with the errors found. It's also worth checking the editor's checklist before sending: it flags weight above Gmail's cutoff.
+
+## How to test as a developer
+
+Gmail has a mode that renders AMP from a sender **without registration** — ideal for validating code and pipeline:
+
+1. In Gmail (web), open **Settings › See all settings › General**.
+2. Under **Dynamic email**, go into **Developer settings**.
+3. Add the sender address you want to test.
+
+If the email renders interactive with developer mode on, the code and the sending are correct — what's missing is the registration (propagation or lapse). If it doesn't render even then, the problem is in the sending, and that's when it's worth opening a ticket with us.
+
+## Still static?
+
+Write to [contato@cliqo.io](mailto:contato@cliqo.io) with the sender address and the send date — we can check the registration history and the specific dispatch.

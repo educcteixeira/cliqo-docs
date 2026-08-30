@@ -1,0 +1,40 @@
+---
+title: "Opt-in and consent for WhatsApp"
+description: "When you can send, the utility exception, and why proof of the opt-in is worth as much as the opt-in itself."
+---
+
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: política de consentimento por canal + regras Meta · revisão: pendente */}
+
+On WhatsApp, sending without permission isn't just a legal issue — it's an immediate operational risk: people who receive without having asked **block you**, and blocks drive down your [number's rating](/en/whatsapp/numero-e-qualidade), which limits or pauses your sending. This article defines when you can send, and how Cliqo records the proof.
+
+## The rule: marketing requires opt-in
+
+A **marketing** message (promotion, news, coupon, cart recovery) requires that the contact has **authorized receiving WhatsApp from your brand** — an authorization on record, with date and source. Meta puts the burden of proof on the sender: *an opt-in you cannot prove is an opt-in you do not have.*
+
+Where an opt-in is born in Cliqo:
+
+- **Store pop-up** — the WhatsApp checkbox is separate from the email one, unchecked by default.
+- **Form inside an email** — a WhatsApp field with explicit consent.
+- **Manual signup** with the box checked.
+- **Import** — only with your explicit declaration that the list has WhatsApp opt-in, and the bar here is high: declare only what you can prove ([understand why](/en/gestao-de-dados/entenda-consentimento)).
+
+## The exception: utility
+
+**Utility** messages tied to the customer's own order — purchase confirmation, delivery status, payment notice — are the recognized exception: the number came from the purchase itself and the message is what the customer expects to receive. Two conditions, always: the template's category is **utility** (not marketing in disguise), and opt-outs are honored.
+
+Start there, by the way: utility has a block rate close to zero, builds the number's reputation, and prepares the base for opted-in marketing.
+
+## SAIR is always honored
+
+In any message, if the customer replies **SAIR** (Portuguese for "leave" — i.e. unsubscribe; or variations like "parar", "stop", "cancelar", "descadastrar" — the engine recognizes them, with or without punctuation), the opt-in is revoked **on the spot** and they receive no more marketing. The gallery templates already include the opt-out instruction — and the platform suggests adding it when a template doesn't have one.
+
+A WhatsApp opt-out does **not** remove the contact from email: the channels have independent consents.
+
+## What Cliqo checks for you
+
+Before every bulk send, the audience goes through the eligibility funnel: only contacts with a **valid number + active opt-in + no block** receive. The send summary shows how many were left out and why — you never send "in the dark". And if negative signals rise during the dispatch, the [safety guards](/en/whatsapp/enviar-em-massa) pause it on their own.
+
+## Related articles
+
+- [Understand consent and opt-in (email vs WhatsApp)](/en/gestao-de-dados/entenda-consentimento)
+- [How to send a bulk message](/en/whatsapp/enviar-em-massa)
