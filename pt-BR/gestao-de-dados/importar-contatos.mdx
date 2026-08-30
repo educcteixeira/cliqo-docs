@@ -1,0 +1,61 @@
+---
+title: "Como importar contatos (CSV ou Excel)"
+description: "Os três passos da importação: arquivo, mapeamento de colunas e a declaração de consentimento — com como desfazer."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: fluxo de importação em Público › Contatos · revisão: pendente */}
+
+## O que você vai aprender
+
+Como trazer sua base para a Cliqo com os dados nos campos certos e o consentimento declarado corretamente — e como desfazer uma importação que veio errada.
+
+## Antes de começar
+
+- Arquivo **CSV, XLSX ou XLS** com uma coluna de e-mail (obrigatória).
+- Se você migrou de outra ferramenta, importe **antes** a blocklist dela em Supressões ([por quê](/pt-BR/entregabilidade/checklist-primeiro-envio)).
+
+Vá em **Público › Contatos › Importar**. São três passos.
+
+## Passo 1 · Arquivo
+
+Arraste o arquivo. A Cliqo detecta separador e codificação sozinha — se os acentos vierem errados na prévia, troque a codificação ali mesmo e a prévia relê na hora.
+
+## Passo 2 · Colunas
+
+Mapeie cada coluna do arquivo para um campo:
+
+- **Email** (obrigatório), **Nome completo** — ou **Primeiro nome** + **Sobrenome**, que a Cliqo junta —, **Telefone/WhatsApp**.
+- Colunas extras viram **campos personalizados**: escolha "Criar campo" e o tipo é detectado automaticamente (texto, número, data, sim/não…). Revise as notas de detecção — datas ambíguas e CEPs com zero à esquerda são apontados. Detalhes em [Campos personalizados e tipados](/pt-BR/gestao-de-dados/campos-tipados).
+- O que não interessa: **Ignorar**.
+
+{/* print: mapeamento de colunas */}
+
+Em **Ajustes**, defina o modo (adicionar e atualizar existentes) e se uma coluna vazia deve ou não sobrescrever o dado atual do contato.
+
+## Passo 3 · Confirmar — e declarar o consentimento
+
+Aqui você declara o que essa base autorizou: **e-mail marketing** e/ou **WhatsApp marketing**. Leia com atenção antes de marcar:
+
+- A declaração é **sua responsabilidade** (LGPD) — ela fica registrada com data, como origem "importação confirmada pelo cliente".
+- Se o arquivo tiver coluna de consentimento, **a coluna vence** a declaração geral.
+- **WhatsApp: só marque com prova.** A Meta pune quem envia sem opt-in — bloqueios derrubam a nota do seu número. Na dúvida, importe sem o opt-in de WhatsApp e capture a autorização depois (pop-up, formulário no e-mail).
+
+Escolha a **lista de destino** e conclua. O contexto completo está em [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento).
+
+## Resultado
+
+O relatório da importação mostra: novos contatos, ignorados por e-mail inválido (com **Baixar inválidos** — não tente reimportá-los), telefones inválidos e quantos entraram com cada opt-in.
+
+Dois comportamentos de proteção, de propósito:
+
+- **Importados não recebem boas-vindas automaticamente** — o fluxo de boas-vindas é para quem acabou de se cadastrar, não para uma base que chegou de mudança.
+- **Importação nunca cria opt-in silencioso** — só a sua declaração explícita destrava marketing.
+
+## Importação veio errada?
+
+Em Contatos, abra o histórico de importações e **desfaça o lote**: os contatos criados por ele são removidos; quem já existia antes ou já tem histórico de envio é preservado e reportado. Depois corrija o arquivo e importe de novo.
+
+## Artigos relacionados
+
+- [Campos personalizados e tipados](/pt-BR/gestao-de-dados/campos-tipados)
+- [Supressões e blocklist](/pt-BR/gestao-de-dados/supressoes)

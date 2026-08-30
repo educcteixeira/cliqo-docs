@@ -1,0 +1,50 @@
+---
+title: "Glossário"
+description: "Os termos da Cliqo, exatamente como aparecem na interface — com o equivalente em inglês."
+---
+
+{/* tipo: glossário · prioridade: P0 · fonte: interface (locales pt-BR/en) · revisão: pendente */}
+
+Os termos abaixo aparecem na interface e nesta central exatamente assim. O equivalente em inglês é o que a interface em English usa.
+
+**Abertura (estimada)** *(open, estimated)* — quantos destinatários abriram o e-mail, medido por pixel. É estimada porque o Apple Mail Privacy Protection carrega o pixel mesmo sem abertura real, inflando o número. Por isso a Cliqo decide por clique, não por abertura.
+
+**Blocklist** — a categoria manual das supressões: os endereços e domínios que **você** adiciona (inclusive a lista importada do seu ESP anterior). Hard bounces, reclamações e descadastros são as outras três categorias, automáticas.
+
+**Campos tipados** *(typed fields)* — campos personalizados do contato com tipo declarado: texto, número, data, data e hora, sim/não ou lista. O tipo destrava segmentos como aniversário.
+
+**Campanha · Disparo · Onda** *(campaign · send · wave)* — a campanha é o objeto que você cria; o disparo é a execução de um envio; a onda é uma fatia de campanha de WhatsApp enviada em etapas.
+
+**Clique humano** *(human click)* — clique com bots, scanners de segurança e pré-carregamentos removidos, contado uma vez por envio. É o clique que vale nos relatórios.
+
+**Consentimento · Opt-in** — a autorização do contato para receber mensagens, registrada por canal (e-mail e WhatsApp separados), com data e origem. Importação de planilha nunca gera opt-in.
+
+**Descadastro** *(unsubscribe)* — a saída do contato, pelo link presente em todo e-mail ou pelo descadastro em um clique do Gmail/Yahoo. Sair do e-mail não remove o contato do WhatsApp.
+
+**Fluxo · Régua** *(flow)* — automação com gatilho, passos e canais. Nos relatórios, "régua" aparece como lente de análise.
+
+**Interações AMP · Taxa AMP** *(AMP interactions · AMP rate)* — ações dentro do e-mail (girar a roleta, responder o quiz, enviar o formulário) e a fração de destinatários que viu a versão interativa em vez do fallback.
+
+**Janela de 24 horas** *(24-hour window)* — regra do WhatsApp: quando o cliente responde, abre uma janela de conversa livre por 24 horas, renovada a cada resposta dele. Fora dela, só modelo aprovado.
+
+**Marca** *(brand)* — a unidade que envia: domínio, número de WhatsApp, modelos, contatos e campanhas próprios. Uma conta pode ter várias marcas.
+
+**Modelo** *(template)* — no e-mail, a peça editável no editor; no WhatsApp, a mensagem que precisa de aprovação da Meta antes de ser enviada em massa.
+
+**Nota na Meta** *(Meta quality rating)* — a qualidade que a Meta atribui ao seu número de WhatsApp (alta, média, baixa), baseada em bloqueios e denúncias de quem recebe.
+
+**Peça** *(popup piece)* — um pop-up publicado na sua loja, com relatório próprio.
+
+**Pendências** *(pending alerts)* — o sininho da barra superior: avisos de configuração faltando ou métricas fora do limite.
+
+**Pixel** — o script da Cliqo instalado na loja. Identifica visitantes, alimenta segmentos de navegação e liga compra a campanha.
+
+**Receita atribuída** *(attributed revenue)* — a receita creditada às suas mensagens, com cada venda contada uma vez, dentro da janela de atribuição (padrão: 30 dias). O que não tem toque rastreado aparece como "Orgânico / outros canais".
+
+**Ritmo de envio** *(send pacing)* — a distribuição de um disparo de e-mail ao longo de 1, 4, 8 ou 24 horas, em vez de tudo de uma vez.
+
+**Supressão** *(suppression)* — o conjunto de quem não recebe: descadastros, reclamações, hard bounces e blocklist. Aplicada automaticamente em todo envio.
+
+**Tag de personalização** *(merge tag)* — variável no texto do e-mail, como `{{primeiro_nome|Olá}}` — com valor padrão para quem não tem o dado preenchido.
+
+**Vitrine · Roleta · Raspadinha · Accordion** *(product showcase · spin wheel · scratch card · accordion)* — blocos do editor de e-mail. Roleta, Raspadinha e Accordion são interativos no Gmail; a Vitrine pode sair como grade estática ou carrossel interativo.

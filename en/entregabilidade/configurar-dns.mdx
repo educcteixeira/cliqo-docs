@@ -1,0 +1,59 @@
+---
+title: "How to set up your sending domain (DNS)"
+description: "Authorize Cliqo to send from your domain: DKIM, SPF and DMARC, with guided verification."
+---
+
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Configurações › Domínio + api/dns · revisão: pendente */}
+
+## What you will learn
+
+How to authorize Cliqo to send email from your domain, so Gmail, Outlook and Yahoo recognize you as a legitimate sender.
+
+## Before you start
+
+- Access to your domain's DNS panel (Registro.br, Locaweb, GoDaddy, Cloudflare or another provider).
+- The **Admin** or **Owner** role on the account.
+
+## Step 1 · Enter your domain
+
+1. Go to **Settings › Domain**.
+2. Type the domain that will sign your emails (e.g. `suamarca.com.br`) and generate the records.
+
+{/* print: Settings › Domain, step 1 */}
+
+## Step 2 · Choose your DNS provider
+
+Select your provider to see its specific guide — the screen shows a direct link to each one's help pages (Registro.br, Locaweb, GoDaddy, Cloudflare).
+
+## Step 3 · Add the records
+
+Copy each record with the button next to it and create it in your DNS:
+
+| Record | What it's for |
+|---|---|
+| **DKIM** (3 CNAMEs) | Cryptographic signature that proves the email is yours. **This is the essential one** — DKIM is what authenticates your sends. |
+| **SPF** (TXT) | Authorizes Cliqo to send on behalf of the domain. |
+| **DMARC** (TXT) | Authentication policy and reporting. `p=none` is sufficient — including for the AMP registration. |
+
+> **Already have an SPF record?** Don't create a second one — two SPF records invalidate both. **Edit the existing one** and add `include:amazonses.com` on the same line.
+
+{/* print: record list with copy buttons */}
+
+## Step 4 · Verify
+
+1. Click **Verify records**. Each row shows **Verified** or **Not found**.
+2. Propagation can take **up to 48 hours**. Partial records are normal at first — come back and verify again.
+
+## Result
+
+The domain shows as **Verified**, the "DKIM inactive" warning disappears from campaign setup, and the Needs attention bell stops listing the domain. From then on you can send from **any address** on the verified domain (ofertas@, news@, contato@…).
+
+## Common problems
+
+- **"Not found" after 48 h** — check that the record was created on the right domain (without duplicating the domain in the record name, a common mistake in some panels) and that there are no extra spaces in the pasted value.
+- **DKIM won't verify** — the 3 CNAMEs must exist exactly as generated; some panels append the domain to the end automatically.
+
+## Next steps
+
+- [Checklist before your first send](/en/entregabilidade/checklist-primeiro-envio)
+- [How to register your sender for AMP emails](/en/email-interativo/registro-do-remetente)

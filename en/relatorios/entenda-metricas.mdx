@@ -1,0 +1,40 @@
+---
+title: "Understand Cliqo's metrics"
+description: "What each number in the reports means — and why some are different from what you saw in other tools."
+---
+
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: léxico de métricas do produto · revisão: pendente */}
+
+Cliqo measures by one editorial rule: **a misleading number is worse than a smaller number**. That's why some metrics here are smaller — and more honest — than in other tools. This article defines each one.
+
+## From sent to delivered
+
+**Sent** is how many emails went out. **Delivered** is how many arrived — the difference breaks down into: *soft bounce* (temporary rejection, the provider retries), *hard bounce* (nonexistent address — the contact is automatically suppressed from future sends), *complaint* (marked as spam — also suppressed), *suppressed* (blocked by your blocklist before leaving) and failures. The report shows all seven outcomes, and the sum always matches the sent count.
+
+## Opens — always "estimated"
+
+Opens are measured by an invisible pixel. The problem: **Apple Mail Privacy Protection** loads that pixel automatically, even if the person never opens the email — inflating opens in every tool. Cliqo flags these machine opens separately and labels the metric as *estimated*. The practical consequence: **make decisions on clicks and conversions, not on opens** — that's how Cliqo's flows work by default.
+
+## Human clicks
+
+Before counting, Cliqo removes what isn't a person: corporate security scanners (which "click" every link in the email within seconds), prefetches and bots. And each person counts **once per send** — someone who clicked the same email five times doesn't become five clicks. The raw number, bots included, remains available for auditing; the report uses the human one.
+
+## AMP interactions and AMP rate
+
+**Interactions** are actions inside the email — spun the wheel, answered the quiz, submitted the form — counted per person and broken down by block in the report. The **AMP rate** shows what fraction of recipients saw the interactive version (rather than the HTML fallback): Cliqo detects which version each person opened.
+
+## Conversions and attributed revenue
+
+A sale counts **once**, even if the customer was touched by several campaigns — the attribution model decides who gets the credit (default: **last click**, **30-day** window — switchable to 7 days, and to a first-touch or linear model, in Analytics). Anything without a tracked touch appears as **"Organic / other channels"**, and is not force-distributed. Opens do **not** attribute a sale — only clicks and interactions do.
+
+That's why the number differs from Google Analytics: GA can't see interactions inside the email or a Pix paid within the email itself — and it uses a different attribution model. Both are "right"; they measure different things.
+
+## Two conventions you will notice
+
+- **A read failure is not zero.** When a metric couldn't be read, the report says so ("Metrics unavailable") instead of showing 0 — a true zero and a read failure are different things.
+- **A dash instead of R$ 0.** Revenue that isn't measured yet (for example, on newly launched channels) appears as "not measured yet", never as R$ 0 — which would suggest the measurement exists and came out at zero.
+
+## Related articles
+
+- [Understand revenue attribution](/en/relatorios/atribuicao) *(coming soon to this help center)*
+- [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento)

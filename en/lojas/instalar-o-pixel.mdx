@@ -1,0 +1,92 @@
+---
+title: "Install the pixel"
+description: "The snippet that lets Cliqo see behaviour on your store — and how to confirm it is working."
+---
+
+{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: pendente */}
+
+The pixel is a snippet you paste into your store. With it, Cliqo learns **what someone did before buying** — which product they looked at, which category they browsed, where they stopped — and builds segments from that on its own.
+
+Without the pixel, Cliqo only knows who is already on your list and what they already bought. With it, you can reach people who showed interest and never came back.
+
+## The snippet
+
+In **Settings → Integrations**, the *Tracking Pixel* panel shows your snippet already personalised, with a **Copy all** button. It looks like this:
+
+```html
+<script async src="https://app.cliqo.io/px.js" data-tenant="YOUR-ID"></script>
+```
+
+Paste it in the `<head>` of **every page** of the store — not just the home page. It has to be the `<head>`, not the end of `<body>`: the pixel needs to load before the content to measure time on page correctly.
+
+## Where to paste it, by platform
+
+The panel offers three routes:
+
+- **Loja Integrada** — a button opens that platform's panel on the right screen.
+- **Google Tag Manager** — a button opens GTM.
+- **Manual** — for any other store: paste it into your theme template.
+
+**If you use GTM, use the snippet the panel gives you for GTM.** Tag Manager strips `data-*` attributes, and `data-tenant` is one of them — the pixel would load without knowing whose store it is. The GTM version carries your identifier inside the script address (`?t=…`), which GTM cannot strip.
+
+## Confirming it works
+
+The same panel has a **Verify now** button. After pasting the snippet, open a page of your store in another tab and click it.
+
+⚠️ **Read the result carefully — it answers a narrower question than it appears to.** The check counts hits from the **last 24 hours**. It does not answer "is the pixel installed?", it answers "did any traffic arrive in the last 24 hours?".
+
+In practice:
+
+- **Pixel active** — traffic arrived. You are set.
+- **Awaiting installation** — no traffic in the last 24 hours. That can mean the pixel is not installed **or** that it is installed on a low-traffic store having a quiet day.
+
+If your store has low traffic and the screen says "awaiting installation", open one of your own store pages and click **Verify now** again. If the hit shows up, it is installed.
+
+## What it captures on its own
+
+You do not have to tag anything. Once installed, the pixel identifies the page type and emits the events below — and each one feeds an automatic segment under **Contacts → Segments**:
+
+| Event | Feeds the segment |
+|---|---|
+| Page view | All visitors |
+| Product view | Browsed without buying |
+| Category browse | Category interest |
+| Add to cart | Almost bought |
+| Checkout start | Checkout abandonment |
+
+Beyond those, the pixel measures **scroll depth** on product pages (25%, 50%, 75%, 90%) and **real time on page** — interest signals that open rate cannot capture.
+
+To recognise the page type it first reads your theme's standard markup (`og:type`, `og:title`, `og:price`), then structured product data, and only then falls back to heuristics. That is what makes it work on any platform, with no dedicated integration.
+
+## Recording a purchase
+
+When the customer completes the order, call this on the thank-you page:
+
+```js
+window.cliqo.purchase(value, orderId, productName);
+```
+
+This is what closes the loop: without this call, Cliqo sees the browsing but never learns it became a sale, and attributed revenue comes out understated.
+
+If the person has identified themselves on the store (login, or email at checkout), you can also tie the anonymous browsing to the contact:
+
+```js
+window.cliqo.identify(contactId);
+```
+
+## Privacy and LGPD
+
+The pixel stores an anonymous identifier in the visitor's browser and records which pages they saw. Under Brazil's LGPD that is **pseudonymised personal data**, even with no name or email attached.
+
+Two obligations that are yours, not Cliqo's:
+
+1. **Your privacy policy must state that the store uses a tracking pixel**, what it is for, and who the data is shared with.
+2. **If your store shows a cookie notice, the pixel belongs in it.**
+
+None of this blocks using it — it is the same framing as any analytics tool. It just has to be written down.
+
+## When to stop waiting and ask for help
+
+If the snippet is in the `<head>`, you visited the store, and the panel still records nothing, the most common cause is the snippet sitting in a template that page does not use. Check by viewing the page source in your browser and searching for `px.js`. If it is not there, it never loaded.
+
+If it persists, write to us at [contato@cliqo.io](mailto:contato@cliqo.io) with the address of a page where it should be.

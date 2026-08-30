@@ -1,0 +1,44 @@
+---
+title: "Campos personalizados e campos tipados"
+description: "Os seis tipos de campo, como o tipo é definido — e por que 'data' destrava o segmento de aniversário."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: motor de campos tipados (import + formulários) · revisão: pendente */}
+
+Campos personalizados guardam o que é específico do seu negócio: data de nascimento, loja favorita, tamanho, plano. Na Cliqo, cada campo tem um **tipo** — e é o tipo que define o que os segmentos conseguem fazer com ele.
+
+## Os seis tipos
+
+| Tipo | Exemplo | O que destrava nos segmentos |
+|---|---|---|
+| **Texto** | "azul", "loja Centro" | é igual a, contém, começa com… |
+| **Número** | 42, 1250 | maior que, menor que |
+| **Data** | 15/03/1990 | antes de, depois de, entre — e o **aniversário** |
+| **Data e hora** | 15/03/2026 14:00 | idem, com hora |
+| **Sim/não** | aceitou, tem app | é sim / é não |
+| **Lista** | tamanhos: P, M, G | contém o valor |
+
+Sem tipo declarado, todo valor é tratado como **texto** — e aí uma data de nascimento não consegue alimentar um segmento de aniversariantes, nem um valor gasto aceita "maior que". É por isso que a importação faz a detecção automática e pede a sua revisão.
+
+## Como o tipo é definido
+
+- **Na importação**: ao criar um campo novo a partir de uma coluna, a Cliqo detecta o tipo pelos valores e mostra notas de revisão — datas ambíguas (12/05 é 12 de maio ou 5 de dezembro?), CEPs que perderiam o zero à esquerda se virassem número, colunas sim/não com células vazias.
+- **Nos formulários** (pop-up e formulário dentro do e-mail): cada campo extra que você cria já nasce com o tipo escolhido.
+
+## Regras que evitam dor de cabeça
+
+- **Datas** aceitam o formato brasileiro (`15/03/1990`) e o internacional (`1990-03-15`), com validação de calendário real — 31/02 não passa.
+- **Valor que não bate com o tipo vira texto**, nunca é descartado — você não perde dado por causa de uma célula fora do padrão.
+- **A chave do campo é normalizada** (minúsculas, espaços viram `_`; acentos e símbolos são **removidos**): "Data de Nascimento" e "data_de_nascimento" são o mesmo campo. Prefira chaves sem acento — "aniversário" vira `aniversrio`.
+- **Formulários diferentes somam, não sobrescrevem**: um pop-up que grava "tamanho" não apaga o "aniversário" que outro formulário gravou no mesmo contato.
+
+## Onde os campos aparecem
+
+- **Segmentos** — como dimensão "dados do cliente", com os operadores do tipo.
+- **Personalização** — no editor, menu Personalizar › "Campos personalizados": `{{aniversario|em breve}}`.
+- **Ficha do contato** — na visão 360, seção Campos personalizados.
+
+## Artigos relacionados
+
+- [Como importar contatos](/pt-BR/gestao-de-dados/importar-contatos)
+- [Como criar segmentos](/pt-BR/gestao-de-dados/criar-segmentos)

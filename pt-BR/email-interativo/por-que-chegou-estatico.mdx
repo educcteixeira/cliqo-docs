@@ -1,0 +1,46 @@
+---
+title: "Solução de problemas: o e-mail chegou estático"
+description: "As causas de um e-mail interativo chegar sem o raiozinho, da mais comum à mais rara — e como testar cada uma."
+---
+
+{/* tipo: solução de problemas · prioridade: P0 · fonte: playbook AMP (diagnósticos reais) · revisão: pendente */}
+
+Você enviou um e-mail interativo e ele chegou como um e-mail comum, sem o raiozinho ⚡ no Gmail. Isso quase sempre tem uma destas causas — verifique na ordem.
+
+## 1. O destinatário abre num cliente sem AMP
+
+Outlook, Apple Mail e a maioria dos aplicativos de e-mail não renderizam AMP — para eles, **receber a versão HTML é o comportamento correto**, não um erro. A versão interativa aparece no Gmail e no Yahoo. Confira em qual cliente o e-mail foi aberto antes de investigar o resto.
+
+## 2. O remetente ainda não está registrado
+
+O Gmail só renderiza AMP de remetentes aprovados no [registro de remetente](/pt-BR/email-interativo/registro-do-remetente) — e o registro vale para o **endereço exato** de From. A Cliqo avisa na montagem da campanha quando o remetente escolhido não está registrado. Enquanto o registro não sai, os envios chegam na versão HTML, sem erro visível.
+
+## 3. O registro foi aprovado há menos de 7 dias
+
+Aprovação não é ativação: a propagação leva até 7 dias, e só e-mails enviados depois dela renderizam. Como o Gmail decide na abertura, o mesmo e-mail pode passar a abrir interativo sozinho quando a propagação terminar. Para testar sem esperar, use o modo desenvolvedor (abaixo).
+
+## 4. O registro caducou por falta de envios
+
+Registro sem envios interativos regulares caduca em silêncio — o Google não avisa. Se os e-mails de um remetente que *funcionava* voltaram a chegar estáticos e nada mudou no envio, essa é a hipótese principal. A solução é re-registrar, e a prevenção é manter cadência de pelo menos uma campanha interativa por mês.
+
+## 5. Conta corporativa com e-mail dinâmico desativado
+
+Em contas do Google Workspace, o administrador pode desativar o e-mail dinâmico para toda a empresa. O destinatário verá sempre o fallback — não há o que fazer do lado de quem envia.
+
+## 6. A parte interativa foi bloqueada neste disparo
+
+Antes de todo envio, a Cliqo valida a parte interativa no validador oficial do Google. Se ela não passar — ou se exceder o limite de tamanho —, o envio sai **na versão de segurança (HTML)** e o relatório da campanha mostra o aviso "AMP desativado neste disparo", com os erros encontrados. Também vale conferir o checklist do editor antes de enviar: ele aponta peso acima do corte do Gmail.
+
+## Como testar como desenvolvedor
+
+O Gmail tem um modo que renderiza AMP de um remetente **sem registro** — ideal para validar código e pipeline:
+
+1. No Gmail (web), abra **Configurações › Ver todas as configurações › Geral**.
+2. Em **E-mail dinâmico**, entre em **Configurações do desenvolvedor**.
+3. Adicione o endereço remetente que quer testar.
+
+Se com o modo desenvolvedor o e-mail renderiza interativo, o código e o envio estão corretos — o que falta é o registro (propagação ou caducidade). Se nem assim renderiza, o problema está no envio, e aí vale abrir um chamado com a gente.
+
+## Ainda estático?
+
+Escreva para [contato@cliqo.io](mailto:contato@cliqo.io) com o endereço remetente e a data do envio — conseguimos verificar o histórico do registro e o disparo específico.

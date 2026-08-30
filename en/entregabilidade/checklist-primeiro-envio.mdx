@@ -1,0 +1,43 @@
+---
+title: "Checklist before your first send"
+description: "The six checks that protect your reputation before your first campaign."
+---
+
+{/* tipo: primeiros passos · prioridade: P0 · idioma: EN · fonte: fluxo real do produto + prática de deliverability · revisão: pendente */}
+
+## What you will learn
+
+What to check — in order — before firing the first campaign from a new account. The inbox is earned; this list keeps you from starting out in debt.
+
+## 1 · Domain verified
+
+**Settings › Domain** with DKIM, SPF and DMARC verified. Without this, you can't send from your own brand. Full guide in [How to set up your sending domain](/en/entregabilidade/configurar-dns).
+
+## 2 · Complete sending identity
+
+In **Settings › Sending**: the sender address (From), the Reply-To and the compliance details — **legal business name, CNPJ (Brazilian company registration number) and physical address**. Gmail and Yahoo require these from anyone sending at volume, and they go automatically into the footer of your emails together with the unsubscribe link (which is mandatory and which Cliqo never removes).
+
+## 3 · Blocklist from your previous ESP imported
+
+If you migrated from another tool, **export its suppression list** (hard bounces, complaints, unsubscribes) and import it in **Audience › Contacts › Suppressions** before any send. Without this, your first send rediscovers, one by one, every dead address the old tool already knew about — and each of those bounces takes a toll on your reputation.
+
+## 4 · Contacts imported with the right consent
+
+When importing, declare the origin of your list honestly — what that unlocks (and what it doesn't) is in [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento). Download the file of invalid addresses at the end and don't try to re-import them.
+
+## 5 · Pre-send analysis and test email
+
+In the campaign review, run the **pre-send analysis** — it checks the domain, authentication, risky words in the subject line, broken personalization tags and the unsubscribe link — and send a **test email** to yourself. Open it in Gmail and in at least one other client. Tests don't count toward metrics.
+
+## 6 · Small first campaign, with pacing
+
+Don't fire at your entire list at once: start with an engaged slice and use **send pacing** to spread out the send. The why and the how are in [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento).
+
+## Result
+
+Your first send goes out authenticated, to people who can receive it, with suppressions active and clean metrics for you to measure and grow from there.
+
+## Next steps
+
+- [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento)
+- [How to create and send a campaign](/en/campanhas/criar-e-enviar)

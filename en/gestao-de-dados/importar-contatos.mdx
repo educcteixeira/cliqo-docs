@@ -1,0 +1,61 @@
+---
+title: "How to import contacts (CSV or Excel)"
+description: "The three steps of an import: file, column mapping and the consent declaration — plus how to undo one."
+---
+
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: fluxo de importação em Público › Contatos · revisão: pendente */}
+
+## What you will learn
+
+How to bring your base into Cliqo with the data in the right fields and consent declared correctly — and how to undo an import that came in wrong.
+
+## Before you start
+
+- A **CSV, XLSX or XLS** file with an email column (required).
+- If you migrated from another tool, import its blocklist into Suppressions **first** ([why](/en/entregabilidade/checklist-primeiro-envio)).
+
+Go to **Audience › Contacts › Import**. There are three steps.
+
+## Step 1 · File
+
+Drag the file in. Cliqo detects the separator and encoding on its own — if accented characters look wrong in the preview, switch the encoding right there and the preview re-reads instantly.
+
+## Step 2 · Columns
+
+Map each column of the file to a field:
+
+- **Email** (required), **Full name** — or **First name** + **Last name**, which Cliqo joins together —, **Phone / WhatsApp**.
+- Extra columns become **custom fields**: choose "Create field" and the type is detected automatically (text, number, date, yes/no…). Review the detection notes — ambiguous dates and postal codes with leading zeros are flagged. Details in [Custom and typed fields](/en/gestao-de-dados/campos-tipados).
+- Anything you don't need: **Ignore**.
+
+{/* print: column mapping */}
+
+Under **Import settings**, set the mode (add and update existing) and whether an empty column should overwrite the contact's current data or not.
+
+## Step 3 · Confirm — and declare consent
+
+Here you declare what this base has authorized: **email marketing** and/or **WhatsApp marketing**. Read carefully before checking:
+
+- The declaration is **your responsibility** under the LGPD (Brazil's general data-protection law, similar to the GDPR) — it is recorded with a date, as origin "import confirmed by the customer".
+- If the file has a consent column, **the column wins** over the general declaration.
+- **WhatsApp: only check it if you have proof.** Meta punishes senders who message without opt-in — blocks drag down your number's quality rating. When in doubt, import without the WhatsApp opt-in and capture the authorization later (pop-up, form inside the email).
+
+Choose the **destination list** and finish. The full context is in [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento).
+
+## Result
+
+The import report shows: new contacts, skipped for invalid email (with **Download invalid** — do not try to re-import them), invalid phone numbers, and how many came in with each opt-in.
+
+Two protective behaviors, by design:
+
+- **Imported contacts do not receive the welcome flow automatically** — the welcome flow is for someone who just signed up, not for a base that moved in from elsewhere.
+- **An import never creates a silent opt-in** — only your explicit declaration unlocks marketing.
+
+## Import came in wrong?
+
+In Contacts, open the import history and **undo the batch**: the contacts it created are removed; anyone who already existed before, or who already has sending history, is preserved and reported. Then fix the file and import again.
+
+## Related articles
+
+- [Custom and typed fields](/en/gestao-de-dados/campos-tipados)
+- [Suppressions and blocklist](/en/gestao-de-dados/supressoes)

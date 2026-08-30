@@ -1,0 +1,43 @@
+---
+title: "Pre-send analysis and test email"
+description: "The automatic checks before the send, and how to test the email for real — interactive part included."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: aba Resumo (pré-envio, teste, bloqueios) · idioma: EN · revisão: pendente */}
+
+## What you will learn
+
+What the pre-send analysis checks, how to send a real test, and which problems block the send until they're fixed.
+
+## Run the pre-send analysis
+
+On the **Summary** tab, click **Run pre-send analysis**. It checks:
+
+- **Sending domain** — verified and with DKIM active.
+- **Authentication** — signature and return path configured for the chosen sender.
+- **Reputation** — public blacklist lookup (Spamhaus). When the lookup can't be performed from there, the analysis says so — instead of faking an "ok".
+- **Subject** — words associated with spam, all-caps text, too many exclamation marks.
+- **Personalization tags** — broken or mistyped tags. The analysis even catches the classic `|` swapped for an `l` (`{{primeiro_nomelOlá}}`), which would make the email go out with the literal code in the text.
+- **Unsubscribe link** — present in the body; the one-click unsubscribe header (required by Gmail and Yahoo) is injected automatically into every send.
+
+{/* print: pre-send analysis result */}
+
+## Send a test email
+
+On the same Summary, **Send test** accepts multiple addresses separated by commas. The test sends the **real** email — with the interactive part and the fallback — and **does not count toward the campaign's metrics**.
+
+Open the test in Gmail and in at least one other client (Outlook or Apple Mail) to see both versions. If the test arrives static in your Gmail, see [Why my email arrived static](/en/email-interativo/por-que-chegou-estatico) — on an account without the sender registration propagated, that's expected.
+
+## What blocks the send
+
+Some problems prevent the send until they're fixed, with the reason on screen:
+
+- **Empty required fields** — subject, sender, audience.
+- **Unregistered products** — the template references SKUs that don't exist in the catalog ("Register the products before sending").
+- **Tags from another platform** — the imported email still has variables from another ESP that would go out as literal text; the editor converts the ones it recognizes and points out the rest.
+- **Permission** — sending a campaign requires the Editor role or above.
+
+## Related articles
+
+- [How to create and send a campaign](/en/campanhas/criar-e-enviar)
+- [Checklist before your first send](/en/entregabilidade/checklist-primeiro-envio)

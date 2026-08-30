@@ -1,0 +1,54 @@
+---
+title: "How to create segments"
+description: "The ready-made segments, the builder with nine dimensions and the advanced mode with groups."
+---
+
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: Listas & Segmentos (construtor unificado) · revisão: pendente */}
+
+## What you will learn
+
+What comes ready-made, how to build a segment from scratch and how to combine conditions with AND/OR in advanced mode.
+
+## The ready-made ones
+
+In **Audience › Lists & Segments › Segments**, three ready-made families, with an adjustable day window:
+
+- **Email engagement** — AMP engaged, Recently opened, Inactive, Converted, Opened without converting, New contacts.
+- **Store navigation** (requires the pixel installed) — All visitors, Browsed without buying, Category interest, Cart without purchase, Abandoned checkout.
+- **RFM** — the nine by value × recency: Champions, Loyal, Can't lose them, Promising, Need attention, At risk, New, Hibernating, Lost.
+
+Segments are **dynamic**: people enter and leave on their own as their behavior changes — unlike a list, which is fixed.
+
+## Create a segment
+
+Click **Create segment**. In simple mode, choose whether the contact must match **ALL**, **ANY** or **NONE** of the conditions, and add conditions across the nine dimensions:
+
+| Dimension | Example conditions |
+|---|---|
+| ⚡ AMP interaction | spun the wheel, answered the quiz, submitted the form |
+| ✉️ Email action | received, opened, clicked, converted — in one campaign or in any |
+| 💬 WhatsApp action | received, read, replied, converted |
+| 🔒 Consent (opt-in) | accepts email / declined / no opt-in yet — per channel |
+| 🛒 Product purchase | bought X, bought anything in the window |
+| 🧭 Store navigation | viewed a product, viewed the cart, reached checkout |
+| 🎯 RFM segment | is in Champions, At risk… |
+| 👤 Customer data | average order value, total spent, number of orders, no purchase in N days — and your [typed fields](/en/gestao-de-dados/campos-tipados) |
+| 📊 Custom event | events your system sends through the API |
+
+As you build, the screen shows the **natural-language sentence** of what you are defining and the **live count** of how many contacts match.
+
+{/* print: segment builder with the count */}
+
+## Advanced mode: groups
+
+For compound logic, switch to **advanced mode**: within a group, conditions are **OR**; between groups, **AND**. Example — *(opened in the last 30 days OR interacted with AMP) AND (didn't buy in the last 60 days)*: two groups, three conditions.
+
+## Use, export and delete
+
+- **Create campaign** straight from the segment, or **Export** the contacts as CSV.
+- Each segment shows where it is in use ("used in N campaigns · M flows"). A segment that feeds an active flow or a scheduled campaign **cannot be deleted** — the screen explains the block instead of letting you break an automation by accident.
+
+## Related articles
+
+- [How to define the campaign audience](/en/campanhas/audiencia)
+- [Custom and typed fields](/en/gestao-de-dados/campos-tipados)

@@ -1,0 +1,39 @@
+---
+title: "Suppressions and blocklist"
+description: "Who never receives anything — unsubscribes, complaints, hard bounces and the blocklist — and how to import your previous ESP's list."
+---
+
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: Público › Contatos › Supressões · revisão: pendente */}
+
+Suppression is the list of who **never receives anything, under any circumstances** — applied automatically to every send, campaign or flow. It exists to protect two things: the rights of those who left, and your sender reputation.
+
+## The four categories
+
+In **Audience › Contacts › Suppressions**:
+
+- **Unsubscribes** — people who clicked to leave (through the email link or Gmail/Yahoo one-click unsubscribe). They enter on their own, immediately.
+- **Complaints** — people who marked your email as spam. They enter automatically via provider feedback. This is the most expensive signal: above 0.1% of sends, your reputation suffers.
+- **Hard bounces** — addresses that don't exist. After the permanent rejection, the contact is suppressed so it doesn't generate new bounces.
+- **Blocklist** — people **you** add: individual emails (with an optional reason) or in bulk.
+
+Automatic entries appear as **protected** — reversing one requires contacting support, on purpose: re-subscribing someone who complained or bounced hurts your delivery.
+
+## Import your previous ESP's suppression list
+
+If you migrated from another tool, this is a **mandatory step before your first send**: export the suppression list there (bounces, complaints, unsubscribes) and import it here under **Bulk import** — paste the addresses or upload a CSV/TXT.
+
+Without it, your first dispatch "rediscovers" one by one all the dead addresses your previous tool already knew about — a spike of bounces that providers read as a bad sender. The old tool paid for that learning; bring it with you.
+
+Entire invalid domains can be blocked too — and dead-domain protection is shared: the base of invalid domains protecting your account improves with every customer on the platform.
+
+{/* print: Suppressions tab with the categories */}
+
+## What suppression is not
+
+- **It is not a campaign exclusion list** — to keep an audience out of one specific send, use "Exclude from audience" in the campaign.
+- **It does not make your data disappear** — a suppressed contact stays in your base, with its history; it just doesn't receive anything.
+
+## Related articles
+
+- [Checklist before your first send](/en/entregabilidade/checklist-primeiro-envio)
+- [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento)

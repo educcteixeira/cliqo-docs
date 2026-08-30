@@ -1,0 +1,43 @@
+---
+title: "Understand the engine's sending rules"
+description: "Quiet hours, the message budget and anti-collision — the rules that apply to every flow, and why."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · idioma: EN · revisão: pendente */}
+
+Before any flow message goes out, Cliqo's engine asks one last question: *should this contact receive this, now?* The rules below apply to **all** flows, automatically — they exist to protect the contact from message overload and your brand from burning out its own base.
+
+## Quiet hours
+
+Marketing messages **do not go out between 9 pm and 8 am** (Brasília time). A step that would come due in the middle of the night isn't lost: it **waits** and goes out when the window opens.
+
+## Message budget
+
+Each contact receives **at most 3 marketing messages per 7-day period** — campaigns and flows combined. It's the brake against the classic scenario: someone is in the welcome flow, enters the abandoned cart flow, and still gets the week's campaign. Without the budget, that would be 6 messages in a few days; with it, the excess is held back.
+
+## Anti-collision
+
+After **any** marketing message, the contact gets **24 hours of silence** before the next one. Two automations that fired together don't arrive together — the second waits its turn.
+
+## The exception: utility
+
+**Utility** messages — order confirmation, payment notice, delivery status — are exempt from the budget and from anti-collision: the customer is waiting for them. An urgent, transactional notice (like a Pix payment about to expire) can even break through quiet hours — holding that notice until 8 am would be worse for the customer.
+
+## What this means in practice
+
+- A contact "didn't receive" a flow step? Before suspecting a bug, check the rules: they may be in the 24-hour silence, at the weekly cap, or waiting for 8 am. The live funnel shows who is **waiting now**.
+- The rules don't discard messages for no reason: what can be postponed waits; what would lose its meaning (the person left the segment, lost consent) is suppressed with the reason recorded.
+
+## The safety nets
+
+Two extra protections stop the engine before damage is done, and let you know:
+
+- **Enrollment breaker** — if an abnormal flood of contacts enters a flow at once (the typical symptom of a broken integration), the flow pauses **before** sending anything.
+- **Volume breaker** — if an account's flow sends explode beyond the usual pattern, everything pauses for investigation.
+
+A flow paused by a breaker is flagged in the list, with the reason — resuming is your decision, never automatic.
+
+## Related articles
+
+- [Understand the triggers and who enters the flow](/en/automacoes/gatilhos)
+- [Understand Cliqo's metrics](/en/relatorios/entenda-metricas)

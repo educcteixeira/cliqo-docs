@@ -1,0 +1,76 @@
+---
+title: "API v1: overview and authentication"
+description: "Base URL, API keys and scopes, brands, error format and rate limits — everything you need before your first call."
+---
+
+{/* tipo: dev/visão geral · prioridade: P0 · idioma: EN (dev docs são EN-first) · fonte: docs/api-v1.md medido contra o código · revisão: pendente */}
+
+The Cliqo API v1 lets your systems create and update contacts, read your lists and read campaign metrics. It is intentionally small and stable — every endpoint documented here exists and is measured against production code.
+
+## Base URL
+
+```
+https://app.cliqo.io/v1
+```
+
+## Authentication
+
+Create an API key in **Settings › API** (Owner or Admin only). The key is shown **once**, at creation — store it in your secret manager.
+
+Send it on every request:
+
+```
+Authorization: Bearer cliqo_<64 hex characters>
+```
+
+Keys have one of three **scopes**, chosen at creation:
+
+| Scope | Read reports | Write contacts |
+|---|---|---|
+| `full` | ✅ | ✅ |
+| `send_only` | ❌ | ✅ |
+| `read_only` | ✅ | ❌ |
+
+Revoking a key (Settings › API) is immediate and permanent.
+
+## Brands
+
+A key belongs to the **account**, and every request operates on the **brand bound to that key** — the caller cannot select a brand per request, by design (a partner system never chooses where it writes). To integrate with a second brand, create a separate key under that brand in Settings › API.
+
+## Error format
+
+Errors return a stable machine-readable code — program against `code`, never against the human-readable message:
+
+```json
+{ "error": "human-readable message", "code": "STABLE_CODE" }
+```
+
+Common codes: `API_KEY_INVALID` (401), `API_KEY_REVOKED` (401), `API_KEY_SCOPE_INSUFICIENTE` (403), `RATE_LIMITED` (429, includes a `Retry-After` header in seconds), `EMAIL_INVALID` (400), `CONTACT_SUPPRESSED` (409), `METHOD_NOT_ALLOWED` (405). Server-side failures use 5xx codes such as `REPORT_READ_FAILED` (503) — retry with backoff.
+
+## Rate limits
+
+- **600 successful calls per key per minute** — beyond that, `RATE_LIMITED` with `Retry-After`.
+- **10 failed authentication attempts per IP per 10 minutes** — beyond that, `API_KEY_RATE_LIMITED`.
+
+## Honest-by-design responses
+
+Two conventions worth knowing before you integrate:
+
+- **Metrics that don't exist come as `null`, never `0`.** WhatsApp has no open tracking, so `opens` is `null` for WhatsApp campaigns — `0` would be a lie.
+- **`clicks` counts human clicks only** (bots, scanners and prefetchers removed). The raw number is available separately as `clicks_including_bots`.
+
+## What the API does not have (yet)
+
+We list this rather than let you find out by trying:
+
+- **Campaigns** — creating, sending, retrieving or cancelling. Campaigns are built and sent in the app; through the API you *read* the outcome, at `GET /v1/reports/campaigns`.
+- **Lists** — creating or deleting them, and adding or removing a contact from one. Lists are managed in the app; through the API you read them.
+- **Deleting a contact.** Unsubscribing is `POST /v1/contacts` with `opt_in: false`, or the app.
+- **Segments, templates, WhatsApp.**
+- **Outbound webhooks and official SDKs** — integrations poll the reports endpoint.
+
+When one of these exists, it appears in the reference. If you need one, say so: what we build next comes from real requests — [contato@cliqo.io](mailto:contato@cliqo.io).
+
+## Next
+
+- [API v1 reference](/en/developers/api-reference)

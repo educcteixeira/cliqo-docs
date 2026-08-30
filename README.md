@@ -1,42 +1,32 @@
-# Cliqo Docs
+# cliqo-docs — o que o `docs.cliqo.io` publica
 
-Documentação oficial da API Cliqo — hospedada em `docs.cliqo.io` via Mintlify.
+⚠️ **Não edite os artigos aqui.** Esta pasta é um ESPELHO.
 
-## Como rodar localmente
+A fonte é `docs/help-center/` no repositório do produto (`brunoccteixeira/cliqo`).
+Lá o conteúdo tem gate de CI que confere, a cada mudança:
 
-```bash
-npm install -g mintlify
-mintlify dev
-```
+- toda página declarada no `docs.json` tem arquivo, e todo arquivo está no menu
+- todo redirecionamento aponta pra página que existe
+- os dois idiomas seguem espelhados
+- a referência de API não descreve endpoint que não existe
 
-Acesse `http://localhost:3000`
+Editar direto aqui contorna esses gates — que é exatamente como a versão anterior
+deste site passou a documentar ~20 operações e 2 SDKs inexistentes (#1813), até um
+cliente perder horas procurando o que não há.
 
-## Deploy
+## Como atualizar
 
-1. Crie uma conta em [mintlify.com](https://mintlify.com)
-2. Conecte este repositório GitHub
-3. Configure o domínio customizado: `docs.cliqo.io`
-4. No Cloudflare: adicione CNAME `docs` → valor fornecido pelo Mintlify
+Mudança no conteúdo entra por PR no repositório do produto, em
+`docs/help-center/`. Daqui sai só a cópia.
 
-## Estrutura
+## O que tem
 
-```
-├── mint.json              # Configuração do site
-├── introduction.mdx       # Página inicial
-├── quickstart.mdx         # Primeiros passos
-├── authentication.mdx     # Autenticação
-├── api-reference/
-│   ├── contacts/          # CRUD de contatos
-│   ├── campaigns/         # Envio de campanhas
-│   ├── templates/         # Templates AMP
-│   ├── events/            # Webhooks e eventos
-│   └── pixel/             # Pixel de rastreamento
-├── guides/
-│   ├── pixel-installation.mdx
-│   ├── webhooks.mdx
-│   ├── loja-integrada.mdx
-│   └── whatsapp-trigger.mdx
-└── sdks/
-    ├── nodejs.mdx
-    └── python.mdx
-```
+- `pt-BR/` e `en/` — os artigos, com slugs espelhados 1:1
+- `en/developers/` — a referência de API, escrita em inglês por decisão
+- `docs.json` — navegação, tema e os redirecionamentos do corte da doc antiga
+
+## Histórico
+
+Antes de 30/08/2026 este repositório servia a documentação de uma API que não
+existia. Os endereços daquela versão continuam funcionando: viram
+redirecionamento pra referência real, que também lista o que a API **não** tem.

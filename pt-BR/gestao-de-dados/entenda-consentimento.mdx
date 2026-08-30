@@ -1,0 +1,44 @@
+---
+title: "Entenda consentimento e opt-in"
+description: "Como a Cliqo registra a autorização de cada contato, por canal — e por que importar planilha nunca vira opt-in."
+---
+
+{/* tipo: entenda · prioridade: P0 · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: pendente */}
+
+Consentimento, na Cliqo, não é uma caixinha marcada — é um **registro com prova**: quem autorizou, para qual canal, quando e por onde. Este artigo explica como esse registro funciona e o que cada origem de contato destrava.
+
+## Consentimento é por canal
+
+E-mail e WhatsApp são autorizações **separadas**. Um contato pode aceitar e-mail e não aceitar WhatsApp; descadastrar de um canal não remove o outro. Na ficha do contato (visão 360), você vê o estado de cada canal, e o descadastro em um clique do Gmail revoga **só o e-mail** — foi isso que a pessoa pediu.
+
+## O que a Cliqo registra
+
+Para cada consentimento: o canal, a data, e a **origem** — formulário dentro do e-mail, pop-up da loja, cadastro manual, importação, checkout. Esse rastro existe porque a LGPD pede prova de como a autorização foi obtida, e no WhatsApp a Meta coloca o ônus da prova em quem envia: um opt-in que você não consegue comprovar é um opt-in que você não tem.
+
+**Papéis**: você (a marca) é o controlador dos dados; a Cliqo opera em seu nome e mantém o registro de proveniência.
+
+## O que vale como opt-in
+
+| Origem | Gera opt-in? |
+|---|---|
+| Formulário dentro do e-mail (AMP) | ✅ Sim, do canal autorizado no formulário |
+| Pop-up da loja | ✅ Sim — e-mail e WhatsApp são caixas separadas, ambas desmarcadas por padrão |
+| Cadastro manual com a caixa de consentimento marcada | ✅ Sim |
+| Compra na loja (checkout) | ✅ Para mensagens de utilidade do próprio pedido |
+| **Importação de planilha** | ❌ **Nunca** |
+
+## Por que importação nunca é opt-in
+
+Um arquivo CSV não prova nada — qualquer lista comprada chegaria como "autorizada". Na importação, o que você faz é **declarar** o estado da base: se ela já era opt-in na sua ferramenta anterior, essa declaração destrava o envio de marketing (e fica registrada como sua declaração, com data). O que a importação não faz, de propósito: não dispara o fluxo de boas-vindas — contato importado não é contato que acabou de se cadastrar — e não cria opt-in silencioso para quem não tinha.
+
+Para WhatsApp, a régua da declaração é mais alta: marque a coluna de opt-in de WhatsApp apenas se você tem a prova de cada autorização. Bloqueios e denúncias derrubam a nota do seu número na Meta — e isso limita seus envios futuros.
+
+## E-mail vs WhatsApp na prática
+
+- **E-mail**: sua base atual de clientes com opt-out visível em todo envio é base legítima. O risco de errar é baixo — a pessoa se descadastra.
+- **WhatsApp**: **marketing exige opt-in explícito e registrado**. A exceção são mensagens de **utilidade** ligadas a um pedido do próprio cliente (confirmação, entrega, pagamento). O risco de errar é alto: quem recebe sem ter pedido bloqueia, e bloqueio derruba a qualidade do número. Em qualquer envio, **"SAIR" é honrado na hora** — o motor reconhece as variações (parar, stop, cancelar, descadastrar).
+
+## Artigos relacionados
+
+- [Como importar contatos](/pt-BR/gestao-de-dados/importar-contatos)
+- [Opt-in e consentimento para WhatsApp](/pt-BR/whatsapp/opt-in)

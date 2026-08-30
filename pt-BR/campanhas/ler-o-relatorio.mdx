@@ -1,0 +1,47 @@
+---
+title: "Como ler o relatório da campanha"
+description: "Métricas, funil de entrega, interações por bloco, a lista por contato e as exportações."
+---
+
+{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · revisão: pendente */}
+
+## O que você vai aprender
+
+O que cada seção do relatório mostra e como investigar do número agregado até o contato individual. As definições das métricas estão em [Entenda as métricas](/pt-BR/relatorios/entenda-metricas) — aqui é o mapa da tela.
+
+## O topo: números da campanha
+
+Enviados (com entregues), cliques (humanos, % dos entregues), **interações AMP** (pessoas que agiram dentro do e-mail) e a **taxa AMP** (fração que viu a versão interativa), receita colocada, conversões, ticket médio, aberturas (estimadas ⓘ) e descadastros. Ao lado, o **tipo de renderização** mostra quantos abriram AMP × HTML.
+
+Se aparecer **"AMP desativado neste disparo"**, a parte interativa não passou na validação e o envio saiu na versão de segurança (HTML) — o aviso lista os erros encontrados.
+
+{/* print: topo do relatório */}
+
+## Detalhes do disparo
+
+Quem disparou (pessoa ou agendamento), audiência, remetente, template, UTMs (com "copiar query string"), duração e a **prévia do disparo** — um retrato de exatamente o que saiu, do jeito que o destinatário recebeu.
+
+## Entrega dos enviados
+
+O funil divide os enviados em sete destinos que **sempre somam o total**: entregues, soft bounce (rejeição temporária), hard bounce (permanente), reclamação (marcou spam), suprimidos (bloqueados antes de sair), pendentes e falhas.
+
+Logo abaixo, **Excluídos do envio** explica quem estava na audiência e não recebeu, motivo a motivo: já estava em blocklist, já havia descadastrado, hard bounce histórico, sem consentimento, colisão com um fluxo recente, já recebeu (em reenvio).
+
+## Interações por bloco
+
+Para e-mails interativos: cada bloco (roleta, survey, formulário, carrossel…) com interações únicas, totais e os valores mais frequentes — qual prêmio saiu mais, quantos giros, quantos produtos marcados. É aqui que a interatividade vira insight.
+
+## Por contato
+
+A tabela lista cada destinatário: entrega, abriu, clicou, interagiu, qual versão viu, **comprou**. Os filtros deixam investigar rápido — só quem comprou, só quem reclamou, só falhas de entrega. Cliques de robô e aberturas de máquina (Apple) aparecem **marcados**, não escondidos.
+
+## Exportar e agir
+
+- **Exportar CSV** — o resumo da campanha ou a lista por contato completa.
+- **Enviar teste** — direto do relatório, com o prefixo `[Teste]`, fora das métricas.
+- **Retomar envio** — para disparos interrompidos, continua sem duplicar.
+
+## Artigos relacionados
+
+- [Entenda as métricas da Cliqo](/pt-BR/relatorios/entenda-metricas)
+- [Como agendar e definir o ritmo de envio](/pt-BR/campanhas/agendar-e-ritmo)
