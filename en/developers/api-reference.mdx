@@ -80,6 +80,40 @@ The response says what actually happened: `created`, `updated` and the `mode` th
 
 Reactivating is a deliberate act, done in the app by a person.
 
+## POST /v1/contacts/batch
+
+The same write as `POST /v1/contacts`, for **up to 1,000 contacts in one call**. Pushing 5,000 contacts one by one was 5,000 calls and, under the 600-per-minute key limit, at least 8.5 minutes; here it is **5 calls**.
+
+✅ **Measured:** 1,000 contacts in **4.6 s** end to end, against a 30 s duration cap. The headroom matters because the domain check does one DNS lookup per **unique** domain — a base with many distinct domains costs more than this measurement.
+
+```json
+{
+  "mode": "update",
+  "list": 7,
+  "contacts": [
+    { "email": "a@example.com", "name": "Ana", "opt_in": true, "tags": ["vip"] },
+    { "email": "b@example.com", "custom_fields": { "city": "Recife" } }
+  ]
+}
+```
+
+- `contacts` — 1 to 1,000 items, each in the `POST /v1/contacts` shape (`email`, `name`, `phone_whatsapp`, `tags`, `custom_fields`, `opt_in`, `whatsapp_opt_in`). More than 1,000 → `413 BATCH_TOO_LARGE`, with the cap in `max_items`.
+- `mode` — applies to the whole batch; the same four modes; an unknown one is `400 MODE_INVALID`, never silently `update`.
+- `list` — optional; the humanised list number or its UUID, as in `GET /v1/contacts`. Everyone who got in is linked to it.
+- `source` — optional, default `api`.
+
+The response counts what happened: `received`, `created`, `updated`, `unchanged`, `linked`, `email_consents_granted`, `whatsapp_consents_granted`, `invalid_phones`, and a `skipped` list with `index` (the position in your array), `email` and `reason` — missing or invalid e-mail, an e-mail repeated in the batch (the last occurrence wins), a domain that receives no mail, a suppressed contact, `whatsapp_opt_in` without a phone, or "does not exist" under `updateonly`. `created + updated + unchanged + skipped.length` equals `received`, with one exception: a contact created by *another* call at the same instant shows up in no counter. `unchanged` only counts under `ignore` (the other modes always rewrite an existing contact). **A skipped item never fails the batch** — the others go in.
+
+Where it differs from `POST /v1/contacts`, on purpose:
+
+- **`opt_in: false` does nothing**, exactly like the single endpoint. It is not a refusal; a refusal is the contact unsubscribing. A system that sends `false` for everyone who never answered must not unsubscribe your whole base by accident.
+- **A suppressed contact does not return `409`** — it shows up in `skipped` with the reason and the rest of the batch proceeds. Same rule (the suppression guard runs first), different accounting.
+- **`custom_fields` values are stored as text** and keys are normalised like the CSV import (`lowercase_snake_case`; `Birth Date` becomes `birth_date`). Send keys already in lowercase `snake_case`, matching the ones you use on `POST /v1/contacts`, or you create a parallel field.
+- **Consent is per item and never invented**: without `opt_in: true` on the item, no e-mail consent is recorded. `whatsapp_opt_in: true` needs a valid E.164 `phone_whatsapp`; an invalid number counts in `invalid_phones` and the contact is stored without the channel.
+- **A failure on our side mid-batch returns `503 BATCH_WRITE_FAILED`**, and whatever was written stays written. Retrying the whole call is safe — the write is idempotent by e-mail.
+
+Requires a key that writes contacts (`full` or `send_only`).
+
 ## GET /v1/contacts
 
 Read the contacts of one list — this is the endpoint for pulling your data out:

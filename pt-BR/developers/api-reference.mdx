@@ -80,6 +80,40 @@ A resposta diz o que de fato aconteceu: `created`, `updated` e o `mode` aplicado
 
 Reativar é ato deliberado, feito no app por uma pessoa.
 
+## POST /v1/contacts/batch
+
+A mesma escrita do `POST /v1/contacts`, para **até 1.000 contatos numa chamada**. Subir 5.000 contatos um a um eram 5.000 chamadas e, no limite de 600 por minuto da chave, no mínimo 8,5 minutos; aqui são **5 chamadas**.
+
+✅ **Medido:** 1.000 contatos em **4,6 s** de ponta a ponta, contra um teto de duração de 30 s. A folga importa porque a checagem de domínio faz uma consulta de DNS por domínio **distinto** — uma base com muitos domínios diferentes custa mais que esta medição.
+
+```json
+{
+  "mode": "update",
+  "list": 7,
+  "contacts": [
+    { "email": "a@exemplo.com", "name": "Ana", "opt_in": true, "tags": ["vip"] },
+    { "email": "b@exemplo.com", "custom_fields": { "cidade": "Recife" } }
+  ]
+}
+```
+
+- `contacts` — de 1 a 1.000 itens, cada um no formato do `POST /v1/contacts` (`email`, `name`, `phone_whatsapp`, `tags`, `custom_fields`, `opt_in`, `whatsapp_opt_in`). Mais de 1.000 → `413 BATCH_TOO_LARGE`, com o teto em `max_items`.
+- `mode` — vale para o lote inteiro; são os mesmos quatro modos; um desconhecido é `400 MODE_INVALID`, nunca silenciosamente `update`.
+- `list` — opcional; o número humanizado da lista ou o UUID dela, como no `GET /v1/contacts`. Todo mundo que entrou é vinculado a ela.
+- `source` — opcional, padrão `api`.
+
+A resposta conta o que aconteceu: `received`, `created`, `updated`, `unchanged`, `linked`, `email_consents_granted`, `whatsapp_consents_granted`, `invalid_phones`, e uma lista `skipped` com `index` (a posição no seu array), `email` e `reason` — e-mail ausente ou inválido, e-mail repetido dentro do lote (vale a última ocorrência), domínio que não recebe e-mail, contato suprimido, `whatsapp_opt_in` sem telefone, ou "não existe" sob `updateonly`. `created + updated + unchanged + skipped.length` é igual a `received`, com uma exceção: um contato criado por **outra** chamada no mesmo instante não aparece em contador nenhum. `unchanged` só conta sob `ignore` (os outros modos sempre reescrevem um contato existente). **Item pulado não derruba o lote** — os outros entram.
+
+Onde ele difere do `POST /v1/contacts`, de propósito:
+
+- **`opt_in: false` não faz nada**, exatamente como no endpoint de um só. Ele não é uma recusa; recusa é o contato se descadastrar. Um sistema que manda `false` para todo mundo que nunca respondeu não pode descadastrar a sua base inteira por acidente.
+- **Contato suprimido não devolve `409`** — ele aparece em `skipped` com o motivo e o resto do lote segue. Mesma regra (a guarda de supressão roda primeiro), contabilidade diferente.
+- **Os valores de `custom_fields` são gravados como texto** e as chaves são normalizadas como no import de CSV (`snake_case` minúsculo; `Data de Nascimento` vira `data_de_nascimento`). Mande as chaves já em `snake_case` minúsculo, iguais às que você usa no `POST /v1/contacts`, ou você cria um campo paralelo.
+- **O consentimento é por item e nunca é inventado**: sem `opt_in: true` no item, nenhum consentimento de e-mail é registrado. `whatsapp_opt_in: true` exige um `phone_whatsapp` válido em E.164; um número inválido conta em `invalid_phones` e o contato é gravado sem o canal.
+- **Uma falha do nosso lado no meio do lote devolve `503 BATCH_WRITE_FAILED`**, e o que já foi gravado permanece gravado. Repetir a chamada inteira é seguro — a escrita é idempotente por e-mail.
+
+Exige uma chave que escreve contatos (`full` ou `send_only`).
+
 ## GET /v1/contacts
 
 Lê os contatos de uma lista — é por aqui que você tira os seus dados:
