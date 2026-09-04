@@ -87,6 +87,20 @@ None of this blocks using it — it is the same framing as any analytics tool. I
 
 ## When to stop waiting and ask for help
 
-If the snippet is in the `<head>`, you visited the store, and the panel still records nothing, the most common cause is the snippet sitting in a template that page does not use. Check by viewing the page source in your browser and searching for `px.js`. If it is not there, it never loaded.
+If the snippet is in the `<head>`, you visited the store, and the panel still records nothing, open the page source in your browser and search for `px.js`.
+
+**Finding `px.js` does not mean it is working** — it means it loaded. There are three different answers, and only one of them closes the matter.
+
+**① It is not there.** The snippet sits in a template that page does not use. This is the most common cause. Move it to the template the store actually loads.
+
+**② It is there with your identifier** — either `data-tenant="..."` on the tag itself, or `?t=...` at the end of the `px.js` address. It loaded and identified itself: the install is correct and the problem is on our side. Talk to us.
+
+**③ It is there, but with no identifier at all.** This is the misleading case. The page loads the pixel, it fires normally, and still nothing reaches the panel — no error, no warning. With no identifier it arrives anonymous, and the visit is only counted if your store address is already registered on our side. If it is not, it is discarded silently.
+
+This happens mostly with tag-manager installs: Google Tag Manager strips `data-*` attributes when it injects the tag, but never touches the address.
+
+**How to confirm it is ③:** open the browser console (F12 → Console tab) and reload the page. If the line `[cliqo] sem token na tag` shows up, this is the case.
+
+**The fix:** put the identifier in the address itself, `https://app.cliqo.io/px.js?t=YOUR-ID`. The address survives the tag manager; `data-tenant` does not.
 
 If it persists, write to us at [contato@cliqo.io](mailto:contato@cliqo.io) with the address of a page where it should be.

@@ -1,0 +1,194 @@
+---
+title: "Referência da API v1"
+description: "Os endpoints: identidade, cadastro de contato, exportação, listas e relatório de campanhas — com campos, exemplos e casos de erro."
+---
+
+{/* tipo: dev/referência · prioridade: P0 · idioma: pt-BR (espelho de en/developers/api-reference) · fonte: docs/api-v1.md medido contra o código · revisão: pendente */}
+
+Todo endpoint exige o cabeçalho `Authorization: Bearer cliqo_…` — veja [Visão geral e autenticação](/pt-BR/developers/api-overview).
+
+## GET /v1/me
+
+Devolve a identidade e as capacidades da chave que chamou — e o relógio do servidor. Use como teste de conectividade.
+
+**Funciona com qualquer escopo**, inclusive `send_only`, que não pode ler mais nada. É de propósito: uma chave precisa conseguir se apresentar mesmo sem permissão de leitura.
+
+`server_time` é ISO-8601 em UTC. Ele existe para você notar uma diferença de relógio ou de fuso *antes* de concluir que um relatório está errado — o `GET /v1/reports/campaigns` recebe datas, e um dia de diferença é muito mais fácil de explicar quando dá para comparar os relógios.
+
+```json
+{
+  "server_time": "2026-08-28T21:52:00.000Z",
+  "account": { "id": "…", "name": "…" },
+  "brand":   { "id": "…", "name": "…", "slug": "principal" },
+  "key":     { "id": "…", "name": "backend-prod" },
+  "can":     { "ler": false, "enviar": true, "escreverContatos": true }
+}
+```
+
+## POST /v1/contacts
+
+Cria ou atualiza um contato (upsert por e-mail, dentro da marca da chave). Exige escopo que escreve contatos (`full` ou `send_only`).
+
+```json
+{
+  "email": "maria@exemplo.com",
+  "name": "Maria Silva",
+  "phone_whatsapp": "+5511999990000",
+  "tags": ["vip"],
+  "custom_fields": { "aniversario": "1990-03-15" },
+  "source": "meu-erp",
+  "opt_in": true,
+  "whatsapp_opt_in": false
+}
+```
+
+Sobre os campos:
+
+- `email` — obrigatório; normalizado (espaços removidos, minúsculas).
+- `opt_in` / `whatsapp_opt_in` — booleanos que **registram consentimento com origem e data**. Só mande `true` quando o seu sistema de fato coletou aquele consentimento; a chamada de API vira o registro de proveniência dele.
+- `whatsapp_opt_in: true` sem telefone → `400 WHATSAPP_OPTIN_WITHOUT_PHONE`.
+- `source` — texto livre de origem (até 50 caracteres), exibido no perfil do contato.
+- `mode` — o que fazer quando o contato **já existe**; padrão `update`. Veja a tabela abaixo.
+- `custom_fields` — gravado exatamente como veio (sem normalização neste caminho). Mande as chaves já em `snake_case` minúsculo e datas como `AAAA-MM-DD`, iguais às que o import e os formulários criam — senão você cria um campo paralelo.
+
+Erro que vale tratar explicitamente: **`409 CONTACT_SUPPRESSED`** — o endereço descadastrou ou foi suprimido. **Não** contorne mudando o e-mail: a supressão protege o destinatário e a sua reputação de remetente, tenha vindo de um descadastro, de uma reclamação de spam, de um bounce forte ou da blocklist.
+
+### `mode` — as mesmas regras do import de CSV
+
+São os quatro modos que a tela de importação já oferece, agora também aqui. Todos decidem **uma coisa só**: o que fazer quando o e-mail já existe naquela marca.
+
+| `mode` | contato NOVO | contato que JÁ EXISTE |
+|---|---|---|
+| `update` *(padrão)* | cria | atualiza os campos que você mandou (`custom_fields` mescla) |
+| `ignore` | cria | **não toca em nada** — "só adicionar novos" |
+| `updateonly` | **404** | atualiza — "só atualizar se encontrar" |
+| `replace` | cria | vira espelho do que você mandou: campo ausente é **apagado** |
+
+Dois detalhes do `replace`, para não surpreender: `tags` só é gravado quando você o envia (nunca é apagado por omissão), e o `source` de um contato existente nunca é reescrito — ele registra por onde o contato **entrou**, não a última chamada.
+
+⚠️ **`mode` desconhecido é recusado com `400 MODE_INVALID`**, nunca aceito como `update`. Um `mode: "only_new"` virando silenciosamente "atualizar tudo" faria a plataforma executar o oposto do pedido, na base inteira.
+
+A resposta diz o que de fato aconteceu: `created`, `updated` e o `mode` aplicado.
+
+### 🔴 Três coisas que nenhum modo muda — e as três têm peso legal
+
+**① Suprimido continua suprimido.** Um contato descadastrado **existe**. Se `ignore` ("só adicionar novos") o tratasse como inexistente, re-inscreveríamos quem pediu para sair. A guarda de supressão roda **antes** do modo, então os quatro devolvem o mesmo `409`.
+
+**② Contato existente nunca é re-inscrito.** `status` e `subscribed` são definidos apenas quando o contato **nasce**. Em contato existente eles ficam intactos: um `POST` não faz voltar a receber e-mail quem tinha parado.
+
+**③ `opt_in: true` não ressuscita consentimento recusado.** Se o contato já havia optado por não receber marketing, o consentimento **não** é regravado — e a resposta diz isso em `email_consent: "skipped_previous_opt_out"`, para você não descobrir só na auditoria.
+
+Reativar é ato deliberado, feito no app por uma pessoa.
+
+## GET /v1/contacts
+
+Lê os contatos de uma lista — é por aqui que você tira os seus dados:
+
+```
+GET /v1/contacts?list=12&limit=100&offset=0
+```
+
+- **`list` é obrigatório** — o número humanizado da lista ou o UUID dela. Não existe "exportar tudo" por omissão: devolver a base inteira porque alguém esqueceu um parâmetro não é um padrão seguro.
+- `limit` — 1 a 1000; padrão 100.
+- `offset` — padrão 0.
+
+Cada contato traz `id`, `email`, `name`, `phone_whatsapp`, `status`, `subscribed`, `tags`, `custom_fields`, `source`, `created_at` e `updated_at`.
+
+**Exige chave que lê** — escopo "Só ler" ou "Tudo". Uma chave "Só enviar" recebe `403 API_KEY_SCOPE_INSUFICIENTE`: ela escreve contatos e, de propósito, não os lê de volta.
+
+Um número que surpreende: **`meta.total` aqui conta *destinatários elegíveis*, enquanto `contact_count` em `/v1/lists` conta *vínculos*.** A mesma lista legitimamente mostra dois números diferentes — descadastrados e suprimidos continuam na lista, mas não receberiam a campanha. Nenhum está errado; eles respondem perguntas diferentes.
+
+## GET /v1/lists
+
+Todas as listas da marca a que a chave pertence:
+
+```
+GET /v1/lists?limit=100&offset=0
+```
+
+- `limit` — 1 a 1000; padrão 100.
+- `offset` — padrão 0.
+
+Cada item traz o `number` humanizado da lista (o mesmo que aparece no app), o `id`, `name`, `description`, `contact_count`, `created_at` e `updated_at`.
+
+O objeto `meta` sempre traz `count`, `total`, `limit`, `offset` e `has_more`. **`has_more` vem sempre, inclusive quando é `false`** — assim você nunca precisa distinguir "ausente" de "false", que é como uma integração para calada na primeira página.
+
+## GET /v1/lists/{id}
+
+Uma lista, por qualquer um dos dois identificadores:
+
+```
+GET /v1/lists/12          # número humanizado, o mesmo do app
+GET /v1/lists/8f3e...     # UUID
+```
+
+Duas coisas que vale saber:
+
+- **O objeto vem cru, sem envelope `data`** — igual ao `GET /v1/me`, o outro endpoint de recurso único, e a convenção que se espera de um retrieve.
+- **Ele é idêntico, byte a byte, a um item do `data[]` do plural**, porque os dois saem do mesmo serializador. Código escrito contra um funciona contra o outro.
+
+Lista que não existe nesta marca devolve `404` com código `LIST_NOT_FOUND` — a mesma resposta quer o id seja desconhecido, quer pertença a outra marca, então o endpoint nunca confirma a existência do dado de terceiro.
+
+## GET /v1/reports/campaigns
+
+Métricas por campanha, filtráveis por período e canal:
+
+```
+GET /v1/reports/campaigns?from=2026-08-01&to=2026-08-31&channel=email
+```
+
+- `from` / `to` — datas em ISO-8601. **A janela tem teto de 366 dias.**
+- `channel` — `email` ou `whatsapp`; omita para os dois.
+
+### A janela, e o que acontece quando você a omite
+
+Janela mais larga custa mais para calcular, e o custo cresce com a idade da conta — por isso a faixa é limitada:
+
+| o que você manda | o que recebe |
+|---|---|
+| `from` **e** `to`, até 366 dias de distância | exatamente essa janela |
+| mais de 366 dias | `400 DATE_RANGE_TOO_WIDE`, com o tamanho que você pediu |
+| `from` posterior a `to` | `400 DATE_RANGE_INVALID` |
+| só `from` | 366 dias **para frente** a partir dele |
+| só `to` | 366 dias **para trás** a partir dele |
+| nenhum dos dois | os últimos 366 dias |
+
+🔑 **A resposta sempre declara a janela que usou**, em `meta.from` e `meta.to`, com o teto em `meta.max_window_days`. Leia de lá em vez de supor: faixa omitida é respondida com um padrão, não com "tudo", e sem esses campos você não teria como saber a diferença.
+
+### O formato da resposta
+
+É **JSON** — este endpoint não devolve arquivo, e não há variante CSV nem XLSX. `data` é um array com uma entrada por campanha; `meta` descreve a consulta que a produziu.
+
+```json
+{
+  "data": [
+    {
+      "id": "9f1c…", "name": "Black Friday — onda 1",
+      "channel": "email", "sent_at": "2026-08-14T13:02:11.000Z",
+      "sent": 7073, "delivered": 6981, "delivery_rate": 98.7,
+      "bounced": 74, "soft_bounced": 18, "failed": 0,
+      "unique_opens": 2194, "opens": 7861, "open_rate": 31.43,
+      "amp_renders": 812, "amp_rate": 11.63,
+      "clicks": 1620, "clicks_including_bots": 2853, "click_rate": 23.21,
+      "complaints": 11, "unsubscribes": 101
+    }
+  ],
+  "meta": {
+    "count": 1, "truncated": false,
+    "from": "2026-08-01T00:00:00.000Z", "to": "2026-08-31T23:59:59.000Z",
+    "channel": "email", "max_window_days": 366
+  }
+}
+```
+
+As taxas já vêm em porcentagem arredondada a duas casas (`31.43` é 31,43%), não em fração. `meta.truncated` diz se a fonte cortou a lista.
+
+Como ler os números, por desenho:
+
+- Métrica que não existe naquele canal vem `null`, nunca `0` — por exemplo `opens`, `open_rate` e `amp_rate` no WhatsApp.
+- Taxa sem denominador vem `null` (`0/0` não é `0%`).
+- Campanha cujo disparo falhou pode vir com `sent_at: null` e ainda assim aparecer — disparo que falhou dentro da sua janela é informação, não ruído.
+
+## Eventos personalizados (site/pixel)
+
+Além da superfície v1, a sua loja pode enviar eventos personalizados (para a dimensão "evento personalizado" dos segmentos) pelo endpoint do pixel, com o token de pixel da sua conta — detalhes na [referência do pixel] *(a caminho desta central de ajuda)*, ou fale com a gente em [contato@cliqo.io](mailto:contato@cliqo.io).

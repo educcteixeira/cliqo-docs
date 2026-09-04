@@ -99,6 +99,13 @@
               "pt-BR/lojas/instalar-o-pixel",
               "pt-BR/lojas/conectar-loja-integrada"
             ]
+          },
+          {
+            "group": "Desenvolvedores",
+            "pages": [
+              "pt-BR/developers/api-overview",
+              "pt-BR/developers/api-reference"
+            ]
           }
         ]
       },

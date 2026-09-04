@@ -137,10 +137,51 @@ Campaign metrics, filterable by period and channel:
 GET /v1/reports/campaigns?from=2026-08-01&to=2026-08-31&channel=email
 ```
 
-- `from` / `to` — ISO-8601 dates.
+- `from` / `to` — ISO-8601 dates. **The window is capped at 366 days.**
 - `channel` — `email` or `whatsapp`; omit for both.
 
-Each item includes sends, delivered, opens (estimated), human `clicks` (plus `clicks_including_bots`), AMP interactions and rate (email only), conversions and attributed revenue. The response's `meta` object always states `count` and whether the list was `truncated`.
+### The window, and what happens when you omit it
+
+A wider window costs more to compute, and the cost grows with the age of the account — so the range is bounded:
+
+| what you send | what you get |
+|---|---|
+| `from` **and** `to`, up to 366 days apart | exactly that window |
+| more than 366 days apart | `400 DATE_RANGE_TOO_WIDE`, with the size of the window you asked for |
+| `from` after `to` | `400 DATE_RANGE_INVALID` |
+| only `from` | 366 days **forward** from it |
+| only `to` | 366 days **back** from it |
+| neither | the last 366 days |
+
+**The response always states the window it used**, in `meta.from` and `meta.to`, plus the cap in `meta.max_window_days`. Read those instead of assuming: an omitted range is answered with a default, not with "everything", and you would otherwise have no way to tell.
+
+### The response
+
+It is **JSON** — this endpoint returns no file, and there is no CSV or XLSX variant. `data` is an array with one entry per campaign; `meta` describes the query that produced it.
+
+```json
+{
+  "data": [
+    {
+      "id": "9f1c…", "name": "Black Friday — wave 1",
+      "channel": "email", "sent_at": "2026-08-14T13:02:11.000Z",
+      "sent": 7073, "delivered": 6981, "delivery_rate": 98.7,
+      "bounced": 74, "soft_bounced": 18, "failed": 0,
+      "unique_opens": 2194, "opens": 7861, "open_rate": 31.43,
+      "amp_renders": 812, "amp_rate": 11.63,
+      "clicks": 1620, "clicks_including_bots": 2853, "click_rate": 23.21,
+      "complaints": 11, "unsubscribes": 101
+    }
+  ],
+  "meta": {
+    "count": 1, "truncated": false,
+    "from": "2026-08-01T00:00:00.000Z", "to": "2026-08-31T23:59:59.000Z",
+    "channel": "email", "max_window_days": 366
+  }
+}
+```
+
+Rates are percentages already rounded to two decimals (`31.43` means 31.43%), not fractions. `meta.truncated` says whether the source cut the list short.
 
 Reading rules (by design):
 

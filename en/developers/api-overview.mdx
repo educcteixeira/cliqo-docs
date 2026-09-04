@@ -45,7 +45,7 @@ Errors return a stable machine-readable code — program against `code`, never a
 { "error": "human-readable message", "code": "STABLE_CODE" }
 ```
 
-Common codes: `API_KEY_INVALID` (401), `API_KEY_REVOKED` (401), `API_KEY_SCOPE_INSUFICIENTE` (403), `RATE_LIMITED` (429, includes a `Retry-After` header in seconds), `EMAIL_INVALID` (400), `CONTACT_SUPPRESSED` (409), `METHOD_NOT_ALLOWED` (405). Server-side failures use 5xx codes such as `REPORT_READ_FAILED` (503) — retry with backoff.
+Common codes: `API_KEY_INVALID` (401), `API_KEY_REVOKED` (401), `API_KEY_SCOPE_INSUFICIENTE` (403), `RATE_LIMITED` (429, includes a `Retry-After` header in seconds), `EMAIL_INVALID` (400), `CONTACT_SUPPRESSED` (409), `DATE_RANGE_TOO_WIDE` (400), `METHOD_NOT_ALLOWED` (405). Server-side failures use 5xx codes such as `REPORT_READ_FAILED` (503) — retry with backoff.
 
 ## Rate limits
 
@@ -65,7 +65,7 @@ We list this rather than let you find out by trying:
 
 - **Campaigns** — creating, sending, retrieving or cancelling. Campaigns are built and sent in the app; through the API you *read* the outcome, at `GET /v1/reports/campaigns`.
 - **Lists** — creating or deleting them, and adding or removing a contact from one. Lists are managed in the app; through the API you read them.
-- **Deleting a contact.** Unsubscribing is `POST /v1/contacts` with `opt_in: false`, or the app.
+- **Deleting a contact**, and **unsubscribing one**. `opt_in: false` is *"I am not declaring consent"*, not *"unsubscribe this person"* — it grants nothing and revokes nothing (`criar-contato.js`). Someone unsubscribes through the unsubscribe link in the message, or an operator does it in the app; a partner system cannot unsubscribe on their behalf through the API.
 - **Segments, templates, WhatsApp.**
 - **Outbound webhooks and official SDKs** — integrations poll the reports endpoint.
 

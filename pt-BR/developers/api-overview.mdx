@@ -1,0 +1,78 @@
+---
+title: "API v1: visão geral e autenticação"
+description: "Base URL, chaves e escopos, marcas, formato de erro e limites de uso — tudo o que você precisa antes da primeira chamada."
+---
+
+{/* tipo: dev/visão geral · prioridade: P0 · idioma: pt-BR (espelho de en/developers/api-overview) · fonte: docs/api-v1.md medido contra o código · revisão: pendente */}
+
+A API v1 da Cliqo deixa os seus sistemas criarem e atualizarem contatos, lerem suas listas e lerem métricas de campanha. Ela é pequena e estável de propósito — todo endpoint documentado aqui existe e é medido contra o código de produção.
+
+## Base URL
+
+```
+https://app.cliqo.io/v1
+```
+
+## Autenticação
+
+Crie uma chave em **Configurações › API** (só Dono ou Admin). A chave aparece **uma única vez**, na criação — guarde no seu gerenciador de segredos.
+
+Mande em toda requisição:
+
+```
+Authorization: Bearer cliqo_<64 caracteres hexadecimais>
+```
+
+Cada chave tem um dos três **escopos**, escolhido na criação:
+
+| Escopo | Lê relatórios | Escreve contatos |
+|---|---|---|
+| `full` (Tudo) | ✅ | ✅ |
+| `send_only` (Só enviar) | ❌ | ✅ |
+| `read_only` (Só ler) | ✅ | ❌ |
+
+Revogar uma chave (Configurações › API) é imediato e permanente.
+
+## Marcas
+
+A chave pertence à **conta**, e toda requisição opera na **marca ligada a ela** — quem chama não escolhe a marca por requisição, e isso é de propósito: um sistema parceiro nunca decide onde escreve. Para integrar com uma segunda marca, crie uma chave separada naquela marca em Configurações › API.
+
+## Formato de erro
+
+Erro devolve um código estável, legível por máquina — **programe contra o `code`, nunca contra a mensagem**:
+
+```json
+{ "error": "mensagem legível", "code": "CODIGO_ESTAVEL" }
+```
+
+Códigos comuns: `API_KEY_INVALID` (401), `API_KEY_REVOKED` (401), `API_KEY_SCOPE_INSUFICIENTE` (403), `RATE_LIMITED` (429, com o cabeçalho `Retry-After` em segundos), `EMAIL_INVALID` (400), `CONTACT_SUPPRESSED` (409), `DATE_RANGE_TOO_WIDE` (400), `METHOD_NOT_ALLOWED` (405). Falha do nosso lado usa 5xx, como `REPORT_READ_FAILED` (503) — tente de novo com espera progressiva.
+
+🔑 **`401` e `503` são deliberadamente distintos.** Juntar os dois faria uma queda nossa parecer, para você, uma chave revogada — e você trocaria a chave em vez de esperar.
+
+## Limites de uso
+
+- **600 chamadas bem-sucedidas por chave por minuto** — acima disso, `RATE_LIMITED` com `Retry-After`.
+- **10 falhas de autenticação por IP a cada 10 minutos** — acima disso, `API_KEY_RATE_LIMITED`.
+
+## Respostas honestas por desenho
+
+Duas convenções que vale conhecer antes de integrar:
+
+- **Métrica que não existe vem `null`, nunca `0`.** WhatsApp não tem abertura, então `opens` vem `null` nas campanhas de WhatsApp — `0` seria mentira.
+- **`clicks` conta só cliques humanos** (robôs, scanners e pré-carregadores removidos). O número bruto vem separado, em `clicks_including_bots`.
+
+## O que a API ainda não tem
+
+Listamos em vez de deixar você descobrir tentando:
+
+- **Campanhas** — criar, disparar, buscar ou cancelar. Campanha se monta e se dispara no app; pela API você *lê* o resultado, em `GET /v1/reports/campaigns`.
+- **Listas** — criar ou apagar, e adicionar ou remover um contato de uma. Listas se gerenciam no app; pela API você as lê.
+- **Apagar um contato**, e **descadastrar um**. `opt_in: false` quer dizer *"não estou declarando consentimento"*, e não *"descadastre esta pessoa"* — não concede nada e não revoga nada. Quem descadastra é o titular, pelo link da mensagem, ou um operador, no app; um sistema parceiro não descadastra por ele pela API.
+- **Segmentos, templates, WhatsApp.**
+- **Webhooks de saída e SDKs oficiais** — integrações consultam o endpoint de relatórios.
+
+Quando um desses existir, aparece na referência. Se você precisa de algum, diga: o que construímos em seguida vem de pedido real — [contato@cliqo.io](mailto:contato@cliqo.io).
+
+## Próximo
+
+- [Referência da API v1](/pt-BR/developers/api-reference)

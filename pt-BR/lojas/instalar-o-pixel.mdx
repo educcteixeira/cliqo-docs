@@ -87,6 +87,20 @@ Nada disso impede o uso — é o mesmo enquadramento de qualquer ferramenta de a
 
 ## Quando parar de esperar e pedir ajuda
 
-Se o snippet está no `<head>`, você acessou a loja e mesmo assim o painel não registra acesso nenhum, o motivo mais comum é o snippet estar num template que aquela página não usa. Confira olhando o código-fonte da página no navegador: procure por `px.js`. Se não aparecer ali, ele não foi carregado.
+Se o snippet está no `<head>`, você acessou a loja e mesmo assim o painel não registra acesso nenhum, abra o código-fonte da página no navegador e procure por `px.js`.
+
+**Achar o `px.js` não quer dizer que está funcionando** — quer dizer que ele carregou. São três respostas diferentes, e só uma delas encerra o assunto.
+
+**① Não aparece.** O snippet está num template que aquela página não usa. É o caso mais comum. Mova para o template que a loja realmente carrega.
+
+**② Aparece com o seu identificador** — `data-tenant="..."` na própria tag, ou `?t=...` no fim do endereço do `px.js`. Carregou e se identificou: a instalação está certa e o problema é do nosso lado. Fale com a gente.
+
+**③ Aparece, mas sem identificador nenhum.** Este é o caso que engana. A página carrega o pixel, ele dispara normalmente, e mesmo assim nada chega ao painel — sem erro, sem aviso. Sem identificador ele se apresenta anônimo, e aí o acesso só é contado se o endereço da sua loja já estiver registrado do nosso lado. Se não estiver, é descartado em silêncio.
+
+Acontece sobretudo com instalação por Gerenciador de Tags: o Google Tag Manager apaga atributos `data-*` ao injetar a tag, mas nunca mexe no endereço.
+
+**Como confirmar que é o ③:** abra o console do navegador (F12 → aba Console) e recarregue a página. Se aparecer a linha `[cliqo] sem token na tag`, é este o caso.
+
+**A saída:** ponha o identificador no próprio endereço, `https://app.cliqo.io/px.js?t=SEU-ID`. O endereço sobrevive ao Gerenciador de Tags; o `data-tenant` não.
 
 Persistindo, fale com a gente em [contato@cliqo.io](mailto:contato@cliqo.io) com o endereço de uma página onde deveria estar.
