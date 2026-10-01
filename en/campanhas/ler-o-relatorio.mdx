@@ -3,7 +3,7 @@ title: "How to read the campaign report"
 description: "Metrics, delivery funnel, interactions by block, the per-contact list and the exports."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · idioma: EN · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · idioma: EN · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -11,35 +11,35 @@ What each section of the report shows and how to investigate from the aggregate 
 
 ## The top: campaign numbers
 
-Sent (with delivered), clicks (human, % of delivered), **AMP interactions** (people who acted inside the email) and the **AMP rate** (the fraction who saw the interactive version), placed revenue, conversions, average ticket, opens (estimated ⓘ) and unsubscribes. Next to them, the **render type** shows how many opened AMP vs. HTML.
+Seven cards: **Sent** (with delivered and the delivery rate), **Placed revenue** (all time), **Opens** (estimated ⓘ, % of delivered), **Clicks** (human, % of delivered), **AMP interactions** (people who acted inside the email, with the **AMP rate**: of the opens whose version was identified, how many were the interactive one), **Conversions** and **Avg. ticket**. Sent, revenue and opens compare with the WhatsApp report; the other four only exist for email. Right below, the **render type** shows how many opened AMP vs. HTML, and **From send to click** shows each step over the previous one (delivered, opens and clicks — the last one, over opens, is the CTOR).
 
-If **"AMP disabled for this dispatch"** appears, the interactive part failed validation and the send went out in the safety version (HTML) — the notice lists the errors found.
+If **"AMP disabled for this dispatch"** appears, the interactive part failed validation (or the validator failed to load on the server) and the send went out in the safety version (HTML) for everyone — the notice lists the errors found.
 
 {/* print: top of the report */}
 
 ## Dispatch details
 
-Who fired it (a person or a schedule), audience, sender, template, UTMs (with "Copy query string"), duration and the **dispatch preview** — a snapshot of exactly what went out, the way the recipient received it.
+The **How it looks in the inbox** card brings together sender, subject and preheader, the way the recipient sees them. Under **Dispatch details**: **Audience** (deduplicated contacts and the lists and segments used), **Send window** (time and duration) and **Tracking** (the UTMs, with **Copy query string**); at the bottom, who sent it (a person or the automatic schedule) and the internal ID. The **Preview** button, at the top, opens the **dispatch preview** — what was sent in this dispatch, with AMP degraded to HTML.
 
-## Delivery of the sent
+## Delivery of sent
 
-The funnel splits the sent into seven destinations that **always add up to the total**: delivered, soft bounce (temporary rejection), hard bounce (permanent), complaint (marked as spam), suppressed (blocked before going out), pending and failures.
+The funnel splits the sent into seven destinations that **always add up to the total**: delivered, soft bounce (temporary rejection), hard bounce (permanent), complaint (marked as spam), suppressed (blocked before going out), pending and failures. Below the sum, **After delivery** shows the **Unsubscribes from this campaign** — already counted in delivered.
 
-Right below, **Excluded from send** explains who was in the audience and didn't receive, reason by reason: were already blocklisted, had already unsubscribed, hard bounce history, no consent, collision with a recent flow, already received (on a re-send).
+Right below, **Excluded from send** explains who was in the audience and didn't receive, reason by reason: were already blocklisted, had already unsubscribed, hard bounce or complaint history, suppression, filtered by the segment, no consent, collision with a recent flow. Anyone who had already received it on a resume of the same send isn't counted there.
 
 ## Interactions by block
 
 For interactive emails: each block (wheel, survey, form, carousel…) with unique and total interactions and the most frequent values — which prize came up most, how many spins, how many products selected. This is where interactivity turns into insight.
 
-## Per contact
+## By contact
 
-The table lists every recipient: delivery, opened, clicked, interacted, which version they saw, **purchased**. The filters make investigating fast — only those who purchased, only those who complained, only delivery failures. Bot clicks and machine opens (Apple) appear **flagged**, not hidden.
+The table lists every recipient: delivery, opened, clicked, interacted, **bought** (with the amount, when known) and which version they saw (render). Search accepts a name or email, and the filter makes investigating fast — only those who purchased, only those who complained, only delivery failures. Bot clicks and machine opens (Apple) appear **flagged**, not hidden. Clicking the email opens the contact's profile without leaving the report.
 
 ## Export and act
 
-- **Export CSV** — the campaign summary or the full per-contact list.
-- **Send test** — straight from the report, with the `[Test]` prefix, outside the metrics.
-- **Resume sending** — for interrupted sends, continues without duplicating.
+- **Export CSV** — at the top, the campaign summary; in the **By contact** card, the recipient list with whatever search and filter are active.
+- **Send test** — straight from the report; the subject arrives with `[teste]` at the start, outside the metrics.
+- **Resume sending** — shows up when the send failed or when the automatic resume stopped progressing; it sends only to the pending recipients, without duplicating.
 
 ## Related articles
 

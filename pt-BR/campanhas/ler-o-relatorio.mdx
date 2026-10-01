@@ -3,7 +3,7 @@ title: "Como ler o relatório da campanha"
 description: "Métricas, funil de entrega, interações por bloco, a lista por contato e as exportações."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela de relatório de campanha · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -11,21 +11,21 @@ O que cada seção do relatório mostra e como investigar do número agregado at
 
 ## O topo: números da campanha
 
-Enviados (com entregues), cliques (humanos, % dos entregues), **interações AMP** (pessoas que agiram dentro do e-mail) e a **taxa AMP** (fração que viu a versão interativa), receita colocada, conversões, ticket médio, aberturas (estimadas ⓘ) e descadastros. Ao lado, o **tipo de renderização** mostra quantos abriram AMP × HTML.
+Sete cartões: **Enviados** (com os entregues e a taxa de entrega), **Receita colocada** (período total), **Aberturas** (estimadas ⓘ, % dos entregues), **Cliques** (humanos, % dos entregues), **Interações AMP** (pessoas que agiram dentro do e-mail, com a **taxa AMP**: das aberturas com versão identificada, quantas foram da interativa), **Conversões** e **Ticket médio**. Enviados, receita e aberturas se comparam com o relatório de WhatsApp; os outros quatro só existem no e-mail. Logo abaixo, o **tipo de renderização** mostra quantos abriram AMP × HTML, e **Do envio ao clique** mostra cada etapa sobre a anterior (entregues, aberturas e cliques — o último, sobre as aberturas, é o CTOR).
 
-Se aparecer **"AMP desativado neste disparo"**, a parte interativa não passou na validação e o envio saiu na versão de segurança (HTML) — o aviso lista os erros encontrados.
+Se aparecer **"AMP desativado neste disparo"**, a parte interativa não passou na validação (ou o validador não carregou no servidor) e o envio saiu na versão de segurança (HTML) para todos — o aviso lista os erros encontrados.
 
 {/* print: topo do relatório */}
 
 ## Detalhes do disparo
 
-Quem disparou (pessoa ou agendamento), audiência, remetente, template, UTMs (com "copiar query string"), duração e a **prévia do disparo** — um retrato de exatamente o que saiu, do jeito que o destinatário recebeu.
+O cartão **Como aparece na inbox** junta remetente, assunto e pré-header, do jeito que o destinatário vê. Em **Detalhes do disparo**: **Audiência** (contatos deduplicados e as listas e segmentos usados), **Janela de envio** (horário e duração) e **Rastreamento** (as UTMs, com **Copiar query string**); no rodapé, quem disparou (pessoa ou agendamento automático) e o ID interno. O botão **Prévia**, no topo, abre a **prévia do disparo** — o que foi enviado neste disparo, com o AMP degradado para HTML.
 
 ## Entrega dos enviados
 
-O funil divide os enviados em sete destinos que **sempre somam o total**: entregues, soft bounce (rejeição temporária), hard bounce (permanente), reclamação (marcou spam), suprimidos (bloqueados antes de sair), pendentes e falhas.
+O funil divide os enviados em sete destinos que **sempre somam o total**: entregues, soft bounce (rejeição temporária), hard bounce (permanente), reclamação (marcou spam), suprimidos (bloqueados antes de sair), pendentes e falhas. Abaixo da soma, **Depois da entrega** mostra os **Descadastros nesta campanha** — já contados nos entregues.
 
-Logo abaixo, **Excluídos do envio** explica quem estava na audiência e não recebeu, motivo a motivo: já estava em blocklist, já havia descadastrado, hard bounce histórico, sem consentimento, colisão com um fluxo recente, já recebeu (em reenvio).
+Logo abaixo, **Excluídos do envio** explica quem estava na audiência e não recebeu, motivo a motivo: já estava em blocklist, já havia descadastrado, hard bounce ou reclamação histórica, supressão, filtrados pelo segmento, sem consentimento, colisão com um fluxo recente. Quem já tinha recebido numa retomada do mesmo disparo não entra nessa conta.
 
 ## Interações por bloco
 
@@ -33,13 +33,13 @@ Para e-mails interativos: cada bloco (roleta, survey, formulário, carrossel…)
 
 ## Por contato
 
-A tabela lista cada destinatário: entrega, abriu, clicou, interagiu, qual versão viu, **comprou**. Os filtros deixam investigar rápido — só quem comprou, só quem reclamou, só falhas de entrega. Cliques de robô e aberturas de máquina (Apple) aparecem **marcados**, não escondidos.
+A tabela lista cada destinatário: entrega, abriu, clicou, interagiu, **comprou** (com o valor, quando conhecido) e qual versão viu (render). A busca aceita nome ou e-mail, e o filtro deixa investigar rápido — só quem comprou, só quem reclamou, só falhas de entrega. Cliques de robô e aberturas de máquina (Apple) aparecem **marcados**, não escondidos. Clicar no e-mail abre o perfil do contato sem sair do relatório.
 
 ## Exportar e agir
 
-- **Exportar CSV** — o resumo da campanha ou a lista por contato completa.
-- **Enviar teste** — direto do relatório, com o prefixo `[Teste]`, fora das métricas.
-- **Retomar envio** — para disparos interrompidos, continua sem duplicar.
+- **Exportar CSV** — no topo, o resumo da campanha; no cartão **Por contato**, a lista de destinatários com a busca e o filtro que estiverem ativos.
+- **Enviar teste** — direto do relatório; o assunto chega com `[teste]` no começo, fora das métricas.
+- **Retomar envio** — aparece quando o disparo falhou ou quando a retomada automática parou de avançar; envia só para os pendentes, sem duplicar.
 
 ## Artigos relacionados
 

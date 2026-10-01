@@ -1,0 +1,106 @@
+---
+title: "Como criar uma Roleta premiada"
+description: "O editor da roleta: prêmios e chances, cupons, validade, o que o visitante preenche, a publicação e onde ver o resultado."
+---
+
+{/* tipo: tarefa · prioridade: P1 · fonte: apps/web/src/routes/PopupRoleta.tsx, lib/popup-roleta.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, components/popup-no-ar.tsx, components/popup-canal.tsx, routes/PopupRelatorio.tsx, packages/popup-kit/templates/02-roleta-premiada/html.html + js.js, packages/popup-kit/compilador/marcadores.mjs, apps/web/public/popup/cliqo-core.js, locales campaigns.json · revisão: conferido contra o código em 28/09/2026 */}
+
+A **Roleta premiada** é um pop-up em que o visitante informa o e-mail e gira uma roda de prêmios. Todo giro ganha alguma coisa: você define os prêmios, o cupom de cada um e a chance de cada prêmio sair.
+
+## Antes de começar
+
+- [Pixel instalado e domínio da marca verificado](/pt-BR/popups/primeiros-passos).
+- A razão social com CNPJ e o endereço da política de privacidade — sem eles a peça não publica.
+- Os cupons criados na sua loja. A Cliqo mostra o código ao ganhador, mas não cria o cupom na loja.
+
+Para abrir: no menu lateral, **Pop-ups**. Na galeria, em **Capturar leads**, escolha **Roleta premiada › Usar este modelo**. O editor tem quatro passos — **Escolher · Personalizar · Comportamento · Revisar & ativar** — e abre em **Personalizar**, com a prévia ao lado. A prévia roda a peça de verdade: dá para preencher e girar.
+
+{/* print: passo Personalizar da roleta, com a tabela de prêmios e a prévia */}
+
+## Personalizar
+
+**Nome da peça** — só você vê; é o nome na lista e nos relatórios. Em **O que a peça diz**, o **Título** é obrigatório (até 60 caracteres) e a **Linha de apoio** é opcional (até 140). Se não quer prometer prêmio a todos, troque ou apague a linha de fábrica.
+
+### Os prêmios
+
+Cada linha de **Os prêmios** é uma fatia da roda:
+
+| Coluna | O que é |
+|---|---|
+| **Prêmio** | O nome que o ganhador lê ("Frete grátis") |
+| **Na fatia** | O texto curto dentro da fatia — até 8 caracteres ("FRETE") |
+| **Cupom** | O código que o ganhador recebe |
+| **Peso** | Quanto o prêmio pesa no sorteio |
+| **Chance** | A chance calculada, em % — muda na hora quando você mexe em qualquer peso |
+
+Os pesos não precisam somar 100: a chance é calculada entre eles. A roda de fábrica usa os pesos 30, 26, 22, 14, 6 e 2 — ou seja, o 5% OFF sai 30% das vezes e o 25% OFF, 2%.
+
+- A roda tem de 3 a 6 fatias. **Acrescentar fatia** cria uma nova antes da última; a lixeira apaga (mínimo de 3).
+- A última fatia é o prêmio máximo e sai dourada.
+- Para mudar a cor, clique na bolinha da fatia ou use um atalho: **Dia dos Namorados**, **Black Friday**, **Natal**. **Voltar às cores da marca** desfaz. A cor do texto dentro da fatia é ajustada sozinha para continuar legível. Os avisos de cor (prêmio máximo sem dourado, fatias vizinhas iguais) não impedem a publicação.
+
+<Warning>
+Não existe fatia "não ganhou", de propósito: quem perde tende a deixar e-mail falso, e isso prejudica a entrega da sua base inteira. Pelo mesmo motivo, dê chance alta ao desconto pequeno e chance baixa ao desconto grande.
+</Warning>
+
+A peça não avança se um prêmio está sem nome, sem texto na fatia ou sem cupom; se o texto da fatia passa de 8 caracteres; se dois prêmios têm o mesmo cupom; se algum peso é negativo; ou se todos os pesos estão em zero. Enquanto falta algo, **Continuar** fica travado, e **Faltam N coisas — ver** leva até cada campo.
+
+**Sobre o cupom:** o código é o mesmo para todas as pessoas que caem naquela fatia. Crie cada código na sua loja antes de publicar — e, se quiser limitar o uso, limite por lá.
+
+### Formato, marca e empresa
+
+- **Formato da roda** — **Roda em cima, formulário embaixo** ou **Roda ao lado do formulário (cartão largo)**.
+- **Sua marca** — **Cor principal** e **Cor dos títulos**. As duas precisam de contraste suficiente sobre o branco.
+- **Dados da empresa** — **Razão social e CNPJ** e **Endereço da política de privacidade**, obrigatórios. Eles entram no texto do consentimento.
+
+### O que você pergunta
+
+- **E-mail** — sempre, obrigatório.
+- **Pedir também o celular** — opcional. Junto com o celular entra a caixa de consentimento de WhatsApp.
+- Até 3 perguntas extras (**Texto**, **Número**, **Data** ou **Sim/não**), em **Perguntar mais uma coisa**. Todas opcionais para o visitante.
+- **Por quanto tempo o cupom vale** — de 30 minutos a 72 horas; o padrão é 24 horas. É o relógio que o visitante vê na tela do prêmio. Ele não muda a validade do cupom na sua loja: ajuste lá também. Quem já pegou o cupom mantém o prazo que viu.
+
+O texto do consentimento não é editável e a caixa de e-mail nasce desmarcada. O visitante só consegue girar depois de marcá-la.
+
+## Comportamento
+
+- **Momento** — **A partir da 2ª página, depois de 8 segundos** (o padrão), **Assim que a pessoa chega** ou **Quando dá sinal de que vai sair**.
+- **Quem preencher entra na lista** — escolha uma lista, **Criar nova** ou **Nenhuma — só vira contato**. Entrar na lista não é autorizar o envio: quem decide é a caixa de consentimento.
+- **De quanto em quanto tempo** — na roleta, o padrão é **1× por mês**. As outras opções: **1× por semana, para depois de 2 recusas** e **1× por visita**.
+- **Onde aparece (opcional)** — **Só nestas páginas** e **Nunca nestas**. O checkout é sempre bloqueado.
+- **Para onde leva** — o **Endereço do botão** que aparece depois do giro. A tela mostra o link final, com as etiquetas que o relatório da sua loja usa para saber que a venda veio do pop-up.
+
+**Para quem** aparece desligado: mostrar só para quem ainda não é contato não funciona hoje.
+
+## Revisar & ativar
+
+- **Resumo** — os prêmios com a chance de cada um, os cupons, o destino, a exibição, a lista e o **Prazo do cupom**. Confira a lista aqui antes de publicar.
+- **Verificações automáticas** — contraste das cores, consentimento LGPD com razão social e política, acesso por teclado e leitor de tela, nunca no checkout e limite de exibição ativo.
+- **Publicar na loja** — a peça só aparece nas páginas do domínio verificado da marca. Sem domínio verificado, a tela avisa que a peça foi salva, mas ainda não vai aparecer.
+
+Para editar depois: em **No ar na sua loja** (na tela Pop-ups e neste passo), **Configurar** reabre a peça; ao terminar, **Publicar as mudanças** substitui a que está no ar.
+
+## O que o visitante vê
+
+1. Informa o e-mail (e o que mais você pediu), marca o consentimento e gira.
+2. O sorteio segue as chances da tabela. Quem recarrega a página no mesmo navegador cai no mesmo prêmio — não dá para girar de novo para tentar outro prêmio.
+3. O prêmio só aparece depois que o contato foi gravado. Se o envio falhar, o visitante vê uma mensagem e pode tentar de novo.
+4. O ganhador vê o prêmio, o cupom com botão de copiar, o relógio da validade e o botão para a loja.
+
+Quem já se cadastrou por esta peça não vê a roleta de novo naquele navegador.
+
+## Onde ver o resultado
+
+Em **Relatórios › Por campanha**, escolha o canal **Pop-up**. Na tabela **Peças do período**, clique em **Ver relatório →** na linha da roleta. O relatório da peça tem os períodos **7 dias**, **30 dias** e **Desde a publicação**, e mostra:
+
+- **Contatos captados**, **Exibições** e **Cupons usados**;
+- o **Funil da peça**: **Apareceu → Preencheu → Virou contato → Pegou o cupom → Usou o cupom**;
+- **Por que o pop-up não apareceu**, com o motivo de cada vez que a peça não foi exibida.
+
+A **Receita imediata** ainda aparece como **Ainda não medimos** — não é R$ 0.
+
+## Próximos passos
+
+- [Primeiros passos com pop-ups](/pt-BR/popups/primeiros-passos)
+- [Como criar um pop-up de Boas-vindas](/pt-BR/popups/criar-boas-vindas)
+- [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento)

@@ -3,7 +3,7 @@ title: "How to create and get a message template approved (Meta)"
 description: "Categories, variables with examples, buttons and click tracking — and how to avoid the number 1 cause of rejection."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Modelos WhatsApp (Meta) · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Modelos WhatsApp (Meta) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -15,25 +15,31 @@ To start a conversation outside the [24-hour window](/en/whatsapp/primeiros-pass
 
 ## Create a template
 
-In **WhatsApp › Templates**, click to create a new template:
+In **Templates**, **WhatsApp (Meta)** tab, fill in the **New template** form:
 
-1. **Name** — lowercase and underscores (the screen normalizes it for you). E.g. `oferta_semana`.
+1. **Template name** — lowercase letters, numbers and underscores only (accents and spaces are converted automatically). E.g. `oferta_semana`.
 2. **Category** — Meta charges and judges by it:
    - **Utility** — order, delivery, payment. Cheaper; inside the 24h window, no template cost.
    - **Marketing** — promotion, news, coupon.
    - **Authentication** — access codes.
-   Don't try to pass marketing off as utility: Meta reclassifies it and can pause the template.
+   Don't try to pass marketing off as utility: Meta rejects it for the wrong category or changes the category — and the cost changes with it.
 3. **Message** — the text, with variables `{{1}}`, `{{2}}` for whatever changes per person or per campaign (name, coupon, product).
-4. **An example for each variable** — mandatory. **A variable without an example is the most common cause of rejection** — Meta needs to see what the message looks like filled in.
-5. **Buttons** — quick reply (e.g. "Tell me more") and/or a **link** button.
+4. **Example for each variable** — mandatory. **A variable without an example is the most common cause of rejection** — Meta needs to see what the message looks like filled in.
+5. **Buttons (optional)** — via **Add button**: **Quick reply** (e.g. "Tell me more") and/or **Link**. The button order is the order shown in WhatsApp, and it can't change after approval.
+
+Then click **Submit for approval**.
+
+You can also create one without leaving the campaign: in the campaign wizard's **Message** step, **Create new** opens the same approval request (there, with the Marketing and Utility categories).
 
 {/* print: template creation with variables and examples */}
 
 ## Track the button click
 
-On the link button, turn on **Track clicks on this button**: each recipient gets a unique link, the clicks show up in the report and the **revenue is attributed** to the WhatsApp campaign. With tracking off, the destination is a fixed URL frozen by Meta at approval — no attribution and no changing the destination per campaign.
+Every **Link** button created in Cliqo is tracked (**This button is tracked**): each recipient gets their own link, the clicks show up in the report and the **revenue is attributed** to the WhatsApp campaign. You choose the destination and the UTMs on each campaign — with no need to have the template approved again.
 
-Tip: include the opt-out instruction ("reply SAIR to stop receiving messages") — the screen offers to insert it with one click when the template doesn't have it.
+A template whose button has a fixed URL (created outside Cliqo, e.g. directly on Meta) can't be used to send a campaign: the campaign screen warns that the button can't be measured, and you need a template with the tracked link.
+
+Tip: include the opt-out instruction ("reply SAIR to stop receiving messages") — on a **Marketing** template without it, the screen warns you and offers **Insert “Reply SAIR”** with one click.
 
 ## Statuses and what to do in each one
 
@@ -43,14 +49,11 @@ The statuses come straight from Meta and appear as Meta reports them:
 |---|---|
 | **PENDING** (in review) | Waiting on Meta — usually minutes to hours. |
 | **APPROVED** | Ready to use in sends and flows. |
-| **REJECTED** | The screen shows the reason; fix and resubmit. Common causes: a variable without an example, text that violates the policy, wrong category. |
-| **PAUSED** | Meta paused it for low quality (too many blocks/reports) — review audience and frequency before insisting. |
+| **REJECTED** | Fix and resubmit. If the template was created through the campaign's **Create new**, the screen shows Meta's reason and offers **Edit and resubmit**; the Templates list shows only the status. Common causes: a variable without an example, text that violates the policy, wrong category. |
+| **PAUSED** | Meta paused it for low quality (too many blocks/reports): 3 hours the 1st time, 6 hours the 2nd. Review audience and frequency before insisting. |
+| **DISABLED** | On the 3rd pause Meta disables the template, and it doesn't come back — create another one, with different text. |
 
-Deleting a template removes it **on Meta as well** — and breaks campaigns and flows that use it; the screen warns you first.
-
-## Ready-made message gallery
-
-So you don't start from scratch: the gallery brings ready-made templates by use case (welcome, cart, payment notice, post-delivery…), which you personalize with your brand name and submit for approval.
+**Delete template** removes it **on Meta as well**, permanently — and campaigns and flows that use it stop sending; the screen warns you first. Meta also holds the **name** for 4 weeks: the replacement needs a different name.
 
 ## Related articles
 

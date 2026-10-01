@@ -3,13 +3,13 @@ title: "Entenda as métricas da Cliqo"
 description: "O que significa cada número dos relatórios — e por que alguns são diferentes do que você via em outras ferramentas."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: léxico de métricas do produto · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: léxico de métricas do produto · revisão: conferido contra o código em 28/09/2026 */}
 
 A Cliqo mede com uma regra editorial: **número que engana é pior que número menor**. Por isso algumas métricas aqui são menores — e mais honestas — do que as de outras ferramentas. Este artigo define cada uma.
 
 ## Do envio à entrega
 
-**Enviados** é quantos e-mails saíram. **Entregues** é quantos chegaram — a diferença se divide em: *soft bounce* (rejeição temporária, o provedor tenta de novo), *hard bounce* (endereço inexistente — o contato é suprimido automaticamente dos próximos envios), *reclamação* (marcou como spam — também suprimido), *suprimidos* (bloqueados pela sua blocklist antes de sair) e falhas. O relatório mostra os sete destinos, e a soma sempre bate com os enviados.
+**Enviados** é quantos e-mails saíram. **Entregues** é quantos chegaram — a diferença se divide em: *soft bounce* (rejeição temporária, o provedor tenta de novo), *hard bounce* (endereço inexistente — o contato é suprimido automaticamente dos próximos envios), *reclamação* (marcou como spam — também suprimido), *suprimidos* (bloqueados pela sua blocklist antes de sair), *pendentes* (ainda processando) e falhas. O relatório da campanha mostra os sete grupos (os entregues e esses seis), e a soma sempre bate com os enviados.
 
 ## Abertura — sempre "estimada"
 
@@ -25,7 +25,7 @@ Antes de contar, a Cliqo remove o que não é gente: scanners de segurança corp
 
 ## Conversões e receita atribuída
 
-Uma venda conta **uma vez**, mesmo que o cliente tenha sido tocado por várias campanhas — o modelo de atribuição decide quem leva o crédito (padrão: **último clique**, janela de **30 dias** — alternável para 7 dias, e o modelo para primeiro toque ou linear, nas Análises). O que não tem toque rastreado aparece como **"Orgânico / outros canais"**, não é distribuído à força. Abertura **não** atribui venda — só clique e interação.
+Uma venda conta **uma vez**, mesmo que o cliente tenha sido tocado por várias campanhas — o modelo de atribuição decide quem leva o crédito (padrão: **último clique**, contando cliques de até **30 dias** antes da compra). Em **Análises › Atribuição** dá para trocar o período — datas livres ou atalhos de 7 a 90 dias; nos atalhos de 7 e 14 dias, a janela de clique acompanha o atalho — e o modelo para **primeiro toque**. O que não tem toque rastreado aparece como **"Orgânico / outros canais"**, não é distribuído à força. Abertura **não** atribui venda — só clique e interação.
 
 Por isso o número difere do Google Analytics: o GA não enxerga interações dentro do e-mail nem o Pix pago no próprio e-mail — e usa outro modelo de atribuição. Os dois estão "certos"; medem coisas diferentes.
 
@@ -36,5 +36,4 @@ Por isso o número difere do Google Analytics: o GA não enxerga interações de
 
 ## Artigos relacionados
 
-- [Entenda a atribuição de receita](/pt-BR/relatorios/atribuicao) *(em breve nesta central)*
 - [Aquecimento: como enviar para uma base nova](/pt-BR/entregabilidade/aquecimento)

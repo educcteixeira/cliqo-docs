@@ -3,7 +3,7 @@ title: "Como criar e aprovar um modelo de mensagem (Meta)"
 description: "Categorias, variáveis com exemplo, botões e rastreamento de clique — e como evitar a causa nº 1 de reprovação."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela Modelos WhatsApp (Meta) · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Modelos WhatsApp (Meta) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -15,25 +15,31 @@ Para iniciar conversa fora da [janela de 24 horas](/pt-BR/whatsapp/primeiros-pas
 
 ## Criar um modelo
 
-Em **WhatsApp › Modelos**, clique em novo modelo:
+Em **Modelos**, aba **WhatsApp (Meta)**, preencha o formulário **Novo template**:
 
-1. **Nome** — minúsculas e underscore (a tela normaliza sozinha). Ex.: `oferta_semana`.
+1. **Nome do template** — só letras minúsculas, números e underline (acentos e espaços são convertidos automaticamente). Ex.: `oferta_semana`.
 2. **Categoria** — a Meta cobra e julga por ela:
    - **Utilidade** — pedido, entrega, pagamento. Mais barata; dentro da janela de 24 h, sem custo de template.
    - **Marketing** — promoção, novidade, cupom.
    - **Autenticação** — códigos de acesso.
-   Não tente passar marketing como utilidade: a Meta reclassifica e pode pausar o modelo.
+   Não tente passar marketing como utilidade: a Meta recusa por categoria errada ou muda a categoria — e o custo muda junto.
 3. **Mensagem** — o texto, com variáveis `{{1}}`, `{{2}}` para o que muda por pessoa ou por campanha (nome, cupom, produto).
 4. **Exemplo para cada variável** — obrigatório. **Variável sem exemplo é a causa mais comum de reprovação** — a Meta precisa ver como a mensagem fica preenchida.
-5. **Botões** — resposta rápida (ex.: "Quero saber mais") e/ou botão de **link**.
+5. **Botões (opcional)** — em **Adicionar botão**: **Resposta rápida** (ex.: "Quero saber mais") e/ou **Link**. A ordem dos botões é a que aparece no WhatsApp, e ela não muda depois da aprovação.
+
+Depois, clique em **Enviar para aprovação**.
+
+Também dá para criar sem sair da campanha: no passo **Mensagem** do assistente de campanha, **Criar novo** abre o mesmo pedido de aprovação (ali, com as categorias Marketing e Utilidade).
 
 {/* print: criação de modelo com variáveis e exemplos */}
 
 ## Rastrear o clique do botão
 
-No botão de link, ative **Rastrear os cliques deste botão**: cada destinatário recebe um link único, os cliques aparecem no relatório e a **receita é atribuída** à campanha de WhatsApp. Com o rastreio desligado, o destino é uma URL fixa congelada pela Meta na aprovação — sem atribuição e sem trocar o destino por campanha.
+Todo botão de **Link** criado na Cliqo sai rastreado (**Este botão é rastreado**): cada destinatário recebe um link próprio, os cliques aparecem no relatório e a **receita é atribuída** à campanha de WhatsApp. O endereço de destino e as UTMs você escolhe em cada campanha — sem precisar aprovar o modelo de novo.
 
-Dica: inclua a instrução de saída ("responda SAIR para não receber mais") — a tela oferece inseri-la com um clique quando o modelo não tem.
+Modelo com botão de endereço fixo (criado fora da Cliqo, por exemplo direto na Meta) não dispara campanha: a tela da campanha avisa que o botão não dá pra medir, e é preciso usar um modelo com o link rastreado.
+
+Dica: inclua a instrução de saída ("responda SAIR para não receber mais") — num modelo de **Marketing** sem ela, a tela avisa e oferece **Inserir “Responda SAIR”** com um clique.
 
 ## Status e o que fazer em cada um
 
@@ -43,14 +49,11 @@ Os status vêm direto da Meta e aparecem como ela os reporta:
 |---|---|
 | **PENDING** (em análise) | Aguardando a Meta — normalmente minutos a horas. |
 | **APPROVED** (aprovado) | Pronto para usar em envios e fluxos. |
-| **REJECTED** (rejeitado) | A tela mostra o motivo; corrija e reenvie. Causas comuns: variável sem exemplo, texto que viola a política, categoria errada. |
-| **PAUSED** (pausado) | A Meta pausou por baixa qualidade (muitos bloqueios/denúncias) — reveja público e frequência antes de insistir. |
+| **REJECTED** (rejeitado) | Corrija e reenvie. Se o modelo foi criado pelo **Criar novo** da campanha, a tela mostra o motivo da Meta e oferece **Editar e reenviar**; na lista de Modelos aparece só o status. Causas comuns: variável sem exemplo, texto que viola a política, categoria errada. |
+| **PAUSED** (pausado) | A Meta pausou por baixa qualidade (muitos bloqueios/denúncias): 3 horas na 1ª vez, 6 horas na 2ª. Reveja público e frequência antes de insistir. |
+| **DISABLED** (desativado) | Na 3ª pausa a Meta desativa o modelo, e ele não volta — crie outro, com texto diferente. |
 
-Excluir um modelo o remove **também na Meta** — e quebra campanhas e fluxos que o usam; a tela avisa antes.
-
-## Galeria de mensagens prontas
-
-Para não começar do zero: a galeria traz modelos prontos por caso de uso (boas-vindas, carrinho, aviso de pagamento, pós-entrega…), que você personaliza com o nome da marca e envia para aprovação.
+**Excluir modelo** o remove **também na Meta**, de forma definitiva — e campanhas e fluxos que o usam param de enviar; a tela avisa antes. A Meta ainda segura o **nome** por 4 semanas: o substituto precisa de outro nome.
 
 ## Artigos relacionados
 

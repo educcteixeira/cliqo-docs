@@ -1,9 +1,9 @@
 ---
 title: "Como conectar seu número de WhatsApp"
-description: "A conexão pela Meta oficial: pré-requisitos, o cadastro guiado e a verificação da empresa."
+description: "A conexão pela Meta oficial: pré-requisitos, o formulário de conexão, o webhook e a verificação da empresa."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: modelo Meta client-direct (ADRs) — passos do lado da Meta NÃO-VERIFICÁVEIS no código; VALIDAR com o fluxo real de onboarding · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Configurações › WhatsApp (WhatsAppSettingsPanel.tsx + locales whatsappSettings) e modelo Meta client-direct (ADRs) — o Passo 1 foi conferido contra a tela em 27/09 (#1956) e tem guarda (artigo-conexao-whatsapp.guard.test.ts): no Passo 1, NEGRITO = rótulo da tela; passos do lado da Meta (menus do App Dashboard e do Business Manager, passos 2-4) seguem NÃO-VERIFICÁVEIS no código · revisão: passo 1 conferido contra o código; lado da Meta pendente */}
 
 ## O que você vai aprender
 
@@ -14,10 +14,24 @@ Como conectar a conta de WhatsApp Business da sua empresa à Cliqo, pela API ofi
 - **Acesso de administrador** ao Gerenciador de Negócios (Meta Business Manager) da empresa — se a empresa ainda não tem um, a criação faz parte do processo.
 - **Um número de telefone para o canal** — fixo ou celular, capaz de receber uma ligação ou SMS de verificação. Importante: um número que já está ativo no aplicativo WhatsApp (comum ou Business) precisa ser desvinculado antes de virar número de API.
 - **Dados da empresa** — razão social, endereço e site, para a verificação da Meta.
+- **Um app da sua empresa na Meta** (no App Dashboard), com o WhatsApp adicionado — é dele que saem o App Secret e o ID do telefone que a Cliqo pede no Passo 1.
 
-## Passo 1 · Inicie a conexão com a Cliqo
+## Passo 1 · Conecte o número na Cliqo
 
-A conexão é **conduzida junto com o time da Cliqo** (fale com a gente por Configurações › WhatsApp ou pelo suporte): no cadastro da Meta, você entra com a sua conta e autoriza — e a WABA é criada (ou conectada, se já existir) **no seu portfólio**, não no da Cliqo. Esse acompanhamento existe porque os passos do lado da Meta mudam com frequência e um erro aqui (número preso, nome recusado) custa dias.
+A conexão é feita por você, em Configurações › WhatsApp, com as credenciais do *seu* app na Meta — a conta e o número ficam no seu portfólio, não no da Cliqo. Se preferir, o time da Cliqo faz a conexão junto com você: fale com a gente pelo suporte.
+
+Preencha os quatro campos do formulário:
+
+- **Token de acesso** — o token do usuário do sistema, gerado no Business Manager, em Usuários do sistema. Use um token permanente: ele não expira.
+- **App Secret** — o segredo do seu app na Meta. É ele que assina o webhook: sem o App Secret certo, a Meta rejeita as mensagens que chegam.
+- **ID do telefone** — só números; fica no App Dashboard → WhatsApp → Configuração da API.
+- **ID da conta (WABA)** — só números; é a conta comercial que contém o número.
+
+Depois clique em **Conectar Twilio**. O botão ainda tem o nome do transporte antigo, mas é ele que grava a conexão pela Meta. Antes de gravar, a Cliqo confere com a Meta se o token alcança aquele ID do telefone — se não alcançar, nada é salvo e a tela mostra o erro.
+
+Com a conexão gravada, aparece o bloco **Falta um passo, no painel da Meta**, com dois valores para copiar: a **URL do webhook** e o **Token de verificação**. No App Dashboard → WhatsApp → Configuração → Webhook, cole os dois e assine o campo `messages`. Sem o webhook, as Conversas não recebem as mensagens dos clientes.
+
+Os caminhos dentro do painel da Meta são os que a própria tela da Cliqo indica. A Meta muda esses menus com frequência, e daqui não dá para conferi-los — se um nome não bater, fale com a gente.
 
 {/* print: tela de WhatsApp em Configurações */}
 
@@ -31,7 +45,7 @@ No Gerenciador do WhatsApp da Meta, cadastre o **método de pagamento da empresa
 
 ## Passo 4 · Verifique a empresa
 
-A **verificação da empresa** (Business Verification) confirma a razão social com documentos. Ela é o que destrava os limites maiores de envio — número sem verificação fica no degrau inicial de destinatários por dia. O status aparece em [Número e qualidade](/pt-BR/whatsapp/numero-e-qualidade).
+A **verificação da empresa** (Business Verification) confirma a razão social com documentos. Ela é o que destrava os limites maiores de envio — número sem verificação fica no degrau inicial de destinatários por dia.
 
 ## Resultado
 

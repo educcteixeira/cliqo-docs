@@ -1,0 +1,133 @@
+---
+title: "Connect Shopify"
+description: "Linking your Shopify store to Cliqo by authorization: what comes in (catalogue, orders and buyers), how often, and how the purchase reaches the pixel."
+---
+
+{/* tipo: tarefa · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/integracoes/ShopifyConectar.tsx, ShopifyRetorno.tsx, routes/Settings.tsx (IntegrationsTab), lib/shopify-conexao.ts, api/integrations/shopify/iniciar.js + trocar.js, api/lib/shopify-oauth.js, api/lib/shopify-custom-pixel.js, api/integrations/store/sync.js, api/cron/sync-orders.js, packages/integrations/src/shopify.ts, vercel.json, locales settings.json · revisão: conferido contra o código em 28/09/2026 */}
+
+Connecting Shopify to Cliqo brings three things: your **product catalogue** (for emails with a product showcase), your **orders** (which feed the RFM segmentation and attributed revenue) and your **buyers**, who become contacts in your base.
+
+On Shopify there is no key to copy and paste. You **authorize Cliqo inside Shopify itself** and come back here.
+
+The connection is **read-only**: Cliqo reads products, orders and customers, and changes nothing in your store.
+
+## Before you start
+
+<Warning>
+**Talk to Cliqo before connecting.** Today the Shopify connection is prepared by our team for each store. Write to [contato@cliqo.io](mailto:contato@cliqo.io) with your store's `.myshopify.com` domain. We will let you know when it is ready.
+</Warning>
+
+You will also need:
+
+- **The Owner or Admin role in Cliqo.** Other roles cannot connect a store.
+- **Owner or admin access on Shopify**, with permission to install apps on the store.
+- **The store's `.myshopify.com` domain.** In the Shopify admin it is under **Settings → Domains**. It is not the address your customers use: it is the internal address, something like `sample-store.myshopify.com`.
+
+## Connecting
+
+<Steps>
+  <Step title="Open the integrations">
+    Under **Settings › Integrations**, tap **Connect new store**.
+  </Step>
+  <Step title="Choose Shopify">
+    Under **Platform**, choose **Shopify**.
+  </Step>
+  <Step title="Enter the domain">
+    In the **Shopify store domain** field, type the domain ending in `.myshopify.com`. Typing just the name before `.myshopify.com` also works.
+  </Step>
+  <Step title="Go to Shopify">
+    Tap **Connect with Shopify**. The screen shows **Taking you to Shopify…** and opens Shopify.
+  </Step>
+  <Step title="Authorize">
+    On Shopify, check the access being requested — all of it read-only — and confirm the installation.
+  </Step>
+  <Step title="Come back to Cliqo">
+    Shopify sends you back to Cliqo. You will see **Connecting your Shopify store…** and then **Store connected**. Tap **View integrations** and open the **Integrations** tab: the store shows up in the list.
+  </Step>
+</Steps>
+
+<Tip>
+Do it all in one go, in the same browser where you are logged in to Cliqo. The connection request is valid for a few minutes and only for the account that started it.
+</Tip>
+
+{/* print: Settings › Integrations with Shopify selected and the domain field */}
+
+Each account links **one Shopify store**. Connecting again updates the existing connection.
+
+## Bringing in the catalogue
+
+The catalogue **does not come in on its own** after connecting. On the Shopify card, under **Settings › Integrations**, tap **Sync everything**.
+
+After the first time you will also see **New only (delta)**, which brings only what changed since the last sync.
+
+Shopify does not notify Cliqo when a product changes. For the catalogue to keep up with prices, stock and new products, sync again.
+
+Two things about how the catalogue comes in:
+
+- **Shopify collections become the categories.** A product that sits in several collections comes in with **one** of them.
+- **Products without a SKU come in too.** Cliqo creates its own code for them.
+
+## The orders
+
+Orders arrive **on their own**. On Shopify there is no button to pull orders.
+
+The first read starts a few minutes after connecting and sweeps the store's **order history** in several passes. While that first sweep runs, **no customer is enrolled into a flow because of those orders** — that would send a post-purchase message about a months-old order. Only orders that arrive afterwards reach the triggers.
+
+After the first sweep, Cliqo fetches new orders **once a day, early in the morning**. It is not real time: an order placed today shows up the next day.
+
+Orders appear under **Audience › Orders**. Cancelled or refunded orders are left out.
+
+## The buyers
+
+Each order **with an email address** creates or updates the contact of whoever bought. Orders without an email are left out: without an email there is no way to know who bought.
+
+Shopify customers who never bought do **not** come in through this connection.
+
+**Consent:** a buyer only gets email marketing permission if they are **subscribed to marketing** on Shopify. Everyone else enters the base without that permission. Contacts you deleted, or who unsubscribed in Cliqo, do not come back through the sync. More in [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento).
+
+## The pixel on Shopify
+
+On Shopify, the pixel has **two pieces**:
+
+| Piece | What it measures | Where it goes |
+|---|---|---|
+| Theme pixel | Browsing, products viewed, cart, clicks coming from email | In the store theme, as in [Install the pixel](/en/lojas/instalar-o-pixel) |
+| Purchase pixel | The completed purchase | On Shopify, under **Settings → Customer events**, as a custom pixel |
+
+Shopify's thank-you page no longer accepts theme scripts. That is why the theme pixel **does not see the purchase**, and the *"Recording a purchase"* step in the pixel article does not apply on Shopify.
+
+The **purchase pixel code is generated by the Cliqo team** for your account. There is no button for it in the app: ask at [contato@cliqo.io](mailto:contato@cliqo.io). On Shopify, add a custom pixel, name it "Cliqo", paste the code without changing anything, save and connect.
+
+This pixel also sends the buyer's email. That is what links the purchase to the contact, even when the person did not come from one of your emails.
+
+The privacy obligations in the [pixel article](/en/lojas/instalar-o-pixel) apply here too: your privacy policy needs to say the store uses a tracking pixel.
+
+## What the connection does not do
+
+- **It does not change anything in your store.** Cliqo only reads.
+- **It is not real time.** Orders come in once a day; products, when you sync.
+- **It does not use a webhook.** The Shopify card shows a **Webhook URL** field, but it does not apply to Shopify. Do not paste that address anywhere.
+- **It does not replace the pixel.** Orders tell you what was bought; the pixel tells you what was looked at and not bought.
+
+If you tap **Disconnect**, Cliqo stops reading the store. Products already synced stay under **Products**.
+
+## When something does not add up
+
+| Message or symptom | What to do |
+|---|---|
+| *That store domain isn't valid.* | Use the domain ending in `.myshopify.com`, not the store's public address. |
+| *This return link is no longer valid…* | The request expired or was opened in a different account. Start again under **Settings › Integrations**. |
+| *Shopify refused the exchange…* | The return page was reloaded or opened twice. Connect again. |
+| *Shopify authorized, but the access didn't pass verification.* | Check that you accepted all the access on Shopify and try again. |
+| *The Shopify integration isn't configured on the server yet.* | That is on our side. Let us know. |
+| The catalogue is empty | Tap **Sync everything** on the Shopify card. |
+| Today's order does not show up | Wait for the next day's read. |
+| There are fewer contacts than Shopify customers | Only people who bought and have an email on the order come in. |
+
+If it persists, write to us at [contato@cliqo.io](mailto:contato@cliqo.io).
+
+## Next steps
+
+- [Install the pixel](/en/lojas/instalar-o-pixel)
+- [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento)
+- [Understand Cliqo's metrics](/en/relatorios/entenda-metricas)

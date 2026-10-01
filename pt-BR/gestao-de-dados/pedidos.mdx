@@ -1,0 +1,94 @@
+---
+title: "Pedidos: de onde vêm e o que cada coluna mostra"
+description: "De onde vêm os pedidos da sua loja e as cobranças da Cliqo, com que frequência chegam e por que o total da tela não é a receita atribuída."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Orders.tsx, apps/web/src/routes/Settings.tsx, api/integrations/store/sync.js, api/cron/sync-orders.js, vercel.json, packages/integrations/src/index.ts, api/order/create.js, api/pix/quick-charge.js, api/lib/whatsapp-payment-reply.js, api/orders/import.js, api/cron/expire-stale-orders.js, packages/db/sql/605_conversoes_canonicas_aceita_intervalo.sql · revisão: conferido contra o código em 28/09/2026 */}
+
+A tela **Pedidos** mostra, num lugar só, os pedidos que chegaram da sua loja e as cobranças que a Cliqo gerou para os seus clientes. Para chegar nela, abra **Público › Pedidos** no menu lateral.
+
+{/* print: tela Pedidos com os três cartões do topo, as abas de status e a tabela com a coluna Origem */}
+
+## De onde vêm os pedidos
+
+A coluna **Origem** diz de onde veio cada pedido.
+
+| Origem | O que é |
+|---|---|
+| **Loja** | Pedido trazido da sua loja pela integração. Hoje isso vale para Loja Integrada, Cazco (PrestaShop) e Shopify. |
+| **Cliqo** | Cobrança gerada pela Cliqo (Pix, boleto ou cartão) a partir de um e-mail ou dos botões de pagamento no WhatsApp. Só aparece se a sua conta tem o meio de pagamento conectado em **Configurações › Pagamentos**. |
+| **Manual** | Pedido que entrou por importação de arquivo, fora da integração da loja. |
+| **Outra fonte** | Pedido sem origem registrada. É raro. |
+
+<Note>
+O **pixel não cria pedidos**. Ele registra o que as pessoas fazem no site, e as compras que ele capta entram nos relatórios. Mas nesta tela só aparece o que veio da integração da loja, de uma cobrança da Cliqo ou de uma importação.
+</Note>
+
+## Com que frequência os pedidos da loja chegam
+
+Os pedidos da loja **não chegam na hora**. A Cliqo busca os pedidos novos **uma vez por dia**.
+
+- **Loja recém-conectada:** logo depois da conexão, a Cliqo começa a trazer o histórico de pedidos, em etapas, até terminar. Depois disso, passa para a busca diária.
+- **Loja Integrada:** se quiser buscar na hora, use **Atualizar pedidos agora** em **Configurações › Integrações**. Esse botão só existe para a Loja Integrada.
+
+<Warning>
+O aviso "Atualiza a cada 15s" no topo da tela fala da **tela**, não da loja. A cada 15 segundos a tela relê o que já está na Cliqo. É assim que uma cobrança da Cliqo vira **Pago** sem você recarregar a página. Um pedido novo da loja só aparece depois da próxima busca diária (ou, na Loja Integrada, depois de **Atualizar pedidos agora**).
+</Warning>
+
+A sincronização **não traz** pedidos cancelados ou estornados, pedidos sem e-mail do comprador, pedidos de valor zero nem pedidos de e-mails que estão na sua [lista de supressões](/pt-BR/gestao-de-dados/supressoes). Cada pedido fica ligado ao contato pelo e-mail do comprador.
+
+## Os cartões do topo
+
+| Cartão | O que conta |
+|---|---|
+| **Total recebido** | A soma dos pedidos **Pagos**. |
+| **Aguardando** | Quantos pedidos estão **Pendentes** de pagamento. |
+| **Total de pedidos** | Quantos pedidos a tela carregou. |
+
+<Warning>
+A tela carrega só os **100 pedidos que entraram por último na Cliqo**. Os três cartões e os números das abas contam só esses 100. **Total recebido** não é o faturamento de todo o período da loja.
+</Warning>
+
+O botão **Atualizar** relê a lista na hora.
+
+## Abas e busca
+
+As abas filtram por status: **Todos**, **Pendentes**, **Pagos**, **Expirados** e **Cancelados**. Pedidos **Reembolsados** não têm aba própria e aparecem em **Todos**.
+
+A busca (**Buscar por email…**) procura pelo e-mail do cliente, dentro dos 100 pedidos carregados.
+
+Uma cobrança pendente que passou do vencimento vira **Expirado**. A Cliqo confere isso uma vez por dia. Se o cliente pagar uma cobrança da Cliqo depois do vencimento, ela volta para **Pago**.
+
+## As colunas da tabela
+
+| Coluna | O que mostra |
+|---|---|
+| **Data** | Quando o pedido entrou na Cliqo. Num pedido da loja, é o dia em que ele foi sincronizado, não o dia da compra. |
+| **Cliente** | O e-mail do comprador. Em pedido pago, aparece embaixo **Pago em** com a data do pagamento. |
+| **Método** | Pix, Cartão ou Boleto. |
+| **Origem** | Loja, Cliqo, Manual ou Outra fonte (veja acima). |
+| **Valor** | O total do pedido. |
+| **Status** | Pago, Pendente, Expirado, Cancelado ou Reembolsado. |
+| **Campanha** | A campanha em que a cobrança foi gerada. |
+
+No celular, arraste a tabela para o lado para ver todas as colunas.
+
+<Note>
+Nos pedidos da loja, uma forma de pagamento que a Cliqo não reconhece como Pix ou boleto aparece como **Cartão**.
+</Note>
+
+## Pedidos e a receita atribuída nos relatórios
+
+A tela Pedidos **não mostra quanto a Cliqo vendeu**. Ela lista pedidos. Quem responde "quanto veio das minhas mensagens" são os relatórios, com a receita atribuída.
+
+As duas coisas usam fontes parecidas, mas não iguais:
+
+- A receita atribuída junta os pedidos **pagos** com as compras que o pixel registrou no site, sem contar a mesma compra duas vezes. Por isso uma loja só com pixel pode ter receita nos relatórios e nenhum pedido nesta tela.
+- Um pedido pago aparece aqui mesmo que nenhuma mensagem tenha levado a ele. Na receita atribuída só entra a venda que a Cliqo consegue ligar a uma mensagem sua. As regras estão em [Entenda as métricas](/pt-BR/relatorios/entenda-metricas).
+- A coluna **Campanha** só vem preenchida nas cobranças geradas pela Cliqo dentro de uma campanha. Pedidos da loja mostram "—" nessa coluna, mesmo quando o relatório atribui a venda a uma campanha.
+
+## Próximos passos
+
+- [Conectar a Loja Integrada](/pt-BR/lojas/conectar-loja-integrada)
+- [Instalar o pixel](/pt-BR/lojas/instalar-o-pixel)
+- [Entenda as métricas da Cliqo](/pt-BR/relatorios/entenda-metricas)

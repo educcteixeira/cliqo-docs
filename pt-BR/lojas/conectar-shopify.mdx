@@ -1,0 +1,133 @@
+---
+title: "Conectar a Shopify"
+description: "Ligar a sua loja Shopify à Cliqo por autorização: o que entra (catálogo, pedidos e compradores), com que frequência, e como a compra chega pelo pixel."
+---
+
+{/* tipo: tarefa · prioridade: P1 · fonte: apps/web/src/routes/integracoes/ShopifyConectar.tsx, ShopifyRetorno.tsx, routes/Settings.tsx (IntegrationsTab), lib/shopify-conexao.ts, api/integrations/shopify/iniciar.js + trocar.js, api/lib/shopify-oauth.js, api/lib/shopify-custom-pixel.js, api/integrations/store/sync.js, api/cron/sync-orders.js, packages/integrations/src/shopify.ts, vercel.json, locales settings.json · revisão: conferido contra o código em 28/09/2026 */}
+
+Ligar a Shopify à Cliqo traz três coisas: o **catálogo de produtos** (para os e-mails com vitrine), os **pedidos** (que alimentam a régua RFM e a receita atribuída) e os **compradores**, que viram contatos na sua base.
+
+Na Shopify não existe chave para copiar e colar. Você **autoriza a Cliqo dentro da própria Shopify** e volta para cá.
+
+A conexão é **só de leitura**: a Cliqo lê produtos, pedidos e clientes, e não altera nada na sua loja.
+
+## Antes de começar
+
+<Warning>
+**Fale com a Cliqo antes de conectar.** Hoje a conexão com a Shopify é preparada pela nossa equipe para cada loja. Escreva para [contato@cliqo.io](mailto:contato@cliqo.io) com o domínio `.myshopify.com` da sua loja. Avisamos quando estiver pronto.
+</Warning>
+
+Você também vai precisar de:
+
+- **Papel de Proprietário ou Administrador na Cliqo.** Outros papéis não conseguem conectar loja.
+- **Acesso de dono ou administrador na Shopify**, com permissão para instalar apps na loja.
+- **O domínio `.myshopify.com` da loja.** No painel da Shopify, fica em **Configurações → Domínios** (*Settings → Domains*). Não é o endereço que seus clientes usam: é o endereço interno, algo como `loja-exemplo.myshopify.com`.
+
+## Conectar
+
+<Steps>
+  <Step title="Abra as integrações">
+    Em **Configurações › Integrações**, toque em **Conectar nova loja**.
+  </Step>
+  <Step title="Escolha a Shopify">
+    Em **Plataforma**, escolha **Shopify**.
+  </Step>
+  <Step title="Informe o domínio">
+    No campo **Domínio da loja na Shopify**, digite o domínio terminado em `.myshopify.com`. Também serve digitar só o nome antes do `.myshopify.com`.
+  </Step>
+  <Step title="Vá para a Shopify">
+    Toque em **Conectar com Shopify**. A tela mostra **Levando você pra Shopify…** e abre a Shopify.
+  </Step>
+  <Step title="Autorize">
+    Na Shopify, confira os acessos pedidos — todos de leitura — e confirme a instalação.
+  </Step>
+  <Step title="Volte para a Cliqo">
+    A Shopify devolve você para a Cliqo. Aparece **Conectando sua loja Shopify…** e, em seguida, **Loja conectada**. Toque em **Ver integrações** e abra a aba **Integrações**: a loja aparece na lista.
+  </Step>
+</Steps>
+
+<Tip>
+Faça tudo de uma vez, no mesmo navegador em que você está logado na Cliqo. O pedido de conexão vale por poucos minutos e só para a conta que o começou.
+</Tip>
+
+{/* print: Configurações › Integrações com a Shopify escolhida e o campo de domínio */}
+
+Cada conta liga **uma loja Shopify**. Conectar de novo atualiza a conexão que já existe.
+
+## Trazer o catálogo
+
+O catálogo **não entra sozinho** depois da conexão. No cartão da Shopify, em **Configurações › Integrações**, toque em **Sincronizar tudo**.
+
+Depois da primeira vez aparece também **Apenas novidades (delta)**, que traz só o que mudou desde a última sincronização.
+
+A Shopify não avisa a Cliqo quando um produto muda. Para o catálogo acompanhar preço, estoque e produtos novos, sincronize de novo.
+
+Duas coisas sobre como o catálogo entra:
+
+- **As coleções da Shopify viram as categorias.** Um produto que está em várias coleções entra com **uma** delas.
+- **Produto sem SKU também entra.** A Cliqo cria um código próprio para ele.
+
+## Os pedidos
+
+Os pedidos chegam **sozinhos**. Na Shopify não há botão para puxar pedidos.
+
+A primeira leitura começa poucos minutos depois da conexão e varre o **histórico de pedidos** da loja em várias passadas. Enquanto essa primeira varredura acontece, **nenhum cliente é matriculado em fluxo por essas compras** — seria mandar mensagem de pós-compra por um pedido de meses atrás. Só os pedidos que chegarem depois entram nos gatilhos.
+
+Depois da primeira varredura, a Cliqo busca os pedidos novos **uma vez por dia, de manhã cedo**. Não é em tempo real: um pedido feito hoje aparece no dia seguinte.
+
+Os pedidos aparecem em **Público › Pedidos**. Pedidos cancelados ou reembolsados ficam de fora.
+
+## Os compradores
+
+Cada pedido **com e-mail** cria ou atualiza o contato de quem comprou. Pedido sem e-mail fica de fora: sem e-mail não há como saber quem comprou.
+
+Clientes da Shopify que nunca compraram **não** entram por essa conexão.
+
+**Consentimento:** o comprador só ganha permissão de e-mail marketing se estiver **inscrito para receber marketing** na Shopify. Os demais entram na base sem essa permissão. Contatos que você excluiu ou que se descadastraram na Cliqo não voltam pela sincronização. Mais em [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento).
+
+## O pixel na Shopify
+
+Na Shopify, o pixel tem **duas peças**:
+
+| Peça | O que mede | Onde vai |
+|---|---|---|
+| Pixel do tema | Navegação, produtos vistos, carrinho, clique vindo do e-mail | No tema da loja, como em [Instalar o pixel](/pt-BR/lojas/instalar-o-pixel) |
+| Pixel de compra | A compra concluída | Na Shopify, em **Configurações → Eventos de clientes** (*Settings → Customer events*), como pixel personalizado |
+
+A página de obrigado da Shopify não aceita mais scripts do tema. Por isso o pixel do tema **não vê a compra**, e o passo *"Marcar uma compra"* do artigo do pixel não vale na Shopify.
+
+O **código do pixel de compra é gerado pela equipe da Cliqo** para a sua conta. Não há botão no app para isso: peça em [contato@cliqo.io](mailto:contato@cliqo.io). Na Shopify, adicione um pixel personalizado, dê o nome "Cliqo", cole o código sem alterar nada, salve e conecte.
+
+Esse pixel também envia o e-mail de quem comprou. É o que liga a compra ao contato, mesmo quando a pessoa não veio de um e-mail seu.
+
+As obrigações de privacidade do [artigo do pixel](/pt-BR/lojas/instalar-o-pixel) valem aqui também: a sua política de privacidade precisa dizer que a loja usa pixel de rastreamento.
+
+## O que a conexão não faz
+
+- **Não altera nada na sua loja.** A Cliqo só lê.
+- **Não é em tempo real.** Pedidos entram uma vez por dia; produtos, quando você sincroniza.
+- **Não usa webhook.** O cartão da Shopify mostra um campo **URL do webhook**, mas na Shopify ele não se aplica. Não cole esse endereço em lugar nenhum.
+- **Não substitui o pixel.** O pedido conta o que foi comprado; o pixel conta o que foi olhado e não comprado.
+
+Se você tocar em **Desconectar**, a Cliqo para de ler a loja. Os produtos já sincronizados continuam em **Produtos**.
+
+## Quando algo não bate
+
+| Mensagem ou sintoma | O que fazer |
+|---|---|
+| *O domínio da loja não é válido.* | Use o domínio terminado em `.myshopify.com`, não o endereço da loja. |
+| *Este link de retorno não vale mais…* | O pedido expirou ou foi aberto em outra conta. Comece de novo em **Configurações › Integrações**. |
+| *A Shopify recusou a troca…* | A página de retorno foi recarregada ou aberta duas vezes. Refaça a conexão. |
+| *A Shopify autorizou, mas o acesso não passou na verificação.* | Confira se você aceitou todos os acessos na Shopify e tente de novo. |
+| *A integração com a Shopify ainda não está configurada no servidor.* | É do nosso lado. Fale com a gente. |
+| O catálogo está vazio | Toque em **Sincronizar tudo** no cartão da Shopify. |
+| O pedido de hoje não aparece | Espere a leitura do dia seguinte. |
+| Há menos contatos do que clientes na Shopify | Só entra quem comprou e tem e-mail no pedido. |
+
+Persistindo, fale com a gente em [contato@cliqo.io](mailto:contato@cliqo.io).
+
+## Próximos passos
+
+- [Instalar o pixel](/pt-BR/lojas/instalar-o-pixel)
+- [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento)
+- [Entenda as métricas da Cliqo](/pt-BR/relatorios/entenda-metricas)

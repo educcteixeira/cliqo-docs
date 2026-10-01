@@ -1,0 +1,96 @@
+---
+title: "Tags: marque contatos e campanhas"
+description: "O que é uma tag, como criar e aplicar, onde fica a aba Tags e onde a tag é usada: contatos, segmentos, campanhas e relatório."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: routes/Tags.tsx, routes/Settings.tsx, components/tags/tag-input.tsx, components/tags/contact-tags-card.tsx, components/tags/tag-filter.tsx, routes/Campaigns.tsx, routes/NovaCampanha.tsx, components/whatsapp/passo-configurar.tsx, routes/Lists.tsx, routes/Relatorios.tsx, api/tags/*, api/lib/importar-lote.js, packages/db/sql/385 e 391 · revisão: conferido contra o código em 28/09/2026 */}
+
+Uma **tag** é uma marcação que você põe. No **contato**, ela guarda um fato que você sabe e quer declarar: `vip`, `atacado`, `revendedor`. Na **campanha**, ela marca o tipo da campanha: `black-friday`, `20-off`, `lancamento`. É um vocabulário só: a mesma lista de tags serve para contatos e campanhas.
+
+**Tag ou segmento?** A tag é o que você declara. O que o contato faz (abriu, clicou, comprou) os [segmentos](/pt-BR/gestao-de-dados/criar-segmentos) já calculam sozinhos, sempre atualizados. Se você criar uma tag de contato com cara de comportamento (por exemplo, `comprou-tenis`), a tela sugere um segmento, mas deixa criar a tag mesmo assim.
+
+## Onde fica a aba Tags
+
+A aba não está no menu lateral. Clique em **Configurações**, no rodapé do menu, e abra a aba **Tags**. Ali você vê e organiza o vocabulário da conta. Criar e aplicar tags é feito nas telas de contato e de campanha, explicadas mais abaixo.
+
+{/* print: Configurações › Tags com a tabela de tags ativas */}
+
+A tabela **Tags ativas** tem quatro colunas:
+
+| Coluna | O que mostra |
+|---|---|
+| **Tag** | O nome. Pode vir com o selo **sistema** (tag automática, como a do lote de importação) ou **expira em breve** (vence nos próximos 7 dias). |
+| **Contatos** | Quantos contatos têm a tag. |
+| **Usada em** | Em quantos itens, como campanhas, a tag está marcada. |
+| **Validade** | A data em que a tag vence, ou **permanente**. |
+
+Quando há tags vencidas, elas aparecem mais abaixo, em **Arquivadas**. Para administradores, quando a conta tem nomes parecidos (por exemplo, `cliente-vip` e `clientes-vip`), o quadro **Possíveis variantes** aparece no topo com o botão **Fundir**.
+
+### Organizar o vocabulário
+
+Estas ações aparecem só para administradores da conta:
+
+- **Validade** — define a data em **Expira em**, ou **Tornar permanente**.
+- **Renomear** — muda o nome em todo lugar onde a tag está. Se o nome novo já existe, a tela abre a fusão das duas.
+- **Fundir** — passa tudo desta tag para outra e apaga a de origem. Não tem volta.
+- **Excluir** — tira a tag de todos os contatos e campanhas. Não tem volta. Se a tag não está em uso, a tela avisa que excluir é seguro.
+
+## Criar e aplicar uma tag num contato
+
+Quem tem papel de **Editor** ou acima pode criar e aplicar tags.
+
+<Steps>
+  <Step title="Abra o contato">
+    Em **Público › Contatos**, clique no contato.
+  </Step>
+  <Step title="Adicione a tag">
+    No cartão **Tags**, clique em **+ Tag** e digite em "Buscar ou criar tag…". Escolha uma tag que já existe ou clique em **Criar “nome”**.
+  </Step>
+  <Step title="Escolha a validade">
+    Na janela **Nova tag**, deixe **Permanente** (o padrão) ou marque **Expira em** e escolha a data. Clique em **Criar e aplicar**.
+  </Step>
+</Steps>
+
+Para tirar a tag, clique no **x** dela no cartão.
+
+A Cliqo padroniza o nome: tudo em minúsculas, sem acento, com hífen no lugar do espaço, até 60 caracteres. "Cliente VIP" vira `cliente-vip`, e a tela avisa: *Tag “Cliente VIP” salva como “cliente-vip”*. Criar de novo uma tag que já existe só a aplica, sem duplicar.
+
+**Na importação.** Cada importação de contatos marca os contatos que entraram com uma tag automática do lote. O nome começa com `import-` e ela tem o selo **sistema**. Serve para achar, ou segmentar, quem veio daquele arquivo. Veja [Como importar contatos](/pt-BR/gestao-de-dados/importar-contatos).
+
+## Tags em campanhas
+
+- **Campanha de e-mail** — na montagem, aba **Configurar**, seção **Tags da campanha**. O campo fica disponível depois que a campanha é salva; antes disso, a tela avisa.
+- **Campanha de WhatsApp** — no passo **Configurar**, campo **Tags**. Digite e aperte Enter ou vírgula. A tela mostra as **Já usadas:** para você não criar uma variante por erro de digitação. As tags são gravadas quando a campanha é criada, no disparo. Ao retomar uma campanha que já existe, as tags se editam na lista de Campanhas.
+- **Na lista de Campanhas** — a qualquer momento, inclusive em campanhas já enviadas. Na linha da campanha, clique em **+ tag** (no computador, aparece ao passar o mouse na linha).
+
+<Tip>
+Marcar campanhas antigas vale a pena: o relatório por tag passa a comparar também o que já foi enviado.
+</Tip>
+
+## Onde a tag é usada
+
+| Onde | O que faz |
+|---|---|
+| **Público › Contatos** | **Filtrar por tag** mostra só quem tem aquela tag (uma por vez). Tags que só estão em campanhas aparecem no grupo "Sem contatos — só em campanhas". |
+| **Segmentos** | No construtor de segmento, a condição **🏷️ Tag do contato** tem três modos: **tem alguma destas tags**, **tem TODAS estas tags** e **não tem nenhuma destas tags**. Cada tag mostra quantos contatos tem. |
+| **Audiência da campanha** | Para enviar a quem tem uma tag, crie um segmento com **Tag do contato** e escolha esse segmento na audiência. Veja [Como definir a audiência da campanha](/pt-BR/campanhas/audiencia). |
+| **Campanhas** | **Filtrar por tag** mostra só as campanhas marcadas com ela. |
+| **Relatórios › Por campanha** | Em **Ver por:**, escolha **Tipo (tag)**: campanhas, enviados, cliques e receita colocada de cada tag. |
+
+<Warning>
+No relatório por tag, **não some as linhas**. Uma campanha com duas tags conta nas duas. O total real está em **Ver por: Campanha**.
+</Warning>
+
+## Quando a tag vence
+
+Na data de validade, uma rotina diária arquiva a tag. Ela sai de todos os contatos, mas continua nas campanhas, para o relatório guardar o histórico. A tag vai para **Arquivadas**. Para usar de novo, crie uma tag com o mesmo nome: a Cliqo reativa a antiga em vez de criar outra.
+
+## Contas com mais de uma marca
+
+O vocabulário de tags é da conta: a mesma lista vale para todas as marcas. O número de contatos na aba Tags, e ao lado de cada tag no construtor de segmento, soma todas as marcas. O segmento em si só pega os contatos da marca ativa.
+
+## Próximos passos
+
+- [Como criar segmentos](/pt-BR/gestao-de-dados/criar-segmentos)
+- [Como definir a audiência da campanha](/pt-BR/campanhas/audiencia)
+- [Relatórios por campanha e canal](/pt-BR/relatorios/visao-por-canal)

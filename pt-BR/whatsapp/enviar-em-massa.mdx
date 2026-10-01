@@ -1,9 +1,9 @@
 ---
 title: "Como enviar uma mensagem em massa no WhatsApp"
-description: "Os quatro passos do envio — quem recebe, o que dizer, revisar e acompanhar — com as ondas e as travas de segurança."
+description: "Os cinco passos da campanha — configurar, mensagem, público, entrega e revisar — com as ondas e as travas de segurança."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela WhatsApp › Mensagens (4 passos) · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela WhatsApp › Mensagens (4 passos) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -14,40 +14,62 @@ Como disparar uma campanha de WhatsApp com segurança: o funil de elegibilidade,
 - Número [conectado](/pt-BR/whatsapp/conectar-seu-numero) e um [modelo aprovado](/pt-BR/whatsapp/modelos-de-mensagem).
 - Público com [opt-in registrado](/pt-BR/whatsapp/opt-in).
 
-Vá em **WhatsApp › Mensagens**. São quatro passos.
+Em **Campanhas**, clique em **Nova campanha** e escolha **Campanha de WhatsApp**. São cinco passos: **Configurar → Mensagem → Público → Entrega → Revisar**. Dá para parar no meio com **Salvar rascunho** — o rascunho fica salvo neste navegador.
 
-## Passo 1 · Quem recebe
+## Passo 1 · Configurar
 
-Escolha listas e segmentos, como numa campanha de e-mail. A tela mostra o **funil de elegibilidade**: da seleção total, quantos saem por não ter número, número inválido, sem opt-in (ou bloqueou) e telefone repetido — até o número final que **vai receber**. Atenção ao aviso quando o segmento escolhido olha só comportamento de e-mail.
+Dê um **Nome interno** (só você vê; é como a campanha aparece na lista e nos relatórios) e escolha o **Objetivo da campanha**: **Vender** (o relatório mede a receita de quem clicou e comprou em até 7 dias) ou **Avisar** (o relatório foca em entrega e leitura, sem cobrar receita). O **Número de envio** mostra a nota do número na Meta e o limite de hoje. As **Tags** servem para filtrar a lista de campanhas e comparar resultados.
+
+## Passo 2 · Mensagem
+
+Escolha um **modelo aprovado** — só modelos aprovados pela Meta podem ser enviados, e são essas as mensagens cobradas pela Meta. Se o modelo ainda não existe, **Criar novo** abre o pedido de aprovação ali mesmo ([como criar um modelo](/pt-BR/whatsapp/modelos-de-mensagem)).
+
+Depois:
+
+- **Variáveis do modelo** — para cada variável, escolha **Primeiro nome**, **Nome completo** ou **Texto fixo** (ex.: um cupom igual para todos). Com nome, preencha **Se não tiver, mostrar** (ex.: "Cliente"): sem isso, quem não tem o nome cadastrado não recebe a mensagem.
+- **Para onde o botão leva** — quando o modelo tem botão de link rastreado, informe o endereço da página (começando com https://). Cada pessoa recebe um link próprio, e é assim que a venda volta atribuída à campanha. As **UTMs para Google Analytics** já vêm preenchidas e podem ser personalizadas.
+- **Enviar teste** — mande para o seu número: a tela mostra o caminho real (enviado à Meta ✓ → entregue ✓) e explica qualquer erro.
+
+Modelo com botão de endereço fixo não dispara: a tela avisa que o botão não dá pra medir.
+
+## Passo 3 · Público
+
+Escolha listas e segmentos, como numa campanha de e-mail — e, se quiser, exclua grupos do envio. A tela mostra o **funil de elegibilidade**: da seleção total, quantos saem por não ter número, número inválido, número +1 (EUA/Canadá, onde a Meta não entrega marketing), sem opt-in (ou bloqueou), telefone repetido e **em descanso** — até o número que **vai receber agora**. Atenção ao aviso quando o segmento escolhido olha só o e-mail.
 
 {/* print: funil de elegibilidade */}
 
-## Passo 2 · O que dizer
+O descanso é uma regra da conta, em **Configurações › WhatsApp › Descanso entre campanhas**: quem recebeu uma campanha de marketing no WhatsApp fica de fora das próximas por algumas horas (48 h por padrão). Para uma campanha específica, ligue **Ignorar o descanso neste envio**.
 
-Dois públicos, dois custos:
+## Passo 4 · Entrega
 
-- **Conversas abertas** (quem respondeu nas últimas 24 h): recebem **texto livre, sem custo de template**.
-- **Demais contatos**: recebem pelo **modelo aprovado** — são as mensagens cobradas pela Meta.
+**Quando enviar**: **Enviar agora** ou **Agendar** (data e hora). O **Envio inteligente** ainda não está disponível — aparece como **EM BREVE**.
 
-Preencha as variáveis do modelo (nome, cupom, produto — com valor padrão para quem não tem o dado), defina o **destino do botão** quando o modelo tem link rastreado, e mande um **teste para o seu número** — a tela mostra o caminho real (enviado à Meta ✓ → entregue ✓) e explica qualquer erro.
+**Ritmo de envio**:
 
-## Passo 3 · Revisar — ondas e travas
+- **Em ondas (recomendado)** — você define o tamanho da **Primeira onda** (com atalhos de 10%, 25% ou metade do público), e as ondas seguintes têm o mesmo tamanho. O **Plano das ondas** mostra quantas ondas e em quantos dias, respeitando o teto diário do número e a janela de horário. Por padrão, **Você libera cada onda**; ou escolha **Seguir sozinha a partir da 3ª onda**, com intervalo de 15 min a 4 h. Com agendamento, no horário marcado sai só a 1ª onda.
+- **Tudo de uma vez** — sem parada no meio; só para públicos pequenos e quentes.
 
-O resumo mostra público, tipo de mensagem, **custo estimado** e quanto do **limite diário** do número o envio consome. Escolha quando enviar:
+E as travas (**Parar sozinho se der ruim** — não se desligam, só se apertam):
 
-- **Em ondas (recomendado)** — o envio sai fatiado: você define o tamanho da primeira onda e o crescimento, e o planejador distribui respeitando o limite diário da Meta. Dá para mandar cada onda manualmente ou deixar seguir sozinha em intervalo definido.
-- **Tudo de uma vez** — só para públicos pequenos e quentes.
-- **Agendar** — data e hora.
+- **Pausar se mais de X% bloquearem** (0,5% por padrão, com um mínimo de 5 pessoas, para não parar por ruído). Contam como bloqueio as falhas por spam e quem responde SAIR depois de receber a campanha.
+- **Pausar se a qualidade do número cair para média ou baixa.**
+- **Enviar só entre 09:00 e 20:00** — a janela é ajustável, mas não dá para desligá-la. Fora dela, nada sai: o envio fica retido até a janela reabrir (quando você libera cada onda, é preciso liberar de novo).
 
-E as **travas** ("parar sozinho se der ruim"): pausa automática se os bloqueios passarem do limite que você definir, pausa se a **nota do número cair**, e envio **somente entre 9h e 20h** — essa última é fixa por padrão de respeito ao destinatário (o horário é ajustável, o princípio não).
+## Passo 5 · Revisar
 
-## Passo 4 · Acompanhar
+O **Resumo do envio** mostra uma linha por passo — mensagem, público, entrega e objetivo —, cada uma com **Editar**, e no pé o número de envio e o **Limite do dia**. Logo abaixo vem o checklist **Antes de enviar** (opt-in, instrução de saída, cupom com prazo); ao lado, o envio de teste.
 
-Em tempo real: enviadas, falhas, retidas (fora do horário ou aguardando limite), **bloqueios** e a **nota na Meta**. Estados que você pode ver:
+Clique em **Conferir quem vai receber**: a Cliqo reconta o público contra a regra da base (nada é enviado ainda), mostra quem saiu na conferência e o **Custo estimado desta rodada**, pela tabela da Meta. O botão final diz o número exato — **Enviar onda 1 · N**, **Enviar · N** ou **Agendar N · …**.
 
-- **Retido: fora do horário permitido** — retoma sozinho na janela.
-- **PAROU: N pessoas bloquearam** ou **PAROU: a qualidade do número caiu** — uma trava disparou; a decisão de continuar é sua, com os dados na tela ("ver sinais do número", "ajustar as travas").
-- **Mandar a próxima onda** — quando o modo ondas está manual.
+## Depois do disparo
+
+Ao enviar, você vai para a página da campanha, com o relatório e o progresso do envio. Pode fechar a tela — o envio segue no servidor.
+
+- **Onda N · aguardando você** — quando você libera cada onda, o botão **Liberar onda N** abre **Conferir quem vai receber**: o público é recontado na hora, quem já recebeu é pulado, e a onda só sai quando você confirma. Segurar é simplesmente não confirmar.
+- Com **Seguir sozinha a partir da 3ª onda** ligado, você confirma as duas primeiras e as seguintes saem sozinhas no intervalo escolhido, se as travas deixarem.
+- As travas continuam valendo: fora da janela, bloqueio alto ou nota ruim seguram a onda mesmo depois de você confirmar — e a tela diz que nada saiu e por quê.
+
+Se uma campanha ficar pela metade, ao abrir **Nova campanha › Campanha de WhatsApp** aparece o aviso **Você tem uma campanha de WhatsApp em andamento**, com **Continuar essa campanha** (manda só para quem ainda não recebeu) e **Parar campanha** (o que saiu continua no relatório; o restante do público não recebe).
 
 Depois do primeiro disparo, o público fica **congelado** — para mudar a audiência, crie outra campanha.
 

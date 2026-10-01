@@ -3,7 +3,7 @@ title: "Warm-up: how to send to a new list"
 description: "Why you shouldn't blast everyone at once — and the practical plan of slices, measurement and pacing."
 ---
 
-{/* tipo: boas práticas · prioridade: P0 · idioma: EN · fonte: prática operacional Cliqo (go-lives reais) · revisão: pendente */}
+{/* tipo: boas práticas · prioridade: P0 · idioma: EN · fonte: prática operacional Cliqo (go-lives reais) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -16,19 +16,19 @@ Mailbox providers judge senders by recent behavior: sudden volume from a new sen
 ## The slice plan
 
 1. **Start with your most engaged people.** First slice of about a thousand contacts — the ones who bought or opened something recently. If your list came from another tool, use its history to choose.
-2. **Measure before you grow.** After the send, open the delivery health section of the report: **bounces below 2%** and **complaints below 0.1%** are the limits. Within them, double the slice on the next send; outside them, stop and investigate before continuing — the problem is usually list quality, not content.
+2. **Measure before you grow.** After the send, open the **Delivery of sent** section of the campaign report: **hard bounces below 2%** and **complaints below 0.1%** are the limits — above them, the row is tagged **above threshold**. Within them, double the slice on the next send; outside them, stop and investigate before continuing — the problem is usually list quality, not content.
 3. **Repeat until you cover the list.** Doubling after each healthy send reaches your entire list in a few weeks, with your reputation built along the way.
 
 ## Use send pacing
 
-Even within a slice, spread it out: when setting up the campaign, **send pacing** distributes the send over 1, 4, 8 or 24 hours instead of releasing everything in the same minute. For large lists, this avoids the spikes that trigger blocking at the providers. Pacing is self-correcting — the campaign finishes at the scheduled time.
+Even within a slice, spread it out: when setting up the campaign, in the **Delivery** step, **Send pacing** distributes the send over 1, 4, 8 or 24 hours instead of releasing everything in the same minute (**Instant**). For large lists, this avoids the spikes that trigger blocking at the providers. Pacing is self-correcting — the campaign finishes at the scheduled time.
 
 ## What to watch on each send
 
 - **Bounces** — above 2%, the list has dead addresses: clean it before growing.
 - **Complaints (spam)** — above 0.1% is a red flag: review consent and frequency, not just the subject line.
 - **Unsubscribes** — healthy is below 1%; a spike means the wrong audience for the message.
-- **Needs attention** — the bell warns you automatically whenever any of these limits is crossed.
+- **Needs attention** — the bell warns you automatically when the bounce rate goes above 2% or the complaint rate goes above 0.1%, measured over the sends of the last 30 days (from 20 sends up). Unsubscribes don't show in the bell: track them in the campaign report.
 
 ## What about WhatsApp?
 

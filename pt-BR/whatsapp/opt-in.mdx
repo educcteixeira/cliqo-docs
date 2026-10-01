@@ -3,7 +3,7 @@ title: "Opt-in e consentimento para WhatsApp"
 description: "Quando você pode enviar, a exceção de utilidade, e por que a prova do opt-in vale tanto quanto o opt-in."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: política de consentimento por canal + regras Meta · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: política de consentimento por canal + regras Meta · revisão: conferido contra o código em 28/09/2026 */}
 
 No WhatsApp, enviar sem permissão não é só uma questão legal — é um risco operacional imediato: quem recebe sem ter pedido **bloqueia**, e bloqueios derrubam a [nota do seu número](/pt-BR/whatsapp/numero-e-qualidade), o que limita ou pausa seus envios. Este artigo define quando você pode enviar, e como a Cliqo registra a prova.
 
@@ -22,17 +22,19 @@ Onde o opt-in nasce na Cliqo:
 
 Mensagens de **utilidade** ligadas a um pedido do próprio cliente — confirmação de compra, status de entrega, aviso de pagamento — são a exceção reconhecida: o número veio da própria compra e a mensagem é o que o cliente espera receber. Duas condições, sempre: a categoria do modelo é **utilidade** (não marketing disfarçado), e o opt-out é honrado.
 
+Na Cliqo, essa exceção vale nas **automações**: um passo de utilidade não exige opt-in de marketing, só que o contato não tenha revogado. As **campanhas** (envio em massa) exigem opt-in de todo destinatário, qualquer que seja a categoria do modelo.
+
 Comece por aí, aliás: utilidade tem taxa de bloqueio próxima de zero, constrói a reputação do número, e prepara a base para o marketing com opt-in.
 
 ## SAIR é sempre honrado
 
-Em qualquer mensagem, se o cliente responder **SAIR** (ou parar, stop, cancelar, descadastrar — o motor reconhece as variações, com ou sem pontuação), o opt-in é revogado **na hora** e ele não recebe mais marketing. Os modelos da galeria já incluem a instrução de saída — e a plataforma sugere adicioná-la quando um modelo não tem.
+Em qualquer mensagem, se o cliente responder **SAIR** (ou parar, stop, cancelar, cancele, descadastrar — o motor reconhece as variações, com ou sem pontuação, acento ou emoji), o opt-in é revogado **na hora** e ele não recebe mais marketing. A resposta tem de ser só a palavra: "não quero sair" não descadastra ninguém. Ao criar um modelo de marketing sem a instrução de saída, a tela avisa e oferece inseri-la com um clique; e no Revisar da campanha, o checklist aponta quando o modelo não diz como sair.
 
 O opt-out de WhatsApp **não** remove o contato do e-mail: os canais têm consentimentos independentes.
 
 ## O que a Cliqo confere por você
 
-Antes de cada envio em massa, o público passa pelo funil de elegibilidade: só recebem contatos com **número válido + opt-in ativo + sem bloqueio**. O resumo do envio mostra quantos ficaram de fora e por quê — você nunca envia "no escuro". E se os sinais negativos subirem durante o disparo, as [travas de segurança](/pt-BR/whatsapp/enviar-em-massa) pausam sozinhas.
+Antes de cada envio em massa, o público passa pelo funil de elegibilidade: só recebem contatos com **número válido + opt-in ativo + sem bloqueio**. O passo **Público** da campanha mostra quantos ficaram de fora e por quê, e a conferência antes do disparo reconta — você nunca envia "no escuro". E se os sinais negativos subirem durante o disparo, as [travas de segurança](/pt-BR/whatsapp/enviar-em-massa) pausam sozinhas.
 
 ## Artigos relacionados
 

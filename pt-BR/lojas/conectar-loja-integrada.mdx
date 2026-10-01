@@ -3,9 +3,9 @@ title: "Conectar a Loja Integrada"
 description: "Ligar a sua loja da Loja Integrada à Cliqo: produtos, pedidos e o webhook que mantém o catálogo em dia."
 ---
 
-{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: pendente */}
+{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: conferido contra o código em 28/09/2026 */}
 
-Ligar a Loja Integrada à Cliqo traz três coisas: o **catálogo de produtos** (para usar nos e-mails com vitrine), o **histórico de pedidos** (que alimenta a régua RFM e a receita atribuída) e um **webhook** que mantém o catálogo em dia sem você fazer nada.
+Ligar a Loja Integrada à Cliqo traz três coisas: o **catálogo de produtos** (para usar nos e-mails com vitrine), o **histórico de pedidos** (que alimenta o RFM e a receita atribuída) e um **webhook** que mantém o catálogo em dia sem você fazer nada.
 
 ## Antes de começar
 
@@ -17,11 +17,13 @@ Você vai precisar de duas credenciais, e uma delas depende do seu plano.
 
 ## Conectar
 
-Em **Configurações → Integrações**, escolha Loja Integrada e cole as duas chaves. A partir daí a Cliqo consegue ler o seu catálogo e os seus pedidos.
+Em **Configurações → Integrações**, clique em **Conectar nova loja**, escolha **Loja Integrada**, cole as duas chaves — *Chave de API da loja (chave_api)* e *Chave de Aplicação (Cliqo)* — e clique em **Conectar**. As chaves são conferidas na hora. A partir daí a Cliqo consegue ler o seu catálogo e os seus pedidos.
+
+Conectar não traz o catálogo sozinho: no cartão da loja conectada, clique em **Sincronizar tudo**. Depois, **Apenas novidades (delta)** traz só o que mudou.
 
 ## Puxar os pedidos
 
-Na mesma tela há a ação que **puxa os pedidos da Loja Integrada** para dentro da Cliqo. É o que popula a régua RFM — a classificação que separa quem compra sempre de quem sumiu.
+Na mesma tela, o botão **Atualizar pedidos agora** **puxa os pedidos da Loja Integrada** para dentro da Cliqo. É o que popula o RFM — a classificação que separa quem compra sempre de quem sumiu. Além do botão, a Cliqo puxa os pedidos novos sozinha uma vez por dia.
 
 A primeira execução varre o **histórico inteiro** e pode levar várias passadas: ela vai lendo em blocos e guardando onde parou. Enquanto essa primeira varredura acontece, **nenhum cliente é matriculado em fluxo por essas compras** — seria disparar mensagem de pós-compra por um pedido de meses atrás. Só os pedidos que chegarem depois, no dia a dia, entram nos gatilhos.
 
@@ -35,9 +37,9 @@ O endereço é individual da sua conta e tem esta forma:
 https://app.cliqo.io/api/integrations/webhook/lojaintegrada/<seu-id>
 ```
 
-Você encontra o endereço completo, já com o seu identificador, em **Configurações → Integrações**.
+Você encontra o endereço completo, já com o seu identificador, em **Configurações → Integrações**, no campo *URL do webhook* do cartão da loja.
 
-**Sobre a segurança desse endereço:** a Loja Integrada não assina os avisos que envia — verificamos isso em maio de 2026, e não é uma limitação da Cliqo. Para compensar, você pode definir um **token de webhook** em Configurações → Integrações; quando ele existe, a Cliqo só aceita avisos que o apresentem. Recomendamos definir.
+**Sobre a segurança desse endereço:** a Loja Integrada não assina os avisos que envia — verificamos isso em maio de 2026, e não é uma limitação da Cliqo.
 
 Receber o mesmo aviso duas vezes não causa problema: o produto é gravado por SKU, então reprocessar regrava a mesma linha.
 
@@ -49,7 +51,7 @@ Dá para trazer o catálogo por arquivo, sem conectar nada: em **Configurações
 
 ## O que a conexão não faz
 
-- **Não sincroniza estoque em tempo real.** O catálogo entra por importação e pelos avisos de alteração; não há consulta a cada envio.
+- **Não sincroniza estoque em tempo real.** O catálogo entra quando você sincroniza, pela importação de arquivo e pelos avisos de alteração; não há consulta a cada envio.
 - **Não altera nada na sua loja.** A conexão é de leitura — a Cliqo não cria, edita nem cancela pedidos.
 - **Não substitui o pixel.** Pedido conta o que foi comprado; o pixel conta o que foi olhado e não comprado. As duas coisas alimentam segmentos diferentes.
 

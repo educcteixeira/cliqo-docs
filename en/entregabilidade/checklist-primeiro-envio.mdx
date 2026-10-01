@@ -3,7 +3,7 @@ title: "Checklist before your first send"
 description: "The six checks that protect your reputation before your first campaign."
 ---
 
-{/* tipo: primeiros passos · prioridade: P0 · idioma: EN · fonte: fluxo real do produto + prática de deliverability · revisão: pendente */}
+{/* tipo: primeiros passos · prioridade: P0 · idioma: EN · fonte: fluxo real do produto + prática de deliverability · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -11,27 +11,27 @@ What to check — in order — before firing the first campaign from a new accou
 
 ## 1 · Domain verified
 
-**Settings › Domain** with DKIM, SPF and DMARC verified. Without this, you can't send from your own brand. Full guide in [How to set up your sending domain](/en/entregabilidade/configurar-dns).
+**Settings › Domain** with the domain **Verified** — DKIM is what unlocks sending as your brand (root SPF and DMARC are optional). Without this, you can't send from your own brand. Full guide in [How to set up your sending domain](/en/entregabilidade/configurar-dns).
 
 ## 2 · Complete sending identity
 
-In **Settings › Sending**: the sender address (From), the Reply-To and the compliance details — **legal business name, CNPJ (Brazilian company registration number) and physical address**. Gmail and Yahoo require these from anyone sending at volume, and they go automatically into the footer of your emails together with the unsubscribe link (which is mandatory and which Cliqo never removes).
+In **Settings › Sending**: the **From email**, the **Reply-To** and, in the **Bulk sender compliance** panel, the **legal name**, the **Tax ID (CNPJ)** and the **physical address**. Legal name and physical address go automatically into the footer of your emails, together with the unsubscribe link (which is mandatory and which Cliqo never removes) — Gmail and Yahoo require these from anyone sending at volume. Without a physical address the campaign won't go out; if the legal name is left empty, the brand name is used, and the CNPJ is optional (it appears in the editor's prebuilt footer).
 
 ## 3 · Blocklist from your previous ESP imported
 
-If you migrated from another tool, **export its suppression list** (hard bounces, complaints, unsubscribes) and import it in **Audience › Contacts › Suppressions** before any send. Without this, your first send rediscovers, one by one, every dead address the old tool already knew about — and each of those bounces takes a toll on your reputation.
+If you migrated from another tool, **export its suppression list** (hard bounces, complaints, unsubscribes) and import it in **Audience › Contacts › Suppressions**, with the **Bulk import** button, before any send. Without this, your first send rediscovers, one by one, every dead address the old tool already knew about — and each of those bounces takes a toll on your reputation.
 
 ## 4 · Contacts imported with the right consent
 
-When importing, declare the origin of your list honestly — what that unlocks (and what it doesn't) is in [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento). Download the file of invalid addresses at the end and don't try to re-import them.
+When importing, honestly tick only the channels your list has consent for — what that unlocks (and what it doesn't) is in [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento). At the end, download the file of invalid addresses (**Download invalid**) and don't try to re-import them.
 
 ## 5 · Pre-send analysis and test email
 
-In the campaign review, run the **pre-send analysis** — it checks the domain, authentication, risky words in the subject line, broken personalization tags and the unsubscribe link — and send a **test email** to yourself. Open it in Gmail and in at least one other client. Tests don't count toward metrics.
+In the campaign's **Review** step, click **Run pre-send analysis** — it checks the domain, authentication, risky words in the subject line, broken personalization tags and the unsubscribe link — and send a **test email** to yourself (**Send test**). Open it in Gmail and in at least one other client. Tests don't count toward metrics.
 
 ## 6 · Small first campaign, with pacing
 
-Don't fire at your entire list at once: start with an engaged slice and use **send pacing** to spread out the send. The why and the how are in [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento).
+Don't fire at your entire list at once: start with an engaged slice and use **Send pacing** (in the **Delivery** step) to spread out the send. The why and the how are in [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento).
 
 ## Result
 

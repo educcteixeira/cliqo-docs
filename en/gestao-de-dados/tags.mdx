@@ -1,0 +1,96 @@
+---
+title: "Tags: label contacts and campaigns"
+description: "What a tag is, how to create and apply one, where the Tags tab lives and where tags are used: contacts, segments, campaigns and reports."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: routes/Tags.tsx, routes/Settings.tsx, components/tags/tag-input.tsx, components/tags/contact-tags-card.tsx, components/tags/tag-filter.tsx, routes/Campaigns.tsx, routes/NovaCampanha.tsx, components/whatsapp/passo-configurar.tsx, routes/Lists.tsx, routes/Relatorios.tsx, api/tags/*, api/lib/importar-lote.js, packages/db/sql/385 e 391 · revisão: conferido contra o código em 28/09/2026 */}
+
+A **tag** is a label you add. On a **contact**, it records a fact you know and want to declare: `vip`, `atacado` (wholesale), `revendedor` (reseller). On a **campaign**, it marks the campaign's type: `black-friday`, `20-off`, `lancamento` (launch). It's a single vocabulary: the same list of tags works for contacts and campaigns.
+
+**Tag or segment?** A tag is what you declare. What the contact does (opened, clicked, bought) is already computed by [segments](/en/gestao-de-dados/criar-segmentos) on their own, always up to date. If you create a contact tag that looks like behavior (for example, `comprou-tenis`, "bought sneakers"), the screen suggests a segment, but still lets you create the tag.
+
+## Where the Tags tab is
+
+The tab isn't in the side menu. Click **Settings**, at the bottom of the menu, and open the **Tags** tab. There you see and organize the account's vocabulary. Creating and applying tags happens on the contact and campaign screens, explained below.
+
+{/* print: Settings › Tags with the active tags table */}
+
+The **Active tags** table has four columns:
+
+| Column | What it shows |
+|---|---|
+| **Tag** | The name. It may carry the **system** badge (an automatic tag, like the import batch one) or **expiring soon** (expires within the next 7 days). |
+| **Contacts** | How many contacts have the tag. |
+| **Used in** | How many items, such as campaigns, carry the tag. |
+| **Validity** | The date the tag expires, or **permanent**. |
+
+When there are expired tags, they show further down, under **Archived**. For admins, when the account has similar names (for example, `cliente-vip` and `clientes-vip`), the **Possible variants** box shows at the top with a **Merge** button.
+
+### Organize the vocabulary
+
+These actions show only for account admins:
+
+- **Validity** — set a date in **Expires on**, or **Make permanent**.
+- **Rename** — changes the name everywhere the tag is used. If the new name already exists, the screen opens the merge of the two.
+- **Merge** — moves everything from this tag to another one and deletes the source. It can't be undone.
+- **Delete** — removes the tag from every contact and campaign. It can't be undone. If the tag isn't in use, the screen tells you deleting is safe.
+
+## Create and apply a tag on a contact
+
+Anyone with the **Editor** role or above can create and apply tags.
+
+<Steps>
+  <Step title="Open the contact">
+    In **Audience › Contacts**, click the contact.
+  </Step>
+  <Step title="Add the tag">
+    On the **Tags** card, click **+ Tag** and type in "Search or create a tag…". Pick an existing tag or click **Create “name”**.
+  </Step>
+  <Step title="Choose the expiration">
+    In the **New tag** window, keep **Permanent** (the default) or select **Expires on** and pick the date. Click **Create and apply**.
+  </Step>
+</Steps>
+
+To remove the tag, click its **x** on the card.
+
+Cliqo standardizes the name: all lowercase, no accents, a hyphen instead of spaces, up to 60 characters. "Cliente VIP" becomes `cliente-vip`, and the screen tells you: *Tag “Cliente VIP” saved as “cliente-vip”*. Creating a tag that already exists just applies it, without duplicating.
+
+**On import.** Every contact import labels the contacts that came in with an automatic batch tag. Its name starts with `import-` and it carries the **system** badge. Use it to find, or segment, the people who came from that file. See [How to import contacts](/en/gestao-de-dados/importar-contatos).
+
+## Tags on campaigns
+
+- **Email campaign** — in the campaign setup, **Set up** tab, **Campaign tags** section. The field becomes available after the campaign is saved; before that, the screen tells you so.
+- **WhatsApp campaign** — in the **Set up** step, **Tags** field. Type and press Enter or comma. The screen shows the **Already used:** ones so a typo doesn't create a variant. Tags are saved when the campaign is created, at send time. When you resume a campaign that already exists, its tags are edited in the Campaigns list.
+- **In the Campaigns list** — anytime, including campaigns already sent. On the campaign's row, click **+ tag** (on a computer, it shows when you hover the row).
+
+<Tip>
+Tagging old campaigns pays off: the report by tag then compares what was already sent, too.
+</Tip>
+
+## Where tags are used
+
+| Where | What it does |
+|---|---|
+| **Audience › Contacts** | **Filter by tag** shows only people with that tag (one at a time). Tags that are only on campaigns appear in the "No contacts — only on campaigns" group. |
+| **Segments** | In the segment builder, the **🏷️ Contact tag** condition has three modes: **has any of these tags**, **has ALL of these tags** and **has none of these tags**. Each tag shows how many contacts it has. |
+| **Campaign audience** | To send to people with a tag, create a segment with **Contact tag** and pick that segment in the audience. See [How to define the campaign audience](/en/campanhas/audiencia). |
+| **Campaigns** | **Filter by tag** shows only the campaigns labeled with it. |
+| **Reports › By campaign** | In **View by:**, choose **Type (tag)**: campaigns, sent, clicks and revenue placed for each tag. |
+
+<Warning>
+In the report by tag, **don't add up the rows**. A campaign with two tags counts in both. The real total is in **View by: Campaign**.
+</Warning>
+
+## When a tag expires
+
+On the expiry date, a daily routine archives the tag. It's removed from every contact, but stays on campaigns so the report keeps its history. The tag moves to **Archived**. To use it again, create a tag with the same name: Cliqo reactivates the old one instead of creating another.
+
+## Accounts with more than one brand
+
+The tag vocabulary belongs to the account: the same list applies to every brand. The contact count on the Tags tab, and next to each tag in the segment builder, adds up all brands. The segment itself only picks contacts from the active brand.
+
+## Next steps
+
+- [How to create segments](/en/gestao-de-dados/criar-segmentos)
+- [How to define the campaign audience](/en/campanhas/audiencia)
+- [Reports by campaign and channel](/en/relatorios/visao-por-canal)

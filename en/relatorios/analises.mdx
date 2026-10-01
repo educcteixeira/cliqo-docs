@@ -1,0 +1,91 @@
+---
+title: "Understand the Analytics screen"
+description: "The four tabs of Reports › Analytics — RFM Matrix, Attribution, Performance and Insights: what each one shows, how to read it and what to do with it."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/Analytics.tsx, routes/a-janela-da-atribuicao.ts, a-janela-da-visao-geral.ts, routes/fatias-da-atribuicao.ts, components/atribuicao/faixa-de-fatias.tsx, components/atribuicao/quem-comprou.tsx, components/insights/quando-compram.tsx, components/insights/o-que-estao-olhando.tsx, components/insights/como-a-cliqo-conta.tsx, lib/frase-do-heatmap.ts, components/seletor-de-canal.tsx, routes/analytics-abas.render.test.tsx, packages/db/sql/333_rfm_frequency_bucket.sql, locales analytics.json · revisão: conferido contra o código em 28/09/2026 */}
+
+The **Analytics** screen brings together four readings of your base and your sales: who your customers are, where the revenue came from, how campaigns performed and when people buy.
+
+To open it: in the side menu, **Reports › Analytics**. There are four tabs at the top: **RFM Matrix**, **Attribution**, **Performance** and **Insights**. On mobile, the tab bar scrolls sideways.
+
+{/* print: Analytics screen with the four tabs and the RFM Matrix open */}
+
+## RFM Matrix
+
+Splits your base into 9 segments by buying behavior. Rows are the **value** spent; columns are **recency**. The total of **contacts mapped** shows at the top.
+
+| | Recent | Mid-term | Distant |
+|---|---|---|---|
+| **High value** | Champions | Loyal Customers | Can't Lose Them |
+| **Mid value** | Potential Loyalists | Needs Attention | At Risk |
+| **Low value** | New Customers | Hibernating | Lost |
+
+Each cell shows its share of the base, the **Contacts**, the **Avg. order** (the average spend of people in the segment who have bought) and the **AMP Score**, from 0 to 100: how much the segment interacts inside the email compared with how often it opens.
+
+<Note>
+The matrix includes your whole base, not only buyers. People who haven't bought yet sit in the **Low value** row — so **New Customers**, **Hibernating** and **Lost** can contain contacts with no purchase at all. Recency counts the last purchase or the last email open. By default, **Recent** is up to 30 days and **Mid-term** up to 60 days. The **High value** row also requires at least 3 paid purchases in the last 12 months.
+</Note>
+
+**What to do with it:** click a cell. The side panel shows the segment description, the **Recommended action by Cliqo**, the **Suggested template** and the recommended **Channel**. The **Create campaign for [segment]** button opens the channel choice for a new campaign — the segment is not pre-selected; pick the audience inside the campaign.
+
+Below the matrix, **Base distribution by RFM segment** shows the size of each segment. In the panel, **AMP Score by segment** compares engagement across them.
+
+With no data to calculate, the tab shows **No behavior data yet**, with an **Import contacts →** shortcut.
+
+## Attribution
+
+Answers: **how much revenue came from your campaigns and flows, and who bought**. The general rules (a sale counts once, opens don't attribute) are in [Understand the metrics](/en/relatorios/entenda-metricas).
+
+### The two controls
+
+- **Attribution window** — despite the name, this is the **period** you are looking at: the **From** and **to** dates, or the **7**, **14**, **30**, **60** and **90 days** shortcuts. It opens on the last 30 days.
+- **Attribution model** — **Last click** (credit goes to the last campaign clicked before the purchase) or **First touch** (credit goes to the first one).
+
+How many days before a purchase a click still counts is shown in the **How Cliqo measures revenue** box (click to open it). With the 7, 14 or 30 days shortcuts, it is that same number of days. For any other period — 60 or 90 days, or dates you picked — it is 30 days. Only a click or an interaction counts; opening the email doesn't.
+
+### What the tab shows
+
+- **Attributed revenue** and **Conversions** (attributed purchases) in the period.
+- The **Sales Cliqo could see** bar, split into three parts:
+
+| Part | What it is | What's missing |
+|---|---|---|
+| **Attributed to Cliqo** | A purchase after a click or interaction in a campaign or flow | — |
+| **Customers you know, another path** | The person is in your base but bought without clicking anything of yours in the period | A campaign that reaches them |
+| **Buyers Cliqo doesn't recognize** | The order arrived without an email saying who bought | Identification |
+
+When the split isn't available, the last two show together as **Unattributed**. If part of the purchases arrives without identification, a notice at the top gives the percentage and offers **Connect store**: with the store integrated, the order carries the buyer's email — no changes to your site.
+
+- **Revenue by flow and campaign** — the list sorted by revenue. Each row has the number and name, the channel badge (or **Flow** / **Campaign**), the send date, the touches and, when available, **Took part**: how many purchases the campaign had a click in, even without getting the credit. On the right, revenue and number of purchases.
+- The last row, **Organic / other channels**, adds up purchases with no tracked click or interaction in the period.
+
+### See who bought
+
+On each row, **See who bought** opens the buyer list: name, partly hidden email, the **Click** date, the **Purchase** date (and how long after) and the **Amount**. The **earned the credit** badge marks the purchases that add up to the campaign's revenue. The others are greyed out: the campaign helped, but another one got the credit — so don't add up the whole column. There's a search by name or email, **Download CSV** and 25 buyers per page. **timeline** opens the contact.
+
+### When the tab is empty
+
+The screen explains why instead of showing zero: the pixel saw sales, but none came after a campaign click (with a shortcut to Orders); the pixel is active and there has been no sale yet; or the pixel sent no signal — **No attributed conversions yet**, with **Set up pixel →**.
+
+## Performance
+
+- The highlight is the **AMP interaction rate**: interactions inside the email divided by opens, across campaigns.
+- **Performance by campaign** lists the campaigns sent in the **last 30 days** (fixed period). The columns are abbreviated: **sent**, **open** (open rate), **click** (click rate), **amp** (AMP interactions) and, in green, the revenue.
+- With no campaigns in the period: **Send your first campaign to see data here**, with a **New campaign** button.
+
+<Tip>
+Opens are estimated (Apple Mail opens emails on its own). Compare campaigns by clicks and interactions. To see email and WhatsApp side by side, use **Reports › By campaign**.
+</Tip>
+
+## Insights
+
+- **When your customers buy** — a day of week × time of day grid (late night 0–6h, morning 6–12h, afternoon 12–18h, evening 18–24h) over the last 30 days, in your store's timezone. Switch between **Orders** and **Visitors** and filter (**All** or **Identified** in Orders; **All**, **Known** or **Customers** in Visitors). A sentence at the top names the best day and time band — only with at least 30 orders in the period, and only when the leader converts at least 15% better than the runner-up; otherwise it says it's a tie. With few orders, **See 90 days →** appears. Use it to choose when to send.
+- **What they're looking at** — the most viewed products over 7, 14 or 30 days (up to 50), with **Visits**, the change **vs previous period** and the **Out of stock** and **New** badges. It also counts visitors who haven't identified themselves yet. **Download CSV** exports the list. Use it to pick the theme of your next campaign.
+- **How Cliqo counts** — what a visitor, a known visitor and a customer are, and why the sum of the days doesn't match the period total.
+
+## Next steps
+
+- [Understand Cliqo's metrics](/en/relatorios/entenda-metricas)
+- [Reports by campaign and channel](/en/relatorios/visao-por-canal)
+- [Install the pixel](/en/lojas/instalar-o-pixel)

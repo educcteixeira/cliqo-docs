@@ -3,7 +3,7 @@ title: "Understand accounts, brands, and members"
 description: "How Cliqo is organized: the account that groups everything, the brands that send, and the four access roles."
 ---
 
-{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: modelo org → marcas + tela Membros · revisão: pendente */}
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: modelo org → marcas + tela Membros · revisão: conferido contra o código em 28/09/2026 */}
 
 Three concepts organize everything in Cliqo — and understanding the difference avoids confusion from day one.
 
@@ -11,7 +11,7 @@ Three concepts organize everything in Cliqo — and understanding the difference
 
 The **account** is the organization — who contracts Cliqo and invites the team. **The brand is what sends**: each brand has its **own, isolated** sending domain, WhatsApp number, logo and colors, templates, contacts, lists, and campaigns.
 
-Every account is born with one brand. If you operate a single brand, you'll never think about this — Cliqo doesn't show the switcher. When you create the second one (name, identifier, domain, and color), the **brand switcher** appears in the top bar, and everything you see and do belongs to the active brand.
+Every account is born with one brand. If you operate a single brand, you'll hardly think about this — the **brand switcher**, in the top bar, just shows your brand and the **New brand** option. When you create the second one (name, slug and, optionally, domain and primary color), that's where you switch brands, and everything you see and do belongs to the active brand.
 
 **When to use multiple brands**: groups with more than one store, agencies operating clients, or brands under the same owner with separate identities. A contact that exists in both brands is, to Cliqo, two independent records — each with its own consent, which is exactly what the LGPD expects.
 
@@ -21,7 +21,7 @@ In **Members** (avatar menu), you invite the team by email — the invitation ex
 
 | Role | What it can do |
 |---|---|
-| **Owner** | Everything, including transferring ownership and closing the account. |
+| **Owner** | Everything, including permanently deleting what's in the Trash. Each account has a single owner, and this role isn't offered in invitations or changed from the Members screen. |
 | **Admin** | Everything day-to-day: members, API keys, tags, trash, audit log, permanent LGPD deletions. |
 | **Editor** | Creates, edits, and **sends** campaigns; works with lists, segments, and templates. |
 | **Viewer** | View only — ideal for an agency or leadership to follow results with no risk of changing anything. |

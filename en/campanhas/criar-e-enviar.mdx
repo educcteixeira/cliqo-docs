@@ -1,35 +1,36 @@
 ---
 title: "How to create and send a campaign"
-description: "The five tabs of campaign setup — Settings, Template, Audience, Delivery and Summary."
+description: "The five tabs of campaign setup — Set up, Message, Audience, Delivery and Review."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela Nova campanha · idioma: EN · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Nova campanha · idioma: EN · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
-The complete path of an email campaign: from settings to the send button, through template, audience and delivery.
+The complete path of an email campaign: from settings to the send button, through message, audience and delivery.
 
 ## Before you start
 
 - Verified domain and sending identity configured ([first-send checklist](/en/entregabilidade/checklist-primeiro-envio)).
+- The brand's **Legal name** and **Physical address** filled in under **Settings › Sending** (they go in the email footer) — the send is refused while the address is missing.
 - **Editor** role or above.
 
-To get started, click **New campaign** in the top bar (or under Campaigns › Email). Campaign setup has five tabs — you can save a draft at any time.
+To get started, click **New campaign** — at the top of the **Campaigns** screen (on a phone, that's where it is) or in the top bar of the other screens — and choose **Email campaign**. In "How do you want to create the email?", pick a starting point: **Interactive templates**, **Build it yourself** or **Import existing HTML** ("Turn an image into HTML" is still *Coming soon*). Once the email is ready in the editor, **Configure sending** saves the template and opens campaign setup. It has five tabs — you can **Save draft** at any time.
 
-## Tab 1 · Settings
+## Tab 1 · Set up
 
 - **Internal name** — visible only to your team (e.g. "Black Friday — VIP customers").
 - **Subject and preheader** — both accept personalization tags, such as `{{primeiro_nome|Olá}}`.
-- **Sender** — display name + any address on your verified domain. The screen warns you if the address doesn't have its [AMP registration](/en/email-interativo/registro-do-remetente) yet or if DKIM is inactive. Reply-To is optional.
-- **Tracking** — opens and clicks, on by default.
-- **Campaign tags** — tag the campaign type (e.g. `black-friday`, `launch`) to compare campaigns of the same type in your reports.
+- **Sender** — display name + any address on your verified domain. The screen warns you if the address isn't registered for [AMP](/en/email-interativo/registro-do-remetente) (or if it can't tell from there) and if the domain's DKIM is inactive. Reply-To is set per brand, under **Settings › Sending**.
+- **Tracking** — opens and clicks are tracked on every send.
+- **Campaign tags** — tag the campaign type (e.g. `black-friday`, `launch`) to compare campaigns of the same type in your reports. Tags become available after the campaign is saved — or tag it from the campaigns list.
 - **UTMs for Google Analytics** — preconfigured; you can customize each field. Validation warns you if `utm_medium` isn't one of the values GA recognizes, and links that already carry your site's own UTMs are not overwritten.
 
 {/* print: Settings tab */}
 
-## Tab 2 · Template
+## Tab 2 · Message
 
-Pick a template from the gallery — all interactive in Gmail, with automatic HTML fallback and **your brand applied** (logo and colors). To adjust the content, **Edit in builder** opens the full editor.
+If you came from the editor, the template is already chosen and the **Next: Audience** button skips this tab. Without a template, it shows the "Choose the AMP template" gallery — all interactive with AMP, with automatic HTML fallback and **your brand applied** (logo and colors); the "Create custom template" card is still *Coming soon*. To adjust the content of an editor template, **Edit in builder** (at the top) takes you back to the editor — what you've already filled in on the campaign is saved first.
 
 ## Tab 3 · Audience
 
@@ -37,19 +38,19 @@ Build the audience by adding **lists and segments** — the final audience is th
 
 ## Tab 4 · Delivery
 
-- **When**: send now or schedule a date and time.
+- **Delivery mode**: **Send now** or **Schedule** (date and time). **Smart send** shows as *Coming soon* — it isn't available yet.
 - **Send pacing**: instant, or spread over 1, 4, 8 or 24 hours — recommended for large lists ([why](/en/campanhas/agendar-e-ritmo)).
-- **WhatsApp trigger** (optional): fire a message to anyone who fills in the email's form or clicks any link.
+- **WhatsApp**: an email campaign doesn't send WhatsApp. The tab points you to **Automations** — to send a WhatsApp message to anyone who fills in the email's form or clicks, create an automation with a WhatsApp step.
 
-## Tab 5 · Summary
+## Tab 5 · Review
 
-The X-ray before sending: sender (with the "⚡ Interactive AMP" badge, or the warning that it will go out static), content, audience with the total of unique recipients, delivery and UTMs. From here you run the **pre-send analysis** and send a **test email** — both are covered in detail in [Pre-send analysis and test](/en/campanhas/pre-envio-e-teste).
+The X-ray before sending (**Send summary**): sender — with a note about AMP when the template has an interactive version (whether the sender is marked as AMP-enabled, isn't marked and Gmail should deliver the plain version, or it can't be told from there) —, content, audience with the total of unique recipients, delivery and UTMs. Anything missing shows under "Fill in before sending". From here you run the **pre-send analysis** and send a **test email** (**Send test** is also at the top, on every tab) — both are covered in detail in [Pre-send analysis and test](/en/campanhas/pre-envio-e-teste).
 
-All green? **Send campaign** (or **Schedule campaign**).
+Nothing pending? **Send campaign** (or **Schedule campaign**).
 
 ## Result
 
-The campaign starts sending — the report screen follows along live, and you can close it: sending continues on the server. How to read the numbers: [How to read the campaign report](/en/campanhas/ler-o-relatorio).
+With **Send now**, the campaign is queued ("Campaign queued — sending shortly") and you land on the report: the badge shows **Queued** until the send starts, and then the screen follows the send live — you can close it: sending continues on the server. With **Schedule**, the campaign shows as *Scheduled* and goes out on its own at that time. How to read the numbers: [How to read the campaign report](/en/campanhas/ler-o-relatorio).
 
 ## Next steps
 

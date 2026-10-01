@@ -3,7 +3,7 @@ title: "Glossário"
 description: "Os termos da Cliqo, exatamente como aparecem na interface — com o equivalente em inglês."
 ---
 
-{/* tipo: glossário · prioridade: P0 · fonte: interface (locales pt-BR/en) · revisão: pendente */}
+{/* tipo: glossário · prioridade: P0 · fonte: interface (locales pt-BR/en) · revisão: conferido contra o código em 28/09/2026 */}
 
 Os termos abaixo aparecem na interface e nesta central exatamente assim. O equivalente em inglês é o que a interface em English usa.
 
@@ -11,13 +11,13 @@ Os termos abaixo aparecem na interface e nesta central exatamente assim. O equiv
 
 **Blocklist** — a categoria manual das supressões: os endereços e domínios que **você** adiciona (inclusive a lista importada do seu ESP anterior). Hard bounces, reclamações e descadastros são as outras três categorias, automáticas.
 
-**Campos tipados** *(typed fields)* — campos personalizados do contato com tipo declarado: texto, número, data, data e hora, sim/não ou lista. O tipo destrava segmentos como aniversário.
+**Campos personalizados · Tipo do campo** *(custom fields · field type)* — campos extras do contato, cada um com tipo declarado: Texto, Número, Data, Data e hora, Sim / Não ou Lista. O tipo importa: um aniversário gravado como Data destrava o gatilho **Data / Aniversário** das automações; gravado como texto, não.
 
-**Campanha · Disparo · Onda** *(campaign · send · wave)* — a campanha é o objeto que você cria; o disparo é a execução de um envio; a onda é uma fatia de campanha de WhatsApp enviada em etapas.
+**Campanha · Disparo · Onda** *(campaign · dispatch · wave)* — a campanha é o objeto que você cria; o disparo é a execução de um envio; a onda é uma fatia de campanha de WhatsApp enviada em etapas.
 
 **Clique humano** *(human click)* — clique com bots, scanners de segurança e pré-carregamentos removidos, contado uma vez por envio. É o clique que vale nos relatórios.
 
-**Consentimento · Opt-in** — a autorização do contato para receber mensagens, registrada por canal (e-mail e WhatsApp separados), com data e origem. Importação de planilha nunca gera opt-in.
+**Consentimento · Opt-in** — a autorização do contato para receber mensagens, registrada por canal (e-mail e WhatsApp separados), com data e origem. Na importação de planilha, o opt-in só é registrado nos canais que você marcar (**E-mail marketing**, **WhatsApp marketing**) — sem marcar, os contatos entram sem opt-in e não recebem nada.
 
 **Descadastro** *(unsubscribe)* — a saída do contato, pelo link presente em todo e-mail ou pelo descadastro em um clique do Gmail/Yahoo. Sair do e-mail não remove o contato do WhatsApp.
 
@@ -25,17 +25,17 @@ Os termos abaixo aparecem na interface e nesta central exatamente assim. O equiv
 
 **Interações AMP · Taxa AMP** *(AMP interactions · AMP rate)* — ações dentro do e-mail (girar a roleta, responder o quiz, enviar o formulário) e a fração de destinatários que viu a versão interativa em vez do fallback.
 
-**Janela de 24 horas** *(24-hour window)* — regra do WhatsApp: quando o cliente responde, abre uma janela de conversa livre por 24 horas, renovada a cada resposta dele. Fora dela, só modelo aprovado.
+**Janela de 24h** *(24h window)* — regra do WhatsApp: quando o cliente responde, abre uma janela de conversa livre por 24 horas, renovada a cada resposta dele. Fora dela, só modelo aprovado.
 
 **Marca** *(brand)* — a unidade que envia: domínio, número de WhatsApp, modelos, contatos e campanhas próprios. Uma conta pode ter várias marcas.
 
 **Modelo** *(template)* — no e-mail, a peça editável no editor; no WhatsApp, a mensagem que precisa de aprovação da Meta antes de ser enviada em massa.
 
-**Nota na Meta** *(Meta quality rating)* — a qualidade que a Meta atribui ao seu número de WhatsApp (alta, média, baixa), baseada em bloqueios e denúncias de quem recebe.
+**Nota na Meta** *(Meta rating)* — a qualidade que a Meta atribui ao seu número de WhatsApp (alta, média, baixa), baseada em bloqueios e denúncias de quem recebe.
 
-**Peça** *(popup piece)* — um pop-up publicado na sua loja, com relatório próprio.
+**Peça** *(piece)* — um pop-up publicado na sua loja, com relatório próprio.
 
-**Pendências** *(pending alerts)* — o sininho da barra superior: avisos de configuração faltando ou métricas fora do limite.
+**Pendências** *(needs attention)* — o sininho da barra superior: avisos de configuração faltando ou métricas fora do limite.
 
 **Pixel** — o script da Cliqo instalado na loja. Identifica visitantes, alimenta segmentos de navegação e liga compra a campanha.
 
@@ -45,6 +45,6 @@ Os termos abaixo aparecem na interface e nesta central exatamente assim. O equiv
 
 **Supressão** *(suppression)* — o conjunto de quem não recebe: descadastros, reclamações, hard bounces e blocklist. Aplicada automaticamente em todo envio.
 
-**Tag de personalização** *(merge tag)* — variável no texto do e-mail, como `{{primeiro_nome|Olá}}` — com valor padrão para quem não tem o dado preenchido.
+**Tag de personalização** *(personalization tag)* — variável no texto do e-mail, como `{{primeiro_nome|Olá}}` — com valor padrão para quem não tem o dado preenchido.
 
-**Vitrine · Roleta · Raspadinha · Accordion** *(product showcase · spin wheel · scratch card · accordion)* — blocos do editor de e-mail. Roleta, Raspadinha e Accordion são interativos no Gmail; a Vitrine pode sair como grade estática ou carrossel interativo.
+**Vitrine · Roleta · Raspadinha · AMP Accordion** *(showcase · spin wheel · scratch card · AMP accordion)* — blocos do editor de e-mail. Roleta, Raspadinha e AMP Accordion são interativos no Gmail; a Vitrine pode sair como grade estática ou carrossel interativo.

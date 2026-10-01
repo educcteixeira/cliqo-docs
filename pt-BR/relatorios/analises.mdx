@@ -1,0 +1,91 @@
+---
+title: "Entenda a tela Análises"
+description: "As quatro abas de Relatórios › Análises — Matriz RFM, Atribuição, Performance e Insights: o que cada uma mostra, como ler e o que fazer com ela."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Analytics.tsx, routes/a-janela-da-atribuicao.ts, a-janela-da-visao-geral.ts, routes/fatias-da-atribuicao.ts, components/atribuicao/faixa-de-fatias.tsx, components/atribuicao/quem-comprou.tsx, components/insights/quando-compram.tsx, components/insights/o-que-estao-olhando.tsx, components/insights/como-a-cliqo-conta.tsx, lib/frase-do-heatmap.ts, components/seletor-de-canal.tsx, routes/analytics-abas.render.test.tsx, packages/db/sql/333_rfm_frequency_bucket.sql, locales analytics.json · revisão: conferido contra o código em 28/09/2026 */}
+
+A tela **Análises** junta quatro leituras da sua base e das suas vendas: quem são seus clientes, de onde veio a receita, como as campanhas foram e quando as pessoas compram.
+
+Para abrir: no menu lateral, **Relatórios › Análises**. No topo ficam quatro abas: **Matriz RFM**, **Atribuição**, **Performance** e **Insights**. No celular, a barra de abas rola para o lado.
+
+{/* print: tela Análises com as quatro abas e a Matriz RFM aberta */}
+
+## Matriz RFM
+
+Divide a sua base em 9 segmentos pelo comportamento de compra. As linhas são o **valor** gasto; as colunas, a **recência**. No topo aparece o total de **contatos mapeados**.
+
+| | Recente | Médio prazo | Distante |
+|---|---|---|---|
+| **Alto valor** | Campeões | Clientes Fiéis | Não Posso Perder |
+| **Médio valor** | Potencial Fiel | Precisam Atenção | Em Risco |
+| **Baixo valor** | Novos Clientes | Hibernando | Perdidos |
+
+Cada célula mostra a fatia da base, os **Contatos**, o **Ticket médio** (o gasto médio de quem já comprou dentro do segmento) e o **AMP Score**, de 0 a 100: quanto o segmento interage dentro do e-mail em relação a quanto abre.
+
+<Note>
+A matriz inclui toda a base, não só quem comprou. Quem ainda não comprou fica na linha **Baixo valor** — por isso **Novos Clientes**, **Hibernando** e **Perdidos** podem ter contatos sem nenhuma compra. A recência conta a última compra ou a última abertura de e-mail. Por padrão, **Recente** vai até 30 dias e **Médio prazo** até 60 dias. A linha **Alto valor** exige também pelo menos 3 compras pagas nos últimos 12 meses.
+</Note>
+
+**O que fazer com ela:** clique numa célula. O painel ao lado mostra a descrição do segmento, a **Ação recomendada pela Cliqo**, o **Template sugerido** e o **Canal** indicado. O botão **Criar campanha para [segmento]** abre a escolha de canal de uma campanha nova — o segmento não vem pré-selecionado; escolha o público dentro da campanha.
+
+Abaixo da matriz, **Distribuição da base por segmento RFM** mostra o tamanho de cada segmento. No painel, **AMP Score por segmento** compara o engajamento entre eles.
+
+Sem dados para calcular, a aba mostra **Sem dados de comportamento ainda**, com o atalho **Importar contatos →**.
+
+## Atribuição
+
+Responde: **quanto da receita veio das suas campanhas e fluxos, e quem comprou**. As regras gerais (uma venda conta uma vez, abertura não atribui) estão em [Entenda as métricas](/pt-BR/relatorios/entenda-metricas).
+
+### Os dois controles
+
+- **Janela de atribuição** — apesar do nome, é o **período** analisado: as datas **De** e **até**, ou os atalhos **7**, **14**, **30**, **60** e **90 dias**. Abre nos últimos 30 dias.
+- **Modelo de atribuição** — **Último clique** (o crédito vai para a última campanha clicada antes da compra) ou **Primeiro toque** (vai para a primeira).
+
+Quantos dias antes da compra um clique ainda conta aparece no quadro **Como a Cliqo mede a receita** (clique para abrir). Com os atalhos 7, 14 ou 30 dias, é o mesmo número de dias. Em qualquer outro período — 60 ou 90 dias, ou datas que você escolheu — são 30 dias. Só clique ou interação conta; abrir o e-mail, não.
+
+### O que a aba mostra
+
+- **Receita atribuída** e **Conversões** (compras atribuídas) no período.
+- A faixa **Vendas que a Cliqo enxergou**, dividida em três partes:
+
+| Parte | O que é | O que falta |
+|---|---|---|
+| **Atribuída à Cliqo** | Compra depois de um clique ou interação numa campanha ou fluxo | — |
+| **Clientes da base, por outro caminho** | A pessoa está na sua base, mas comprou sem clicar em nada seu no período | Uma campanha que a alcance |
+| **Compradores que a Cliqo não reconhece** | O pedido chegou sem um e-mail que diga quem comprou | Identificação |
+
+Quando a divisão não está disponível, as duas últimas aparecem juntas como **Sem atribuição**. Se parte das compras chega sem identificação, um aviso no topo diz a porcentagem e oferece **Conectar loja**: com a loja integrada, o pedido traz o e-mail do comprador — sem mexer no site.
+
+- **Receita por fluxo e campanha** — a lista ordenada por receita. Cada linha tem o número e o nome, o selo do canal (ou **Fluxo** / **Campanha**), a data do disparo, os toques (a tela escreve *touches*) e, quando disponível, **Participou**: em quantas compras a campanha teve um clique, mesmo sem levar o crédito. À direita, a receita e o número de compras.
+- A última linha, **Orgânico / outros canais**, soma as compras sem clique ou interação rastreada no período.
+
+### Ver quem comprou
+
+Em cada linha, **Ver quem comprou** abre a lista de compradores: nome, e-mail parcialmente escondido, a data do **Clique**, a da **Compra** (e quanto tempo depois) e o **Valor**. O selo **levou o crédito** marca as compras que somam na receita da campanha. As outras aparecem apagadas: a campanha ajudou, mas outra levou o crédito — por isso não some a coluna inteira. Há busca por nome ou e-mail, **Baixar CSV** e 25 compradores por página. **linha do tempo** abre o contato.
+
+### Quando a aba está vazia
+
+A tela explica o motivo em vez de mostrar zero: o pixel viu vendas, mas nenhuma veio depois de um clique em campanha (atalho para Pedidos); o pixel está ativo e ainda não houve venda; ou o pixel não mandou sinal — **Sem conversões atribuídas ainda**, com **Configurar pixel →**.
+
+## Performance
+
+- No destaque, **Taxa de interação AMP**: interações dentro do e-mail divididas pelas aberturas, somando as campanhas.
+- **Performance por campanha** lista as campanhas disparadas nos **últimos 30 dias** (período fixo). As colunas são abreviadas: **env** (enviados), **ab** (taxa de abertura), **cl** (taxa de clique), **amp** (interações AMP) e, em verde, a receita.
+- Sem campanhas no período: **Envie sua primeira campanha para ver os dados aqui**, com o botão **Nova campanha**.
+
+<Tip>
+A abertura é estimada (o Apple Mail abre e-mails sozinho). Compare campanhas por clique e interação. Para ver e-mail e WhatsApp lado a lado, use **Relatórios › Por campanha**.
+</Tip>
+
+## Insights
+
+- **Quando seus clientes compram** — uma grade de dia da semana × faixa do dia (madrugada 0–6h, manhã 6–12h, tarde 12–18h, noite 18–24h), nos últimos 30 dias, no horário da sua loja. Alterne entre **Pedidos** e **Visitantes** e filtre (**Todos** ou **Identificados** em Pedidos; **Todos**, **Conhecidos** ou **Clientes** em Visitantes). Uma frase no topo aponta o melhor dia e a melhor faixa — só com pelo menos 30 pedidos no período, e só quando o líder converte pelo menos 15% melhor que o segundo; senão, diz que empatou. Com poucos pedidos, aparece **Ver 90 dias →**. Use para escolher quando disparar.
+- **O que estão olhando** — os produtos mais vistos em 7, 14 ou 30 dias (até 50), com **Visitas**, a variação **vs período anterior** e os selos **Esgotado** e **Novo**. Conta também visitantes ainda não identificados. **Baixar CSV** exporta a lista. Use para decidir o tema da próxima campanha.
+- **Como a Cliqo conta** — o que é **Visitante**, **Conhecido** e **Cliente**, e por que a soma dos dias não bate com o total do período.
+
+## Próximos passos
+
+- [Entenda as métricas da Cliqo](/pt-BR/relatorios/entenda-metricas)
+- [Relatórios por campanha e canal](/pt-BR/relatorios/visao-por-canal)
+- [Instalar o pixel](/pt-BR/lojas/instalar-o-pixel)

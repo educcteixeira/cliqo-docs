@@ -1,9 +1,9 @@
 ---
 title: "Como criar segmentos"
-description: "Os segmentos prontos, o construtor com nove dimensões e o modo avançado com grupos."
+description: "Os segmentos prontos, o construtor com onze dimensões e o modo avançado com grupos."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: Listas & Segmentos (construtor unificado) · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: Listas & Segmentos (construtor unificado) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -11,29 +11,32 @@ O que já vem pronto, como montar um segmento do zero e como combinar condiçõe
 
 ## Os que já vêm prontos
 
-Em **Público › Listas & Segmentos › Segmentos**, três famílias prontas, com janela de dias ajustável:
+Em **Público › Listas e segmentos › Segmentos**, duas famílias prontas:
 
-- **Engajamento por e-mail** — Engajados com AMP, Abriram recentemente, Inativos, Converteram, Abriram sem converter, Novos contatos.
+- **Engajamento por email** (com janela de dias ajustável em cada cartão) — Engajados com AMP, Abriram recentemente, Inativos, Converteram, Abriram sem converter, Novos contatos.
 - **Navegação na loja** (exige o pixel instalado) — Todos os visitantes, Navegaram sem comprar, Interesse por categoria, Carrinho sem compra, Checkout abandonado.
-- **RFM** — os nove por valor × recência: Campeões, Fiéis, Não posso perder, Promissores, Precisam de atenção, Em risco, Novos, Hibernando, Perdidos.
+
+Os nove grupos **RFM** por valor × recência — Campeões, Fiéis, Não posso perder, Promissores, Precisam de atenção, Em risco, Novos, Hibernando, Perdidos — não vêm como cartão pronto: você os usa pela dimensão **Segmento RFM** do construtor.
 
 Segmentos são **dinâmicos**: a pessoa entra e sai sozinha conforme o comportamento muda — diferente de lista, que é fixa.
 
 ## Criar um segmento
 
-Clique em **Criar segmento**. No modo simples, escolha se o contato precisa atender **todas**, **alguma** ou **nenhuma** das condições, e adicione condições pelas nove dimensões:
+O construtor **Criar segmento** fica no topo da aba Segmentos. No modo simples, escolha se o contato precisa atender **TODAS**, **ALGUMA** ou **NENHUMA** das condições, e adicione condições pelas onze dimensões:
 
 | Dimensão | Exemplos de condição |
 |---|---|
 | ⚡ Interação com AMP | girou a roleta, respondeu o quiz, enviou o formulário |
-| ✉️ Ação de e-mail | recebeu, abriu, clicou, converteu — numa campanha ou em qualquer |
-| 💬 Ação de WhatsApp | recebeu, leu, respondeu, converteu |
-| 🔒 Consentimento | aceita e-mail / recusou / sem opt-in ainda — por canal |
+| ✉️ Ação de email | recebeu, abriu, clicou, converteu — numa campanha ou em qualquer |
+| 💬 Ação de WhatsApp | recebeu, leu, clicou, respondeu, converteu |
+| 📮 Domínio do e-mail | Gmail, Microsoft, Yahoo… ou os domínios que você digitar |
+| 🔒 Consentimento (opt-in) | aceita e-mail / recusou / sem opt-in ainda — por canal |
+| 🏷️ Tag do contato | tem alguma / todas / nenhuma destas tags |
 | 🛒 Compra de produto | comprou X, comprou qualquer coisa na janela |
-| 🧭 Navegação na loja | viu produto, viu carrinho, foi ao checkout |
-| 🎯 Segmento RFM | está em Campeões, Em Risco… |
-| 👤 Dados do cliente | ticket médio, total gasto, nº de pedidos, sem comprar há N dias — e os seus [campos tipados](/pt-BR/gestao-de-dados/campos-tipados) |
-| 📊 Evento personalizado | eventos que o seu sistema envia pela API |
+| 🧭 Navegação na loja | visitou o site, viu produto, viu categoria, viu carrinho, foi ao checkout |
+| 🎯 Segmento RFM | está em Campeões, Em risco… |
+| 👤 Dados do cliente | ticket médio, total gasto, nº de pedidos, sem atividade (compra, e-mail ou cadastro) há N dias, CPF preenchido — e os seus [campos tipados](/pt-BR/gestao-de-dados/campos-tipados) |
+| 📊 Evento personalizado | eventos que a sua loja ou o seu sistema envia com o token de pixel da conta |
 
 Enquanto monta, a tela mostra a **frase em linguagem natural** do que você está definindo e a **contagem ao vivo** de quantos contatos se encaixam.
 
@@ -41,12 +44,12 @@ Enquanto monta, a tela mostra a **frase em linguagem natural** do que você est�
 
 ## Modo avançado: grupos
 
-Para lógica composta, ative o **modo avançado**: dentro de um grupo as condições são **OU**; entre grupos, **E**. Exemplo — *(abriu nos últimos 30 dias OU interagiu com AMP) E (não comprou nos últimos 60 dias)*: dois grupos, três condições.
+Para lógica composta, clique em **Modo avançado (grupos)**: dentro de um grupo as condições são **OU**; entre grupos, **E**. Exemplo — *(abriu nos últimos 30 dias OU interagiu com AMP) E (não comprou nos últimos 60 dias)*: dois grupos, três condições.
 
 ## Usar, exportar e apagar
 
-- **Criar campanha** direto do segmento, ou **Exportar** os contatos em CSV.
-- Cada segmento mostra onde está em uso ("usado em N campanhas · M fluxos"). Um segmento que alimenta um fluxo ativo ou uma campanha agendada **não pode ser apagado** — a tela explica o bloqueio em vez de deixar você quebrar uma automação sem querer.
+- Clique em **Escolher** num ou mais segmentos: o painel ao lado mostra o tamanho do público e oferece **Criar campanha** e **Exportar** (CSV).
+- Cada segmento mostra onde está em uso ("usado em N campanhas · M fluxos"). Um segmento que alimenta um fluxo ativo ou uma campanha agendada **não pode ser apagado** — a tela explica o bloqueio em vez de deixar você quebrar uma automação sem querer. Só o dono da conta apaga segmentos.
 
 ## Artigos relacionados
 

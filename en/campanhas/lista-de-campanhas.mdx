@@ -1,0 +1,137 @@
+---
+title: "The Campaigns list"
+description: "Where all your email and WhatsApp campaigns live: tabs, search, columns, the ⋮ menu and what to do with a scheduled campaign."
+---
+
+{/* tipo: referência · prioridade: P1 · idioma: EN · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) */}
+
+The **Campaigns** screen shows all your bulk sends, email and WhatsApp, in one place. From here you find a campaign, see how it did and start a new one.
+
+To open it, click **Campaigns** in the side menu.
+
+{/* print: Campaigns list on the All tab, with the channel and status tabs and three rows (one sent, one scheduled, one draft) */}
+
+## Create a campaign
+
+The **New campaign** button opens the channel choice:
+
+- **Email campaign** — send to an audience.
+- **WhatsApp campaign** — approved template to an audience.
+
+**SMS campaign** and **A/B test** also show up, marked **Coming soon**, and cannot be clicked yet.
+
+## Channel tabs
+
+On the left, above the list:
+
+- **All** — email and WhatsApp together.
+- **Email** — email campaigns only.
+- **WhatsApp** — WhatsApp campaigns only.
+
+Each tab shows how many campaigns it has. The tab you pick changes the table columns (see below).
+
+## Status tabs
+
+Next to the channel tabs:
+
+| Tab | What it shows |
+|---|---|
+| **All** | Every campaign in the chosen channel. |
+| **Draft** | Campaigns you have not sent or scheduled yet. |
+| **Scheduled** | Campaigns with a date and time set to go out. |
+| **Sending** | Campaigns going out right now. |
+| **Sent** | Campaigns that finished going out. |
+| **Paused** | Filter for paused campaigns. |
+
+The number next to a status tab only shows when the tab has campaigns. It counts all your campaigns, regardless of the channel tab, search or tag you picked.
+
+Some situations have no tab of their own and only show under **All**: campaigns sent with failures (more than 10% of the audience was left without it), campaigns that failed, and large sends that stopped and are resuming on their own from where they were.
+
+<Note>
+A WhatsApp campaign sent in waves that you paused between one wave and the next stays on the **Sending** tab, not on **Paused**. Under the status you see **Paused · wave 2 waiting** (with the wave number). When the next wave is waiting for you, the note reads **Wave 2 · waiting for you**.
+</Note>
+
+### "Queued" is not "scheduled"
+
+When a scheduled campaign's time comes, it waits a few moments before the send starts. An email you chose to send now also goes through this wait. During that time the row shows **Queued** and, under the name, **queued · sending shortly**. It stays on the **Scheduled** tab.
+
+If more than 5 minutes pass after the set time and it has not gone out, the row goes back to **scheduled for** and the time, which is now in the past. That is the sign something is stuck.
+
+## Search and filter
+
+- **Search by name or #ID…** — type part of the name or the campaign number (for example `#137`). The number shows under the name after the first send.
+- **Filter by tag** — pick a tag to see only the campaigns marked with it. To clear the filter, click the **✕** next to the tag name. If no campaign has a tag, the filter says: **No tagged campaigns yet.**
+
+To tag a campaign, click **+ tag** on its row. On a computer the button appears when you hover over the row.
+
+The list shows 10 campaigns per page, newest to oldest. Each row is sorted by the date it shows. That is why a campaign scheduled for next week sits at the top.
+
+## The columns of each channel
+
+Each channel measures different things. So the columns change with the channel tab:
+
+| Channel tab | Number columns |
+|---|---|
+| **All** | **Sent** · **Campaign revenue** |
+| **Email** | **Sent** · **Opens** · **Interactions** · **Clicks** · **Campaign revenue** |
+| **WhatsApp** | **Sent** · **Delivered** · **Read** · **Replies** · **Clicks** · **Campaign revenue** |
+
+On **All** you only see the numbers both channels measure the same way. An email open and a WhatsApp read are not the same thing, and they do not share a column.
+
+- **Interactions** counts who used the interactive content of the email (carousel, survey, spin wheel).
+- **Campaign revenue** is the revenue attributed to *this* campaign. A customer who received several campaigns counts in each one. So the column can add up to more than the Dashboard total, which credits each sale only once.
+- The dash **—** means there is no number there yet. Drafts always show a dash.
+- Numbers above 10 thousand are shortened (for example `12k`). Hover to see the full value.
+
+If you see the **Metrics unavailable.** notice, sends and revenue are correct. Opens, interactions and clicks could not be read right now, but they are not zero.
+
+On a phone, swipe the table sideways to see every column. The **⋮** button always stays on the right.
+
+## The Draft tab
+
+On the **Draft** tab the list changes shape and shows no numbers. The columns are **Name**, **Edited by** and **Last edit**. **Edited by** is only recorded from 18 August. Before that you see a dash.
+
+- **Use →** opens the campaign so you can keep building it.
+- Clicking the row does the same.
+
+If the send of a scheduled campaign was refused, it goes back to draft with the notice **Not sent:** and the reason (for example, *no one in the audience can receive it*). Fix it and schedule or send it again.
+
+## The ⋮ menu
+
+The **⋮** menu at the end of each row depends on the campaign:
+
+| Campaign | Options |
+|---|---|
+| Draft | **Edit** · **Duplicate** · **Delete** |
+| Scheduled email, up to 2 minutes before its time | **View report** · **Edit** · **Duplicate** · **Delete** |
+| Scheduled WhatsApp, sending, sent or failed | **View report** · **Duplicate** · **Delete** |
+
+- **Duplicate** makes a copy of the campaign under **Draft**, in the same channel, with the same content, the same audience and the same tags. The name gets **(copy)** at the end. The copy does not keep the scheduled date. For a WhatsApp campaign, it keeps the message template, the variables and the button link. If you turned on **Ignore the rest period for this send** in the original, the copy goes back to following the account's rest period.
+- **Delete** asks you to confirm and removes the campaign from the list.
+
+Users with **Viewer** access see **New campaign**, **Edit**, **Duplicate** and **Delete** greyed out.
+
+## What opens when you click a row
+
+- **Draft**: opens the campaign builder, so you pick up where you left off. A WhatsApp draft opens in the WhatsApp step-by-step flow.
+- **Any other status**: opens the campaign report. If you use the browser's back button, the list reopens on the same channel tab and the same page.
+
+While any campaign is sending, the list refreshes on its own every 10 seconds.
+
+## What about a campaign that is already scheduled?
+
+For a scheduled **email** campaign, **⋮ › Edit** opens the campaign builder with the schedule loaded. You can change the content, the audience or the time and click **Schedule campaign** again. To remove the schedule, click **Save draft**: the campaign goes back to **Draft** and is not sent at that time. Going to the builder through **Edit in builder** keeps the schedule.
+
+<Warning>
+Editing works until **2 minutes before** the set time. After that the campaign may already be sending: **Edit** leaves the menu, and an edit that was already open is not saved (the screen tells you). To stop the send at that point, use **⋮ › Delete** before the set time. A deleted campaign is not sent.
+</Warning>
+
+For a scheduled WhatsApp campaign, delete it and create another under **New campaign › WhatsApp campaign**.
+
+The account owner or an admin can restore a deleted campaign from **Trash**, in your account menu (the circle with your initials). It comes back exactly as it was. A scheduled campaign comes back scheduled. If its set time has already passed, it joins the send queue.
+
+## Next steps
+
+- [How to create and send a campaign](/en/campanhas/criar-e-enviar)
+- [How to read the campaign report](/en/campanhas/ler-o-relatorio)
+- [How to send a bulk message on WhatsApp](/en/whatsapp/enviar-em-massa)

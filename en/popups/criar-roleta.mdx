@@ -1,0 +1,106 @@
+---
+title: "How to create a Prize wheel"
+description: "The prize wheel editor: prizes and chances, coupons, expiry, what the visitor fills in, publishing and where to see the results."
+---
+
+{/* tipo: tarefa · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/PopupRoleta.tsx, lib/popup-roleta.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, components/popup-no-ar.tsx, components/popup-canal.tsx, routes/PopupRelatorio.tsx, packages/popup-kit/templates/02-roleta-premiada/html.html + js.js, packages/popup-kit/compilador/marcadores.mjs, apps/web/public/popup/cliqo-core.js, locales campaigns.json · revisão: conferido contra o código em 28/09/2026 */}
+
+The **Prize wheel** is a pop-up where the visitor enters their email and spins a wheel of prizes. Every spin wins something: you set the prizes, each prize's coupon and the chance of each one coming up.
+
+## Before you start
+
+- [Pixel installed and brand domain verified](/en/popups/primeiros-passos).
+- The company's legal name with CNPJ (Brazilian company tax ID) and the privacy policy URL — without them the piece won't publish.
+- The coupons created in your store. Cliqo shows the code to the winner, but it doesn't create the coupon in your store.
+
+To open it: in the side menu, **Pop-ups**. In the gallery, under **Capture leads**, choose **Prize wheel › Use this template**. The editor has four steps — **Choose · Customise · Behaviour · Review & activate** — and opens on **Customise**, with the preview alongside. The preview runs the real piece: you can fill it in and spin.
+
+{/* print: Customise step of the prize wheel, with the prize table and the preview */}
+
+## Customise
+
+**Piece name** — only you see it; it's the name in the list and in reports. In **What the piece says**, the **Headline** is required (up to 60 characters) and the **Supporting line** is optional (up to 140). If you don't want to promise a prize to everyone, change or delete the default line.
+
+### The prizes
+
+Each row in **The prizes** is one slice of the wheel:
+
+| Column | What it is |
+|---|---|
+| **Prize** | The name the winner reads ("Free shipping") |
+| **On the slice** | The short text inside the slice — up to 8 characters ("FREE") |
+| **Coupon** | The code the winner gets |
+| **Weight** | How much the prize weighs in the draw |
+| **Chance** | The calculated chance, in % — it updates as soon as you change any weight |
+
+Weights don't have to add up to 100: the chance is worked out between them. The default wheel uses weights 30, 26, 22, 14, 6 and 2 — so 5% OFF comes up 30% of the time and 25% OFF, 2%.
+
+- The wheel has 3 to 6 slices. **Add slice** creates a new one before the last; the bin icon deletes (minimum of 3).
+- The last slice is the top prize and is gold.
+- To change a colour, click the slice's dot or use a shortcut: **Valentine’s Day**, **Black Friday**, **Christmas**. **Back to brand colours** undoes it. The text colour inside the slice adjusts on its own to stay readable. Colour warnings (top prize without gold, neighbouring slices the same colour) don't block publishing.
+
+<Warning>
+There is no "you lost" slice, on purpose: people who lose tend to leave fake emails, and that hurts deliverability for your whole base. For the same reason, give small discounts a high chance and big discounts a low one.
+</Warning>
+
+The piece won't move on if a prize has no name, no slice text or no coupon; if the slice text is over 8 characters; if two prizes share a coupon; if any weight is negative; or if all weights are zero. While something is missing, **Continue** stays locked, and **N things missing — see** takes you to each field.
+
+**About the coupon:** the code is the same for everyone who lands on that slice. Create each code in your store before publishing — and if you want to cap its use, cap it there.
+
+### Layout, brand and company
+
+- **Wheel layout** — **Wheel on top, form below** or **Wheel beside the form (wide card)**.
+- **Your brand** — **Primary colour** and **Headline colour**. Both need enough contrast on white.
+- **Company details** — **Legal name and tax ID** and **Privacy policy URL**, both required. They go into the consent text.
+
+### What you ask for
+
+- **Email** — always, required.
+- **Also ask for the phone** — optional. The WhatsApp consent box comes with the phone.
+- Up to 3 extra questions (**Text**, **Number**, **Date** or **Yes/no**), under **Ask one more thing**. All optional for the visitor.
+- **How long the coupon lasts** — from 30 minutes to 72 hours; the default is 24 hours. It's the clock the visitor sees on the prize screen. It doesn't change the coupon's expiry in your store: set it there too. Anyone who already took the coupon keeps the deadline they saw.
+
+The consent text isn't editable and the email box starts unchecked. The visitor can only spin after ticking it.
+
+## Behaviour
+
+- **Moment** — **From the 2nd page, after 8 seconds** (the default), **As soon as they arrive** or **When they look like they're leaving**.
+- **Whoever fills it in joins the list** — pick a list, **Create new** or **None — becomes a contact only**. Joining the list isn't consent to receive: the consent box decides that.
+- **How often** — for the wheel, the default is **Once a month**. The other options: **Once a week, stops after 2 refusals** and **Once per visit**.
+- **Where it shows (optional)** — **Only on these pages** and **Never on these**. Checkout is always blocked.
+- **Where it leads** — the **Button address** shown after the spin. The screen shows the final link, with the tags your store's report uses to know the sale came from the pop-up.
+
+**Who sees it** is switched off: showing the piece only to people who aren't contacts yet doesn't work today.
+
+## Review & activate
+
+- **Summary** — the prizes with each one's chance, the coupons, the destination, the display settings, the list and the **Coupon window**. Check the list here before publishing.
+- **Automatic checks** — colour contrast, LGPD consent with legal name and policy, keyboard and screen-reader access, never on checkout and display cap active.
+- **Publish to the store** — the piece only shows on pages of the brand's verified domain. Without a verified domain, the screen tells you the piece was saved but won't show yet.
+
+To edit later: in **Live on your store** (on the Pop-ups screen and in this step), **Configure** reopens the piece; when you're done, **Publish changes** replaces the one that's live.
+
+## What the visitor sees
+
+1. They enter their email (and anything else you asked), tick the consent box and spin.
+2. The draw follows the chances in the table. Reloading the page in the same browser lands on the same prize — you can't spin again to try for another prize.
+3. The prize only appears once the contact has been saved. If sending fails, the visitor sees a message and can try again.
+4. The winner sees the prize, the coupon with a copy button, the expiry clock and the button to the store.
+
+Anyone who already signed up through this piece won't see the wheel again in that browser.
+
+## Where to see the results
+
+In **Reports › By campaign**, pick the **Pop-up** channel. In the **Pieces in the period** table, click **View report →** on the wheel's row. The piece report has the **7 days**, **30 days** and **Since publishing** periods, and shows:
+
+- **Contacts captured**, **Impressions** and **Coupons redeemed**;
+- the **Piece funnel**: **Shown → Filled in → Became a contact → Got the coupon → Used the coupon**;
+- **Why the pop-up didn't show**, with the reason for each time the piece wasn't displayed.
+
+**Same-day revenue** still shows as **Not measured yet** — it isn't R$ 0.
+
+## Next steps
+
+- [Getting started with pop-ups](/en/popups/primeiros-passos)
+- [How to create a Welcome pop-up](/en/popups/criar-boas-vindas)
+- [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento)

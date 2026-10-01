@@ -3,7 +3,7 @@ title: "Como configurar seu domínio de envio (DNS)"
 description: "Autorize a Cliqo a enviar pelo seu domínio: DKIM, SPF e DMARC, com verificação guiada."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: tela Configurações › Domínio + api/dns · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: tela Configurações › Domínio + api/dns · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -17,32 +17,34 @@ Como autorizar a Cliqo a enviar e-mails pelo seu domínio, para que Gmail, Outlo
 ## Passo 1 · Informe o domínio
 
 1. Vá em **Configurações › Domínio**.
-2. Digite o domínio que vai assinar seus e-mails (ex.: `suamarca.com.br`) e gere os registros.
+2. Digite o domínio que vai assinar seus e-mails (ex.: `suamarca.com.br`) e clique em **Confirmar** para gerar os registros.
 
 {/* print: Configurações › Domínio, passo 1 */}
 
 ## Passo 2 · Escolha seu provedor de DNS
 
-Selecione o provedor para ver o guia específico dele — a tela mostra um link direto para a ajuda de cada um (Registro.br, Locaweb, GoDaddy, Cloudflare).
+Selecione o provedor — **RegistroBR**, **Locaweb/cPanel**, **GoDaddy**, **Cloudflare** ou **Outro** — e a tela mostra o link **Guia para…** com a ajuda específica dele. Em **Outro** não há guia: siga a ajuda do seu provedor.
 
 ## Passo 3 · Adicione os registros
 
-Copie cada registro com o botão ao lado e crie-o no seu DNS:
+Copie o nome e o valor de cada registro com o botão **Copiar** e crie-o no seu DNS. A tela diz quantos registros são obrigatórios; os demais aparecem com a marca **opcional**:
 
 | Registro | Para quê |
 |---|---|
-| **DKIM** (3 CNAMEs) | Assinatura criptográfica que prova que o e-mail é seu. **É o essencial** — é o DKIM que autentica seus envios. |
-| **SPF** (TXT) | Autoriza a Cliqo a enviar em nome do domínio. |
-| **DMARC** (TXT) | Política de autenticação e relatórios. `p=none` já atende — inclusive para o registro AMP. |
+| **DKIM 1, 2 e 3** (3 CNAMEs) | Assinatura criptográfica que prova que o e-mail é seu. **É o essencial** — é o DKIM que autentica seus envios e deixa o domínio verificado. |
+| **Return-Path (MX)** e **Return-Path (SPF)** (TXT) | Os dois ficam num subdomínio de retorno — a tela mostra o nome exato (por exemplo, `e.suamarca.com.br`). Fazem os retornos (bounces) voltarem para a Cliqo e autorizam o envio em nome do domínio. No MX, preencha também a **Prioridade** indicada. |
+| **SPF (raiz, opcional)** (TXT) | SPF no domínio principal. É opcional: o SPF que autentica o envio da Cliqo é o do Return-Path. |
+| **DMARC** (TXT, opcional) | Política de autenticação e relatórios. A tela sugere `p=none`, que já atende — inclusive para o registro AMP. |
 
-> **Já tem um registro SPF?** Não crie um segundo — dois registros SPF invalidam os dois. **Edite o existente** e inclua `include:amazonses.com` na mesma linha.
+> **Já tem um registro SPF no domínio principal?** Se for adicionar o SPF da raiz, não crie um segundo — dois registros SPF invalidam os dois. **Edite o existente** e inclua `include:amazonses.com` na mesma linha.
 
 {/* print: lista de registros com botões de copiar */}
 
 ## Passo 4 · Verifique
 
-1. Clique em **Verificar registros**. Cada linha mostra **Verificado** ou **Não encontrado**.
+1. Clique em **Verificar registros**. Cada linha mostra **verificado** ou **não encontrado**.
 2. A propagação pode levar **até 48 horas**. Registros parciais são normais no começo — volte e verifique de novo.
+3. Com os registros publicados, o selo do domínio pode passar um tempo em **Confirmando…** ou **Finalizando…**: o DNS já está certo e falta o provedor de envio confirmar o DKIM. O selo muda para **Verificado** quando essa confirmação chega.
 
 ## Resultado
 

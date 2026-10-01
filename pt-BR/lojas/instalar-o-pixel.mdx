@@ -3,7 +3,7 @@ title: "Instalar o pixel"
 description: "O trecho de código que faz a Cliqo enxergar o comportamento na sua loja — e como conferir que ele está funcionando."
 ---
 
-{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: pendente */}
+{/* tipo: how-to · prioridade: P0 · idioma: pt-BR · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: conferido contra o código em 28/09/2026 */}
 
 O pixel é um trecho de código que você cola na sua loja. Com ele, a Cliqo passa a saber **o que a pessoa fez antes de comprar** — que produto olhou, que categoria navegou, onde parou — e usa isso para montar segmentos sozinha.
 
@@ -11,48 +11,50 @@ Sem o pixel, a Cliqo só conhece quem já está na sua lista e o que já comprou
 
 ## O trecho
 
-Em **Configurações → Integrações**, o painel *Pixel de Rastreamento* mostra o seu snippet já personalizado, com o botão **Copiar tudo**. Ele tem esta forma:
+Em **Configurações → Pixel**, o painel *Pixel de Rastreamento Cliqo* mostra o seu snippet já personalizado, com o botão **Copiar tudo**. Ele tem esta forma:
 
 ```html
-<script async src="https://app.cliqo.io/px.js" data-tenant="SEU-ID"></script>
+<!-- Cliqo Tracking Pixel -->
+<script async src="https://app.cliqo.io/px.js?t=SEU-ID" data-tenant="SEU-ID"></script>
 ```
+
+> **O identificador vai duas vezes, de propósito.** No endereço — `https://app.cliqo.io/px.js?t=SEU-ID` —, que o Google Tag Manager nunca altera, e no `data-tenant`, que o GTM remove ao injetar a tag. Por isso o mesmo snippet serve para GTM e para instalação direta. *(Sem identificador nenhum o pixel ainda funciona: ele resolve a loja pelo domínio. Mas só se esse domínio já estiver cadastrado na Cliqo — o domínio verificado, ou o **Site da loja** em Configurações → Marca.)*
 
 Cole no `<head>` de **todas as páginas** da loja — não só na home. É o `<head>`, não o fim do `<body>`: o pixel precisa carregar antes do conteúdo para medir o tempo de página corretamente.
 
 ## Onde colar, por plataforma
 
-O painel oferece três caminhos:
+O painel oferece três caminhos, cada um com o passo a passo na tela:
 
-- **Loja Integrada** — há um botão que abre o painel da plataforma direto na tela certa.
-- **Google Tag Manager** — há um botão que abre o GTM.
-- **Manual** — para qualquer outra loja: cole no template do tema.
+- **GTM** — marcado *Recomendado*, é o que abre primeiro. Uma tag de HTML personalizado acionada em todas as páginas; há um link que abre o Google Tag Manager.
+- **Loja Integrada** — aparece quando a sua conta está cadastrada como loja da Loja Integrada. O snippet vai em Design → Editar HTML do tema, logo acima de `</head>`; há um link que abre o painel da plataforma.
+- **Manual** — para qualquer outra loja: cole no template do tema, logo acima de `</head>`.
 
-**Se você usa GTM, use o snippet que o painel entrega para GTM.** O Tag Manager remove atributos `data-*`, e o `data-tenant` é justamente um deles — o pixel carregaria sem saber de quem é. A versão para GTM leva o seu identificador dentro do endereço do script (`?t=…`), que o GTM não tem como apagar.
+**O snippet é o mesmo nos três caminhos.** O Tag Manager remove atributos `data-*`, e o `data-tenant` é justamente um deles — por isso o snippet também leva o seu identificador dentro do endereço do script (`?t=…`), que o GTM não tem como apagar.
 
 ## Conferir que funcionou
 
-No mesmo painel há o botão **Verificar agora**. Depois de colar o snippet, abra uma página da sua loja em outra aba e clique nele.
+No topo do mesmo painel há o botão **Verificar pixel** (depois que o primeiro acesso chega, ele passa a se chamar **Verificar agora**). Depois de colar o snippet, abra uma página da sua loja em outra aba e clique nele. Com o painel aberto, a conferência também se repete sozinha a cada minuto.
 
-⚠️ **Leia o resultado com cuidado — ele responde uma pergunta mais estreita do que parece.** A verificação conta os acessos das **últimas 24 horas**. Ela não responde "o pixel está instalado?", e sim "chegou movimento nas últimas 24 horas?".
+O resultado tem três estados:
 
-Na prática isso significa:
+- **Pixel ativo** — chegou movimento nas últimas 24 horas. Está tudo certo.
+- **Instalado · sem acesso há um tempo** — o pixel já mandou acesso antes, mas nada nas últimas 24 horas. Está instalado; a loja só teve um dia parado. Não mexa no snippet.
+- **Aguardando instalação** — nenhum acesso chegou até hoje.
 
-- **Pixel ativo** — chegou movimento. Está tudo certo.
-- **Aguardando instalação** — não chegou movimento nas últimas 24 horas. Isso pode ser pixel não instalado **ou** loja instalada com pouco tráfego num dia parado.
-
-Se a sua loja tem movimento baixo e a tela diz "aguardando instalação", abra uma página da loja você mesmo e clique em **Verificar agora** de novo. Se aparecer o acesso, está instalado.
+Se a tela diz "aguardando instalação", abra uma página da loja você mesmo e clique em **Verificar pixel** de novo. Se aparecer o acesso, está instalado; se não, veja a última seção deste artigo.
 
 ## O que ele captura sozinho
 
-Você não precisa marcar nada. Depois de instalado, o pixel identifica o tipo de página e emite os eventos abaixo — e cada um alimenta um segmento automático em **Contatos → Segmentos**:
+Você não precisa marcar nada. Depois de instalado, o pixel identifica o tipo de página e emite os eventos abaixo — e cada um alimenta um segmento automático em **Público › Listas e segmentos**, aba **Segmentos**:
 
 | Evento | Alimenta o segmento |
 |---|---|
 | Visualização de página | Todos os visitantes |
 | Visualização de produto | Navegou sem comprar |
 | Navegação por categoria | Interesse por categoria |
-| Adição ao carrinho | Quase comprou |
-| Início de checkout | Abandono de checkout |
+| Adição ao carrinho (o pixel registra a visita à página do carrinho) | Quase comprou |
+| Início de checkout (o pixel registra a visita à página de checkout) | Abandono de checkout |
 
 Além desses, o pixel mede **profundidade de rolagem** em páginas de produto (25%, 50%, 75%, 90%) e o **tempo real na página** — sinais de interesse que a taxa de abertura não captura.
 
@@ -60,19 +62,55 @@ Para reconhecer o tipo de página, ele lê primeiro as marcações padrão do se
 
 ## Marcar uma compra
 
-Quando o cliente conclui o pedido, chame na página de obrigado:
+O pixel reconhece sozinho a página de confirmação do pedido quando o endereço dela tem um dos trechos comuns — `/finalizacao`, `/obrigado`, `/pedido/sucesso`, `/order/success`, `/thank-you`, `/order-received` ou `/concluido` — e registra a compra com o número do pedido e o valor. Se a sua página de obrigado não segue nenhum desses, chame nela:
 
 ```js
 window.cliqo.purchase(valor, idDoPedido, nomeDoProduto);
 ```
 
-É isso que fecha a conta: sem essa chamada, a Cliqo vê a navegação mas não sabe que virou venda, e a receita atribuída fica subestimada.
+É isso que fecha a conta: sem a compra registrada, a Cliqo vê a navegação mas não sabe que virou venda, e a receita atribuída fica subestimada.
 
-Se a pessoa já se identificou na loja (login ou e-mail no checkout), você também pode ligar a navegação anônima ao contato:
+## Ligar a compra a quem comprou
 
-```js
-window.cliqo.identify(idDoContato);
+Esta é a chamada que separa *"houve uma venda"* de *"a Marina comprou"*.
+
+A Cliqo liga a navegação a uma pessoa quando ela chega por um link de e-mail seu. Quem entra direto na loja e compra nunca passa por esse caminho: o pedido existe de um lado, a navegação do outro, e os dois nunca se encontram. Sem essa ligação, **carrinho abandonado e receita por campanha não têm como funcionar** — a venda aparece sem dono.
+
+Na página de obrigado, informe quem comprou:
+
+```html
+<script>
+  window._cliqo = window._cliqo || [];
+  window._cliqo.push(['identify', 'EMAIL_DO_COMPRADOR']);
+</script>
 ```
+
+Troque `EMAIL_DO_COMPRADOR` pela variável da sua plataforma que traz o e-mail do pedido.
+
+**O e-mail serve — e é o que a sua loja tem.** A chamada aceita duas formas: o identificador do contato na Cliqo (um UUID, que a sua loja não conhece) ou o **e-mail**. Com o e-mail, o servidor resolve o contato e costura a navegação anterior sozinho.
+
+### A ordem é o que faz funcionar
+
+**O e-mail precisa estar na página antes da compra ser registrada.** Ele não é enviado sozinho: pega carona no próximo evento daquela página — e na página de obrigado o único evento é a compra. Se chegar depois dela, não sobra nada para carregá-lo, e a identificação não acontece. Sem erro na tela.
+
+Por isso duas recomendações:
+
+- **Use o formato acima** (`window._cliqo.push`), não `window.cliqo.identify(...)`. Ele funciona mesmo rodando **antes** de o pixel carregar, e é o único seguro quando você não controla a ordem.
+- **Ponha o trecho acima da chamada de compra** no template (ou acima do snippet do pixel, se a compra for detectada sozinha).
+
+### Pelo Google Tag Manager
+
+Uma tag de **HTML personalizado**, acionada só na página de confirmação do pedido, com **prioridade maior** que a da tag que dispara a compra. No GTM, número de prioridade maior dispara primeiro — se a outra está em `0`, ponha esta em `10`.
+
+### Como conferir que funcionou
+
+Faça um pedido de teste. Na página de obrigado, abra as ferramentas do desenvolvedor (**F12**) → aba **Rede** → filtre por `track`. A requisição precisa trazer um campo **`identify_email`** com o e-mail do comprador.
+
+Se ele não estiver lá, quase sempre é a ordem: a tag do e-mail está disparando depois do pixel.
+
+### Privacidade desta chamada
+
+O e-mail é usado só para encontrar o contato que já existe na sua base. Ele **nunca aparece em log**, e a Cliqo **não responde se o e-mail existe ou não** — a identificação é silenciosa dos dois lados, para que o endereço do pixel não possa ser usado para descobrir quem está na sua lista.
 
 ## Privacidade e LGPD
 

@@ -1,0 +1,137 @@
+---
+title: "A lista de Campanhas"
+description: "Onde ficam todas as suas campanhas de e-mail e de WhatsApp: abas, busca, colunas, o menu ⋮ e o que fazer com uma campanha agendada."
+---
+
+{/* tipo: referência · prioridade: P1 · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) */}
+
+A tela **Campanhas** mostra todos os seus disparos em massa, de e-mail e de WhatsApp, num lugar só. Daqui você acha uma campanha, vê como ela foi e começa uma nova.
+
+Para abrir, clique em **Campanhas** no menu lateral.
+
+{/* print: lista de Campanhas na aba Todas, com as abas de canal e de status e três linhas (uma enviada, uma agendada, um rascunho) */}
+
+## Criar uma campanha
+
+O botão **Nova campanha** abre a escolha do canal:
+
+- **Campanha de e-mail** — disparo para uma audiência.
+- **Campanha de WhatsApp** — modelo aprovado para uma audiência.
+
+**Campanha de SMS** e **Teste A/B** também aparecem, marcados **Em breve**, e ainda não podem ser clicados.
+
+## Abas de canal
+
+À esquerda, acima da lista:
+
+- **Todas** — e-mail e WhatsApp juntos.
+- **E-mail** — só campanhas de e-mail.
+- **WhatsApp** — só campanhas de WhatsApp.
+
+Cada aba mostra quantas campanhas tem. A aba escolhida muda as colunas da tabela (veja abaixo).
+
+## Abas de status
+
+Ao lado das abas de canal:
+
+| Aba | O que mostra |
+|---|---|
+| **Todas** | Todas as campanhas do canal escolhido. |
+| **Rascunho** | Campanhas que você ainda não enviou nem agendou. |
+| **Agendada** | Campanhas com data e hora marcadas para sair. |
+| **Enviando** | Campanhas saindo agora. |
+| **Enviada** | Campanhas que terminaram de sair. |
+| **Pausada** | Filtro de campanhas pausadas. |
+
+O número ao lado da aba de status só aparece quando ela tem campanha. Ele conta todas as suas campanhas, sem olhar a aba de canal, a busca ou a tag escolhidas.
+
+Algumas situações não têm aba própria e só aparecem em **Todas**: **Enviada com falhas** (quando mais de 10% da audiência ficou sem receber), **Falhou** e **Retomando…** (um envio grande que parou e continua sozinho de onde estava).
+
+<Note>
+Uma campanha de WhatsApp enviada em ondas, que você pausou entre uma onda e outra, fica na aba **Enviando**, não em **Pausada**. Embaixo do status aparece o aviso **Pausada · onda 2 esperando** (com o número da onda). Quando a próxima onda depende de você, o aviso é **Onda 2 · aguardando você**.
+</Note>
+
+### "Na fila" não é "agendada"
+
+Quando chega a hora de uma campanha agendada, ela espera alguns instantes até o envio começar. Um e-mail que você mandou enviar agora também passa por essa espera. Nesse intervalo, a linha mostra **Na fila** e, embaixo do nome, **na fila · sai em instantes**. Ela continua na aba **Agendada**.
+
+Se passarem mais de 5 minutos da hora marcada e ela não tiver saído, a linha volta a mostrar **agendada pra** e a hora, que já passou. É o sinal de que algo travou.
+
+## Buscar e filtrar
+
+- **Buscar por nome ou #ID…** — digite parte do nome ou o número da campanha (por exemplo `#137`). O número aparece embaixo do nome, depois do primeiro disparo.
+- **Filtrar por tag** — escolha uma tag para ver só as campanhas marcadas com ela. Para tirar o filtro, clique no **✕** ao lado do nome da tag. Se nenhuma campanha tem tag, o filtro avisa: **Nenhuma campanha tagueada ainda.**
+
+Para marcar uma campanha, clique em **+ tag** na linha dela. No computador, o botão aparece quando você passa o mouse na linha.
+
+A lista mostra 10 campanhas por página, da mais recente para a mais antiga. Cada linha é ordenada pela data que ela mostra. Por isso, uma campanha agendada para a semana que vem fica no topo.
+
+## As colunas de cada canal
+
+Cada canal mede coisas diferentes. Por isso as colunas mudam com a aba de canal:
+
+| Aba de canal | Colunas de números |
+|---|---|
+| **Todas** | **Enviados** · **Receita da campanha** |
+| **E-mail** | **Enviados** · **Aberturas** · **Interações** · **Cliques** · **Receita da campanha** |
+| **WhatsApp** | **Enviados** · **Entregues** · **Lidas** · **Respostas** · **Cliques** · **Receita da campanha** |
+
+Em **Todas** só aparecem os números que os dois canais medem do mesmo jeito. Abertura de e-mail e leitura de WhatsApp não são a mesma coisa e não ficam na mesma coluna.
+
+- **Interações** conta quem mexeu no conteúdo interativo do e-mail (carrossel, pesquisa, roleta).
+- **Receita da campanha** é a receita atribuída a *esta* campanha. Um cliente que recebeu várias campanhas conta em cada uma. Por isso a soma da coluna pode passar do total do Dashboard, que credita cada venda uma vez só.
+- O traço **—** quer dizer que ainda não há número ali. Rascunho sempre mostra traço.
+- Números acima de 10 mil aparecem abreviados (por exemplo `12k`). Passe o mouse para ver o valor inteiro.
+
+Se aparecer o aviso **Métricas indisponíveis.**, os envios e a receita estão certos. Aberturas, interações e cliques não puderam ser lidos agora, mas não são zero.
+
+No celular, arraste a tabela para o lado para ver todas as colunas. O botão **⋮** fica sempre à direita.
+
+## A aba Rascunho
+
+Na aba **Rascunho**, a lista muda de formato e não mostra números. As colunas são **Nome**, **Editado por** e **Última edição**. **Editado por** só é registrado desde 18 de agosto. Antes disso aparece um traço.
+
+- **Utilizar →** abre a campanha para você continuar a montagem.
+- Clicar na linha faz a mesma coisa.
+
+Se o envio de uma campanha agendada foi recusado, ela volta para rascunho com o aviso **Não saiu:** e o motivo (por exemplo, *ninguém na audiência pode receber*). Corrija e agende ou envie de novo.
+
+## O menu ⋮
+
+O menu **⋮** no fim de cada linha muda conforme a campanha:
+
+| Campanha | Opções |
+|---|---|
+| Rascunho | **Editar** · **Duplicar** · **Excluir** |
+| Agendada de e-mail, até 2 minutos antes da hora | **Ver relatório** · **Editar** · **Duplicar** · **Excluir** |
+| Agendada de WhatsApp, enviando, enviada ou com falha | **Ver relatório** · **Duplicar** · **Excluir** |
+
+- **Duplicar** cria uma cópia da campanha em **Rascunho**, no mesmo canal, com o mesmo conteúdo, a mesma audiência e as mesmas tags. O nome ganha **(cópia)** no fim. A cópia não leva a data do agendamento. Numa campanha de WhatsApp, ela leva o modelo de mensagem, as variáveis e o link do botão. Se você ligou **Ignorar o descanso neste envio** na original, a cópia volta a seguir o descanso da conta.
+- **Excluir** pede confirmação e tira a campanha da lista.
+
+Quem tem acesso de **Leitor** vê **Nova campanha**, **Editar**, **Duplicar** e **Excluir** apagados.
+
+## O que abre ao clicar numa linha
+
+- **Rascunho**: abre a montagem da campanha, para continuar de onde parou. Um rascunho de WhatsApp abre no passo a passo de WhatsApp.
+- **Qualquer outro status**: abre o relatório da campanha. Se você usar o voltar do navegador, a lista reabre na mesma aba de canal e na mesma página.
+
+Enquanto alguma campanha está enviando, a lista se atualiza sozinha a cada 10 segundos.
+
+## E uma campanha já agendada?
+
+Numa campanha de **e-mail** agendada, **⋮ › Editar** abre a montagem com o agendamento carregado. Você pode mudar o conteúdo, a audiência ou a hora e clicar em **Agendar campanha** de novo. Para tirar o agendamento, clique em **Salvar rascunho**: a campanha volta para **Rascunho** e não sai no horário. Ir ao builder pelo **Editar no builder** mantém o agendamento.
+
+<Warning>
+A edição vale até **2 minutos antes** da hora marcada. Depois disso a campanha pode já estar saindo: o **Editar** some do menu, e uma edição que já estava aberta não é gravada (a tela avisa). Para impedir o envio nesse ponto, use **⋮ › Excluir** antes da hora. Campanha excluída não é enviada.
+</Warning>
+
+Numa campanha de WhatsApp agendada, exclua e crie outra em **Nova campanha › Campanha de WhatsApp**.
+
+Quem é dono ou administrador da conta pode restaurar uma campanha excluída em **Lixeira**, no menu da sua conta (o círculo com suas iniciais). Ela volta exatamente como estava. Uma campanha agendada volta agendada. Se a hora marcada já passou, ela entra na fila de envio.
+
+## Próximos passos
+
+- [Como criar e enviar uma campanha](/pt-BR/campanhas/criar-e-enviar)
+- [Como ler o relatório da campanha](/pt-BR/campanhas/ler-o-relatorio)
+- [Como enviar uma mensagem em massa no WhatsApp](/pt-BR/whatsapp/enviar-em-massa)

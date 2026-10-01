@@ -3,7 +3,7 @@ title: "Entenda o AMP para e-mail"
 description: "O que é o e-mail interativo, onde ele renderiza, como funciona o fallback e por que ninguém recebe e-mail quebrado."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: compiler + playbook AMP · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: compiler + playbook AMP · revisão: conferido contra o código em 28/09/2026 */}
 
 AMP for Email é a tecnologia, criada pelo Google, que permite que um e-mail tenha comportamento de aplicação: botões que respondem, carrosséis que deslizam, formulários que enviam — tudo dentro da caixa de entrada, sem abrir uma aba nova. É a base da Cliqo.
 
@@ -25,7 +25,7 @@ A cobertura da versão interativa nunca é 100% mesmo entre usuários de Gmail �
 
 ## As três versões de cada envio
 
-Todo envio da Cliqo sai com três partes, geradas automaticamente:
+Todo envio com bloco interativo sai com três partes, geradas automaticamente:
 
 | Parte | Quem vê |
 |---|---|
@@ -33,7 +33,9 @@ Todo envio da Cliqo sai com três partes, geradas automaticamente:
 | **Interativa (AMP)** | Gmail e Yahoo, com remetente registrado |
 | **HTML responsivo** | Todos os demais (Outlook, Apple Mail…) |
 
-Antes de qualquer envio, a parte interativa passa pelo validador oficial do Google no dialeto correto de e-mail. Se algo estiver fora do padrão, a Cliqo envia a versão de segurança (HTML) e avisa no relatório — nunca envia AMP inválido.
+Um modelo sem bloco interativo sai só com o texto puro e o HTML — não há parte interativa para enviar.
+
+Antes de todo envio, a parte interativa passa pelo validador oficial do Google no dialeto correto de e-mail. Se algo estiver fora do padrão, a Cliqo envia a versão de segurança (HTML) e avisa no relatório — nunca envia AMP inválido.
 
 ## O que dá para fazer dentro do e-mail
 

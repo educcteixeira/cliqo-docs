@@ -1,0 +1,106 @@
+---
+title: "Modelos: a galeria de e-mails e os seus modelos"
+description: "Onde ficam os pontos de partida interativos, os modelos que você salvou e como transformar um modelo em campanha."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: routes/Templates.tsx, builder-studio/components/TopBar.tsx, routes/Start.tsx, components/templates/mover-para-lixeira.tsx, lib/starters-interativos.ts, locales/{pt-BR,en}/templates.json · revisão: conferido contra o código em 28/09/2026 · Usar este modelo, Salvar como modelo e a rotina que não reescreve em 30/09/2026 (#3301: Templates.tsx needsRegen e ?duplicate=, TopBar.tsx onSalvarComoModelo) */}
+
+**Modelos** é a tela onde você escolhe o ponto de partida de um e-mail. Em cima fica a **galeria** de modelos interativos prontos, com o logo e as cores da sua marca. Embaixo ficam os **seus modelos**, os que você criou ou renomeou no editor.
+
+Para abrir, clique em **Modelos** no menu lateral.
+
+{/* print: tela Modelos na aba Email, com a galeria e a seção Meus modelos */}
+
+## As abas da tela
+
+- **Email** — a galeria e os seus modelos de e-mail. É deste artigo.
+- **WhatsApp (Meta)** — os modelos de mensagem do WhatsApp, que a Meta aprova antes do envio. Estão explicados em [Como criar e aprovar um modelo de mensagem (Meta)](/pt-BR/whatsapp/modelos-de-mensagem). Contas que ainda usam o provedor antigo de WhatsApp veem a aba **WhatsApp** (no lugar da aba Meta, ou ao lado dela).
+
+## A galeria
+
+Na primeira vez que você abre a tela, aparece **"Inicializando sua galeria de templates…"**: a Cliqo copia os modelos da galeria para a sua marca, já com o seu logo e as suas cores. Se as cores da conta ainda não foram configuradas, a tela mostra o aviso **Configure sua marca** com o atalho **Configurar →**, que leva a Configurações › Marca.
+
+Para achar um modelo, use as categorias (**Todos**, **E-commerce**, **Pagamento**, **Engajamento**, **Pesquisa**, **Boas-vindas**; a de **Viagem** hoje não tem modelos) ou o campo **Buscar template…**.
+
+| Categoria | Exemplos |
+|---|---|
+| E-commerce | Catálogo Interativo, Carrinho Abandonado, Newsletter / Destaques |
+| Engajamento | Roleta de Desconto, Raspadinha Digital, Quiz de Recomendação, Quiz com Fotos |
+| Pesquisa | NPS Survey, Pesquisa de Satisfação, Coleta de Avaliação |
+| Boas-vindas | Boas-vindas com Confetti, Boas-vindas com Roleta |
+| Pagamento | 1-Clique Pix, Checkout Multi (Pix+Cartão+Boleto) |
+
+O que cada cartão mostra:
+
+- **A prévia** do e-mail e o que ele faz. No computador, ao passar o mouse, aparece a lista **"O cliente pode:"**.
+- **⚡ Interativo no e-mail** — o cliente responde, escolhe ou compra sem sair da caixa de entrada. Só os modelos que de fato têm interação levam esse selo (o selo preto **AMP** aparece em todos os cartões e não diz isso). O **Cashback / Giftback** e o **Encontre o Troféu** não têm: são anúncios com botão ou link.
+- **✅ Novo** nos modelos lançados há pouco; os outros aparecem como **Legado**.
+- **Teste** — manda o modelo para um ou mais e-mails seus (veja abaixo).
+- **Editar** — abre o modelo no editor.
+
+Enquanto a galeria está sendo preparada, o botão do cartão mostra **Em breve**. Espere alguns segundos ou atualize a página.
+
+<Note>
+Os modelos de **Pagamento** cobram pelo provedor de pagamento da conta (Configurações › Pagamentos). Sem um provedor ativo, o cliente vê "Pagamento indisponível no momento" ao tentar pagar.
+</Note>
+
+## Enviar um teste
+
+Em **Teste**, escolha uma lista de teste ou digite o e-mail em **Email destinatário** e clique em **Enviar teste**. O teste sai do remetente padrão da marca ativa. Abra no Gmail pela web para ver a versão interativa; nos outros aplicativos de e-mail aparece a versão simples.
+
+## Usar um modelo para começar uma campanha
+
+Há dois caminhos. Os dois levam ao mesmo editor.
+
+**Pela tela Modelos**
+
+<Steps>
+  <Step title="Abra o modelo">
+    Em **Modelos**, clique em **Editar** no cartão.
+  </Step>
+  <Step title="Confira o nome">
+    No topo do editor, o campo **Nome do template** já vem com o nome do modelo. Mude o nome se quiser guardar a sua versão separada da galeria (veja Meus modelos, abaixo). Sem nome, o editor não salva.
+  </Step>
+  <Step title="Siga para o envio">
+    Clique em **Configurar envio**. A Cliqo guarda o modelo e abre a montagem da campanha com ele já escolhido. Daí em diante, siga [Como criar e enviar uma campanha](/pt-BR/campanhas/criar-e-enviar).
+  </Step>
+</Steps>
+
+**Pela tela Campanhas**
+
+Clique em **Nova campanha** › **Campanha de e-mail**. Na tela **"Como você quer criar o email?"**, escolha **Templates interativos**. Abre a galeria em modo de escolha (**"Escolha um template interativo"**); clique em **Usar este modelo →** no modelo que quiser. Esse caminho abre uma **cópia** do modelo: o que você mudar fica no e-mail da campanha, e o modelo continua como estava.
+
+<Tip>
+No editor, **Salvar** guarda o e-mail e cria um rascunho em Campanhas (aparece o aviso "Rascunho criado em Campanhas."). Para guardar uma cópia em Modelos e usar em outras campanhas, clique em **Salvar como modelo**, dê um nome e clique em **Salvar modelo**. O e-mail aberto e a campanha dele não mudam. Em telas com menos de 1536 px de largura (a maioria dos notebooks), **Salvar como modelo** aparece só como ícone, ao lado do **Salvar**; ao passar o mouse, aparece *"Guardar uma cópia em Modelos, para reusar"*.
+</Tip>
+
+## Meus modelos
+
+Abaixo da galeria fica a seção **Meus modelos**: *"Os que você criou ou renomeou. Abrem direto no editor."* Cada cartão mostra a prévia, o nome, o assunto (ou "sem assunto") e a data de criação. Clique no cartão para abrir no editor.
+
+Os cartões da galeria são a cópia base da Cliqo na sua marca. A Cliqo não reescreve um modelo que já está pronto na sua conta, mesmo que você o tenha mudado. O aviso **"Modelos atualizados!"** aparece quando a galeria ganha um modelo que ainda não estava pronto na sua conta. Para guardar uma versão sua separada da galeria, **mude o nome** no editor e salve: o modelo passa para Meus modelos e a galeria volta a ter a cópia base. Ou use **Salvar como modelo**, que cria a cópia com o nome que você escolher.
+
+### Tirar um modelo da lista
+
+No cartão de Meus modelos, clique no ícone de lixeira (no computador, ele aparece ao passar o mouse) e confirme em **Mover para a lixeira**. Nada é apagado na hora: o modelo fica recuperável na **Lixeira**, no menu do seu avatar.
+
+<Note>
+Um modelo em uso numa campanha (inclusive rascunho) ou numa automação não vai para a lixeira. A tela avisa *"Não dá para mover: este modelo está em uso em N lugar(es)"*. Troque o modelo lá primeiro. Lembre que um modelo salvo pelo **Salvar** do editor costuma estar no rascunho que ele mesmo criou.
+</Note>
+
+## Cada marca tem os seus modelos
+
+Se a sua conta tem mais de uma marca, tudo nesta tela é da **marca ativa** no seletor da barra superior:
+
+- A galeria de cada marca é uma cópia própria, com o logo e as cores dela.
+- **Meus modelos** mostra só os modelos daquela marca. Trocou de marca, a lista muda.
+- O modelo que você cria no editor nasce na marca ativa.
+- Na montagem da campanha, a escolha de modelo também lista só os da marca ativa.
+
+Assim, o e-mail de uma marca não sai com a cara da outra. Mais sobre marcas em [Entenda contas, marcas e membros](/pt-BR/primeiros-passos/contas-marcas-membros).
+
+## Próximos passos
+
+- [Como criar e enviar uma campanha](/pt-BR/campanhas/criar-e-enviar)
+- [Entenda o AMP para e-mail](/pt-BR/email-interativo/entenda-o-amp)
+- [Como criar e aprovar um modelo de mensagem (Meta)](/pt-BR/whatsapp/modelos-de-mensagem)

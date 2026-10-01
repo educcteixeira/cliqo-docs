@@ -3,13 +3,13 @@ title: "Understand Cliqo's metrics"
 description: "What each number in the reports means — and why some are different from what you saw in other tools."
 ---
 
-{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: léxico de métricas do produto · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: léxico de métricas do produto · revisão: conferido contra o código em 28/09/2026 */}
 
 Cliqo measures by one editorial rule: **a misleading number is worse than a smaller number**. That's why some metrics here are smaller — and more honest — than in other tools. This article defines each one.
 
 ## From sent to delivered
 
-**Sent** is how many emails went out. **Delivered** is how many arrived — the difference breaks down into: *soft bounce* (temporary rejection, the provider retries), *hard bounce* (nonexistent address — the contact is automatically suppressed from future sends), *complaint* (marked as spam — also suppressed), *suppressed* (blocked by your blocklist before leaving) and failures. The report shows all seven outcomes, and the sum always matches the sent count.
+**Sent** is how many emails went out. **Delivered** is how many arrived — the difference breaks down into: *soft bounce* (temporary rejection, the provider retries), *hard bounce* (nonexistent address — the contact is automatically suppressed from future sends), *complaint* (marked as spam — also suppressed), *suppressed* (blocked by your blocklist before leaving), *pending* (still processing) and failures. The campaign report shows all seven groups (delivered plus those six), and the sum always matches the sent count.
 
 ## Opens — always "estimated"
 
@@ -25,7 +25,7 @@ Before counting, Cliqo removes what isn't a person: corporate security scanners 
 
 ## Conversions and attributed revenue
 
-A sale counts **once**, even if the customer was touched by several campaigns — the attribution model decides who gets the credit (default: **last click**, **30-day** window — switchable to 7 days, and to a first-touch or linear model, in Analytics). Anything without a tracked touch appears as **"Organic / other channels"**, and is not force-distributed. Opens do **not** attribute a sale — only clicks and interactions do.
+A sale counts **once**, even if the customer was touched by several campaigns — the attribution model decides who gets the credit (default: **last click**, counting clicks from up to **30 days** before the purchase). In **Analytics › Attribution** you can change the period — custom dates or 7 to 90-day shortcuts; with the 7 and 14-day shortcuts the click window follows the shortcut — and switch the model to **first touch**. Anything without a tracked touch appears as **"Organic / other channels"**, and is not force-distributed. Opens do **not** attribute a sale — only clicks and interactions do.
 
 That's why the number differs from Google Analytics: GA can't see interactions inside the email or a Pix paid within the email itself — and it uses a different attribution model. Both are "right"; they measure different things.
 
@@ -36,5 +36,4 @@ That's why the number differs from Google Analytics: GA can't see interactions i
 
 ## Related articles
 
-- [Understand revenue attribution](/en/relatorios/atribuicao) *(coming soon to this help center)*
 - [Warm-up: how to send to a new list](/en/entregabilidade/aquecimento)

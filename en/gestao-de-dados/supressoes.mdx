@@ -3,9 +3,9 @@ title: "Suppressions and blocklist"
 description: "Who never receives anything — unsubscribes, complaints, hard bounces and the blocklist — and how to import your previous ESP's list."
 ---
 
-{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: Público › Contatos › Supressões · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: Público › Contatos › Supressões · revisão: conferido contra o código em 28/09/2026 */}
 
-Suppression is the list of who **never receives anything, under any circumstances** — applied automatically to every send, campaign or flow. It exists to protect two things: the rights of those who left, and your sender reputation.
+Suppression is the list of who **never receives anything, under any circumstances** — applied automatically to every email send, campaign or flow. It exists to protect two things: the rights of those who left, and your sender reputation.
 
 ## The four categories
 
@@ -14,17 +14,17 @@ In **Audience › Contacts › Suppressions**:
 - **Unsubscribes** — people who clicked to leave (through the email link or Gmail/Yahoo one-click unsubscribe). They enter on their own, immediately.
 - **Complaints** — people who marked your email as spam. They enter automatically via provider feedback. This is the most expensive signal: above 0.1% of sends, your reputation suffers.
 - **Hard bounces** — addresses that don't exist. After the permanent rejection, the contact is suppressed so it doesn't generate new bounces.
-- **Blocklist** — people **you** add: individual emails (with an optional reason) or in bulk.
+- **Blocklist** — people **you** add: individual emails (**Add to blocklist**, with an optional reason) or in bulk (**Bulk import**). Both buttons live on the Blocklist tab and require the Admin or Owner role.
 
-Automatic entries appear as **protected** — reversing one requires contacting support, on purpose: re-subscribing someone who complained or bounced hurts your delivery.
+Hard bounces and complaints appear as **protected** — reversing one requires contacting support, on purpose: re-subscribing someone who complained or bounced hurts your delivery. Unsubscribes appear as **resubscribe soon**: re-subscribing requires the person's own consent, and that isn't available yet. Only Blocklist entries can be removed by you.
 
 ## Import your previous ESP's suppression list
 
-If you migrated from another tool, this is a **mandatory step before your first send**: export the suppression list there (bounces, complaints, unsubscribes) and import it here under **Bulk import** — paste the addresses or upload a CSV/TXT.
+If you migrated from another tool, this is a **mandatory step before your first send**: export the suppression list there (bounces, complaints, unsubscribes) and import it here under **Bulk import**, on the Blocklist tab — paste the addresses or upload a CSV/TXT, and pick the **Reason for emails** (Hard bounce, Complaint, Unsubscribe or Manual) so each batch lands in the right category.
 
 Without it, your first dispatch "rediscovers" one by one all the dead addresses your previous tool already knew about — a spike of bounces that providers read as a bad sender. The old tool paid for that learning; bring it with you.
 
-Entire invalid domains can be blocked too — and dead-domain protection is shared: the base of invalid domains protecting your account improves with every customer on the platform.
+Entire invalid domains live on a platform-wide list maintained by Cliqo — if you paste a domain into **Bulk import**, the screen tells you it requires platform access. That protection is shared: the base of invalid domains protecting your account improves with every customer on the platform.
 
 {/* print: Suppressions tab with the categories */}
 

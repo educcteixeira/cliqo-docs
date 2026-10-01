@@ -3,7 +3,7 @@ title: "Solução de problemas: o e-mail chegou estático"
 description: "As causas de um e-mail interativo chegar sem o raiozinho, da mais comum à mais rara — e como testar cada uma."
 ---
 
-{/* tipo: solução de problemas · prioridade: P0 · fonte: playbook AMP (diagnósticos reais) · revisão: pendente */}
+{/* tipo: solução de problemas · prioridade: P0 · fonte: playbook AMP (diagnósticos reais) · revisão: conferido contra o código em 28/09/2026 */}
 
 Você enviou um e-mail interativo e ele chegou como um e-mail comum, sem o raiozinho ⚡ no Gmail. Isso quase sempre tem uma destas causas — verifique na ordem.
 
@@ -13,7 +13,7 @@ Outlook, Apple Mail e a maioria dos aplicativos de e-mail não renderizam AMP �
 
 ## 2. O remetente ainda não está registrado
 
-O Gmail só renderiza AMP de remetentes aprovados no [registro de remetente](/pt-BR/email-interativo/registro-do-remetente) — e o registro vale para o **endereço exato** de From. A Cliqo avisa na montagem da campanha quando o remetente escolhido não está registrado. Enquanto o registro não sai, os envios chegam na versão HTML, sem erro visível.
+O Gmail só renderiza AMP de remetentes aprovados no [registro de remetente](/pt-BR/email-interativo/registro-do-remetente) — e o registro vale para o **endereço exato** de From. A Cliqo não consulta o Google: no passo **Revisar** da campanha, ela avisa quando o remetente não está marcado como liberado para AMP — ou quando, daqui, não dá para saber. Enquanto o registro não sai, os envios chegam na versão HTML, sem erro visível.
 
 ## 3. O registro foi aprovado há menos de 7 dias
 
@@ -29,7 +29,7 @@ Em contas do Google Workspace, o administrador pode desativar o e-mail dinâmico
 
 ## 6. A parte interativa foi bloqueada neste disparo
 
-Antes de todo envio, a Cliqo valida a parte interativa no validador oficial do Google. Se ela não passar — ou se exceder o limite de tamanho —, o envio sai **na versão de segurança (HTML)** e o relatório da campanha mostra o aviso "AMP desativado neste disparo", com os erros encontrados. Também vale conferir o checklist do editor antes de enviar: ele aponta peso acima do corte do Gmail.
+Antes de todo envio, a Cliqo valida a parte interativa no validador oficial do Google. Se ela não passar — ou se o validador não estiver disponível na hora —, o envio sai **na versão de segurança (HTML)** e o relatório da campanha mostra o aviso "AMP desativado neste disparo", com os erros encontrados. Também vale conferir o checklist do editor (**Antes de enviar**): ele avisa quando a parte interativa se aproxima do teto de tamanho do AMP — acima dele, o e-mail é reprovado e sai sem ela.
 
 ## Como testar como desenvolvedor
 
@@ -43,4 +43,4 @@ Se com o modo desenvolvedor o e-mail renderiza interativo, o código e o envio e
 
 ## Ainda estático?
 
-Escreva para [contato@cliqo.io](mailto:contato@cliqo.io) com o endereço remetente e a data do envio — conseguimos verificar o histórico do registro e o disparo específico.
+Escreva para [contato@cliqo.io](mailto:contato@cliqo.io) com o endereço remetente e a data do envio — conseguimos verificar o disparo específico e o que consta sobre o remetente.

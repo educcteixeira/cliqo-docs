@@ -3,7 +3,7 @@ title: "Troubleshooting: the email arrived static"
 description: "The reasons an interactive email arrives without the lightning bolt, from the most common to the rarest — and how to test each one."
 ---
 
-{/* tipo: solução de problemas · prioridade: P0 · idioma: EN · fonte: playbook AMP (diagnósticos reais) · revisão: pendente */}
+{/* tipo: solução de problemas · prioridade: P0 · idioma: EN · fonte: playbook AMP (diagnósticos reais) · revisão: conferido contra o código em 28/09/2026 */}
 
 You sent an interactive email and it arrived as a plain email, without the lightning bolt ⚡ in Gmail. This almost always comes down to one of these causes — check them in order.
 
@@ -13,7 +13,7 @@ Outlook, Apple Mail, and most email apps don't render AMP — for them, **receiv
 
 ## 2. The sender isn't registered yet
 
-Gmail only renders AMP from senders approved through [sender registration](/en/email-interativo/registro-do-remetente) — and the registration applies to the **exact** From address. Cliqo warns you while building the campaign when the chosen sender isn't registered. Until the registration comes through, sends arrive in the HTML version, with no visible error.
+Gmail only renders AMP from senders approved through [sender registration](/en/email-interativo/registro-do-remetente) — and the registration applies to the **exact** From address. Cliqo doesn't query Google: in the campaign's **Review** step, it warns you when the sender isn't marked as AMP-enabled — or when it can't tell from here. Until the registration comes through, sends arrive in the HTML version, with no visible error.
 
 ## 3. The registration was approved less than 7 days ago
 
@@ -29,7 +29,7 @@ On Google Workspace accounts, the administrator can disable dynamic email for th
 
 ## 6. The interactive part was blocked for this dispatch
 
-Before every send, Cliqo validates the interactive part against Google's official validator. If it doesn't pass — or exceeds the size limit — the send goes out **in the safety version (HTML)** and the campaign report shows the "AMP disabled for this dispatch" notice, with the errors found. It's also worth checking the editor's checklist before sending: it flags weight above Gmail's cutoff.
+Before every send, Cliqo validates the interactive part against Google's official validator. If it doesn't pass — or if the validator isn't available at that moment — the send goes out **in the safety version (HTML)** and the campaign report shows the "AMP disabled for this dispatch" notice, with the errors found. It's also worth checking the editor's checklist (**Before sending**): it warns you when the interactive part is close to AMP's size ceiling — above it, the email is rejected and goes out without it.
 
 ## How to test as a developer
 
@@ -43,4 +43,4 @@ If the email renders interactive with developer mode on, the code and the sendin
 
 ## Still static?
 
-Write to [contato@cliqo.io](mailto:contato@cliqo.io) with the sender address and the send date — we can check the registration history and the specific dispatch.
+Write to [contato@cliqo.io](mailto:contato@cliqo.io) with the sender address and the send date — we can check the specific dispatch and what we have on record for the sender.

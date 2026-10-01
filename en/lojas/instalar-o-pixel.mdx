@@ -3,7 +3,7 @@ title: "Install the pixel"
 description: "The snippet that lets Cliqo see behaviour on your store — and how to confirm it is working."
 ---
 
-{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: pendente */}
+{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: apps/web/public/px.js v1.6, api/pixel/verify.js, componente pixelTracker · revisão: conferido contra o código em 28/09/2026 */}
 
 The pixel is a snippet you paste into your store. With it, Cliqo learns **what someone did before buying** — which product they looked at, which category they browsed, where they stopped — and builds segments from that on its own.
 
@@ -11,48 +11,50 @@ Without the pixel, Cliqo only knows who is already on your list and what they al
 
 ## The snippet
 
-In **Settings → Integrations**, the *Tracking Pixel* panel shows your snippet already personalised, with a **Copy all** button. It looks like this:
+In **Settings → Pixel**, the *Cliqo Tracking Pixel* panel shows your snippet already personalised, with a **Copy all** button. It looks like this:
 
 ```html
-<script async src="https://app.cliqo.io/px.js" data-tenant="YOUR-ID"></script>
+<!-- Cliqo Tracking Pixel -->
+<script async src="https://app.cliqo.io/px.js?t=YOUR-ID" data-tenant="YOUR-ID"></script>
 ```
+
+> **The identifier appears twice, on purpose.** In the address — `https://app.cliqo.io/px.js?t=YOUR-ID` —, which Google Tag Manager never touches, and in `data-tenant`, which GTM strips when it injects the tag. That's why the same snippet works for GTM and for a direct install. *(With no identifier at all the pixel still works: it resolves the store by domain. But only if that domain is already registered in Cliqo — your verified domain, or the **Store website** under Settings → Brand.)*
 
 Paste it in the `<head>` of **every page** of the store — not just the home page. It has to be the `<head>`, not the end of `<body>`: the pixel needs to load before the content to measure time on page correctly.
 
 ## Where to paste it, by platform
 
-The panel offers three routes:
+The panel offers three routes, each with its step-by-step on screen:
 
-- **Loja Integrada** — a button opens that platform's panel on the right screen.
-- **Google Tag Manager** — a button opens GTM.
-- **Manual** — for any other store: paste it into your theme template.
+- **GTM** — marked *Recommended*, it's the one that opens first. A Custom HTML tag triggered on all pages; a link opens Google Tag Manager.
+- **Loja Integrada** — shows up when your account is registered as a Loja Integrada store. The snippet goes under Design → Edit theme HTML, just above `</head>`; a link opens that platform's dashboard.
+- **Manual** — for any other store: paste it into your theme template, just above `</head>`.
 
-**If you use GTM, use the snippet the panel gives you for GTM.** Tag Manager strips `data-*` attributes, and `data-tenant` is one of them — the pixel would load without knowing whose store it is. The GTM version carries your identifier inside the script address (`?t=…`), which GTM cannot strip.
+**The snippet is the same for all three routes.** Tag Manager strips `data-*` attributes, and `data-tenant` is one of them — that's why the snippet also carries your identifier inside the script address (`?t=…`), which GTM cannot strip.
 
 ## Confirming it works
 
-The same panel has a **Verify now** button. After pasting the snippet, open a page of your store in another tab and click it.
+At the top of the same panel there is a **Verify pixel** button (once the first hit arrives, it becomes **Verify now**). After pasting the snippet, open a page of your store in another tab and click it. While the panel is open, the check also repeats on its own every minute.
 
-⚠️ **Read the result carefully — it answers a narrower question than it appears to.** The check counts hits from the **last 24 hours**. It does not answer "is the pixel installed?", it answers "did any traffic arrive in the last 24 hours?".
+The result has three states:
 
-In practice:
+- **Pixel active** — traffic arrived in the last 24 hours. You are set.
+- **Installed · no recent traffic** — the pixel has sent hits before, but nothing in the last 24 hours. It is installed; the store just had a quiet day. Don't touch the snippet.
+- **Awaiting installation** — no hit has ever arrived.
 
-- **Pixel active** — traffic arrived. You are set.
-- **Awaiting installation** — no traffic in the last 24 hours. That can mean the pixel is not installed **or** that it is installed on a low-traffic store having a quiet day.
-
-If your store has low traffic and the screen says "awaiting installation", open one of your own store pages and click **Verify now** again. If the hit shows up, it is installed.
+If the screen says "awaiting installation", open one of your own store pages and click **Verify pixel** again. If the hit shows up, it is installed; if not, see the last section of this article.
 
 ## What it captures on its own
 
-You do not have to tag anything. Once installed, the pixel identifies the page type and emits the events below — and each one feeds an automatic segment under **Contacts → Segments**:
+You do not have to tag anything. Once installed, the pixel identifies the page type and emits the events below — and each one feeds an automatic segment under **Audience › Lists and segments**, **Segments** tab:
 
 | Event | Feeds the segment |
 |---|---|
 | Page view | All visitors |
 | Product view | Browsed without buying |
-| Category browse | Category interest |
-| Add to cart | Almost bought |
-| Checkout start | Checkout abandonment |
+| Category browsing | Category interest |
+| Add to cart (the pixel records the visit to the cart page) | Almost bought |
+| Checkout started (the pixel records the visit to the checkout page) | Checkout abandonment |
 
 Beyond those, the pixel measures **scroll depth** on product pages (25%, 50%, 75%, 90%) and **real time on page** — interest signals that open rate cannot capture.
 
@@ -60,19 +62,55 @@ To recognise the page type it first reads your theme's standard markup (`og:type
 
 ## Recording a purchase
 
-When the customer completes the order, call this on the thank-you page:
+The pixel recognises the order confirmation page on its own when its address contains one of the common fragments — `/finalizacao`, `/obrigado`, `/pedido/sucesso`, `/order/success`, `/thank-you`, `/order-received` or `/concluido` — and records the purchase with the order number and value. If your thank-you page matches none of them, call this on it:
 
 ```js
 window.cliqo.purchase(value, orderId, productName);
 ```
 
-This is what closes the loop: without this call, Cliqo sees the browsing but never learns it became a sale, and attributed revenue comes out understated.
+This is what closes the loop: without the purchase recorded, Cliqo sees the browsing but never learns it became a sale, and attributed revenue comes out understated.
 
-If the person has identified themselves on the store (login, or email at checkout), you can also tie the anonymous browsing to the contact:
+## Tie the purchase to who bought it
 
-```js
-window.cliqo.identify(contactId);
+This is the call that separates *"there was a sale"* from *"Marina bought it"*.
+
+Cliqo ties browsing to a person when they arrive through one of your email links. Someone who walks straight into the store and buys never takes that path: the order exists on one side, the browsing on the other, and the two never meet. Without this link, **abandoned cart and revenue per campaign have no way to work** — the sale shows up with no owner.
+
+On the thank-you page, say who bought:
+
+```html
+<script>
+  window._cliqo = window._cliqo || [];
+  window._cliqo.push(['identify', 'BUYER_EMAIL']);
+</script>
 ```
+
+Replace `BUYER_EMAIL` with your platform's variable holding the order's email.
+
+**Email works — and it's what your store actually has.** The call accepts two forms: the contact's Cliqo identifier (a UUID your store doesn't know) or the **email**. Given the email, the server resolves the contact and stitches the earlier browsing on its own.
+
+### Order is what makes it work
+
+**The email has to be on the page before the purchase is recorded.** It isn't sent on its own: it rides along on that page's next event — and on the thank-you page the only event is the purchase. If it arrives after that, there's nothing left to carry it, and the identification doesn't happen. With no error on screen.
+
+Hence two recommendations:
+
+- **Use the form above** (`window._cliqo.push`), not `window.cliqo.identify(...)`. It works even when it runs **before** the pixel loads, and it's the only safe one when you don't control the order.
+- **Place the snippet above the purchase call** in your template (or above the pixel snippet, if the purchase is detected automatically).
+
+### Through Google Tag Manager
+
+A **Custom HTML** tag, fired only on the order confirmation page, with a **higher priority** than the tag that fires the purchase. In GTM, a higher priority number fires first — if the other one sits at `0`, put this one at `10`.
+
+### How to check it worked
+
+Place a test order. On the thank-you page, open developer tools (**F12**) → **Network** tab → filter by `track`. The request must carry an **`identify_email`** field with the buyer's email.
+
+If it isn't there, it's almost always the order: the email tag is firing after the pixel.
+
+### Privacy of this call
+
+The email is used only to find the contact that already exists in your base. It **never appears in a log**, and Cliqo **does not answer whether the email exists or not** — the identification is silent on both sides, so the pixel's address can't be used to discover who is on your list.
 
 ## Privacy and LGPD
 

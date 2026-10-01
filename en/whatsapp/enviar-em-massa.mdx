@@ -1,9 +1,9 @@
 ---
 title: "How to send a bulk message on WhatsApp"
-description: "The four steps of a send — who receives, what to say, review and track — with waves and safety guards."
+description: "The five steps of a campaign — set up, message, audience, delivery and review — with waves and safety guards."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela WhatsApp › Mensagens (4 passos) · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela WhatsApp › Mensagens (4 passos) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -14,40 +14,62 @@ How to dispatch a WhatsApp campaign safely: the eligibility funnel, sending in w
 - A [connected number](/en/whatsapp/conectar-seu-numero) and an [approved template](/en/whatsapp/modelos-de-mensagem).
 - An audience with a [registered opt-in](/en/whatsapp/opt-in).
 
-Go to **WhatsApp › Messages**. There are four steps.
+In **Campaigns**, click **New campaign** and choose **WhatsApp campaign**. There are five steps: **Set up → Message → Audience → Delivery → Review**. You can stop halfway with **Save draft** — the draft is saved in this browser.
 
-## Step 1 · Who receives
+## Step 1 · Set up
 
-Pick lists and segments, like in an email campaign. The screen shows the **eligibility funnel**: from the total selection, how many drop out for having no number, an invalid number, no opt-in (or having blocked you) and repeated phones — down to the final count that **will receive**. Watch for the warning when the chosen segment only looks at email behavior.
+Give it an **Internal name** (only you see it; it's how the campaign shows up in the list and in reports) and choose the **Campaign goal**: **Sell** (the report measures revenue from people who clicked and bought within 7 days) or **Notify** (the report focuses on delivery and reads, without charging revenue). The **Sending number** shows the number's Meta rating and today's limit. **Tags** let you filter the campaign list and compare results.
+
+## Step 2 · Message
+
+Choose an **approved template** — only Meta-approved templates can be sent, and these are the messages Meta charges for. If the template doesn't exist yet, **Create new** opens the approval request right there ([how to create a template](/en/whatsapp/modelos-de-mensagem)).
+
+Then:
+
+- **Template variables** — for each variable, choose **First name**, **Full name** or **Fixed text** (e.g. a coupon that is the same for everyone). With a name, fill in **If missing, show** (e.g. "Customer"): without it, contacts with no name on file don't receive the message.
+- **Where the button leads** — when the template has a tracked link button, enter the page address (starting with https://). Each person gets their own link, and that is how the sale comes back attributed to the campaign. The **UTMs for Google Analytics** come pre-filled and can be customized.
+- **Send test** — send it to your own number: the screen shows the real path (sent to Meta ✓ → delivered ✓) and explains any error.
+
+A template whose button has a fixed URL can't be sent: the screen warns that the button can't be measured.
+
+## Step 3 · Audience
+
+Pick lists and segments, like in an email campaign — and, if you want, exclude groups from the send. The screen shows the **eligibility funnel**: from the total selection, how many drop out for having no number, an invalid number, a +1 number (US/Canada, where Meta doesn't deliver marketing), no opt-in (or having blocked you), a repeated phone, and **resting** — down to the count that **will receive now**. Watch for the warning when the chosen segment only looks at email.
 
 {/* print: eligibility funnel */}
 
-## Step 2 · What to say
+Resting is an account rule, in **Settings › WhatsApp › Rest between campaigns**: anyone who got a WhatsApp marketing campaign is left out of the next ones for a few hours (48 h by default). For a specific campaign, turn on **Ignore the rest period for this send**.
 
-Two audiences, two costs:
+## Step 4 · Delivery
 
-- **Open conversations** (people who replied in the last 24h): get **free-form text, with no template cost**.
-- **Everyone else**: gets the **approved template** — these are the messages Meta charges for.
+**When to send**: **Send now** or **Schedule** (date and time). **Smart send** isn't available yet — it shows as **COMING SOON**.
 
-Fill in the template variables (name, coupon, product — with a fallback value for contacts missing the data), set the **button destination** when the template has a tracked link, and send a **test to your own number** — the screen shows the real path (sent to Meta ✓ → delivered ✓) and explains any error.
+**Send pace**:
 
-## Step 3 · Review — waves and guards
+- **In waves (recommended)** — you set the size of the **First wave** (with shortcuts for 10%, 25% or half of the audience), and the next waves are the same size. The **Wave plan** shows how many waves and over how many days, respecting the number's daily ceiling and the sending window. By default, **You release each wave**; or choose **Continue on its own from the 3rd wave**, with an interval from 15 min to 4 h. When scheduled, only the 1st wave goes out at the scheduled time.
+- **All at once** — no stop in the middle; only for small, warm audiences.
 
-The summary shows the audience, message type, **estimated cost** and how much of the number's **daily limit** the send consumes. Choose when to send:
+And the guards (**Stop on its own if things go wrong** — they don't switch off, only tighten):
 
-- **In waves (recommended)** — the send goes out in slices: you set the first wave's size and the growth, and the planner spreads it out respecting Meta's daily limit. You can fire each wave manually or let it continue on its own at a set interval.
-- **All at once** — only for small, warm audiences.
-- **Schedule** — date and time.
+- **Pause if more than X% block you** (0.5% by default, with a minimum of 5 people, so it doesn't stop on noise). Spam failures and people who reply SAIR after receiving the campaign both count as blocks.
+- **Pause if the number's quality drops to medium or low.**
+- **Only send between 09:00 and 20:00** — the window is adjustable, but it can't be turned off. Outside it, nothing goes out: the send is held until the window reopens (when you release each wave, you have to release it again).
 
-And the **guards** ("stop on its own if things go wrong"): automatic pause if blocks pass the threshold you set, pause if the **number's rating drops**, and sending **only between 9am and 8pm** — this last one is fixed by default out of respect for the recipient (the hours are adjustable, the principle is not).
+## Step 5 · Review
 
-## Step 4 · Track
+The **Send summary** shows one line per step — message, audience, delivery and goal — each with **Edit**, and at the bottom the sending number and the **Daily limit**. Right below comes the **Before sending** checklist (opt-in, opt-out instruction, coupon with a deadline); alongside, the test send.
 
-In real time: sent, failures, held (outside allowed hours or waiting on the limit), **blocks** and the **Meta rating**. States you may see:
+Click **Check who will receive**: Cliqo recounts the audience against the base rule (nothing is sent yet), shows who dropped out in the check and the **Estimated cost of this round**, from Meta's rate table. The final button states the exact number — **Send wave 1 · N**, **Send · N** or **Schedule N · …**.
 
-- **Held: outside the allowed hours** — resumes on its own inside the window.
-- **STOPPED: N people blocked you** or **STOPPED: the number's quality dropped** — a guard fired; the decision to continue is yours, with the data on screen ("See number signals", "Adjust guards").
-- **Send the next wave** — when wave mode is manual.
+## After the dispatch
+
+Once you send, you land on the campaign page, with the report and the send progress. You can close the screen — sending continues on the server.
+
+- **Wave N · waiting for you** — when you release each wave, the **Release wave N** button opens **Check who will receive it**: the audience is recounted on the spot, anyone who already received is skipped, and the wave only goes out when you confirm. Holding is simply not confirming.
+- With **Continue on its own from the 3rd wave** on, you confirm the first two and the rest go out on their own at the chosen interval, if the guards allow it.
+- The guards still apply: outside the window, a high block rate or a bad rating hold the wave even after you confirm — and the screen says nothing went out and why.
+
+If a campaign stops halfway, opening **New campaign › WhatsApp campaign** shows the notice **You have a WhatsApp campaign in progress**, with **Continue this campaign** (sends only to people who haven't received yet) and **Stop campaign** (what went out stays in the report; the rest of the audience doesn't receive).
 
 After the first dispatch, the audience is **frozen** — to change the audience, create another campaign.
 

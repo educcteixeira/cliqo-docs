@@ -3,39 +3,46 @@ title: "Understand the engine's sending rules"
 description: "Quiet hours, the message budget and anti-collision — the rules that apply to every flow, and why."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · idioma: EN · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · idioma: EN · revisão: conferido contra o código em 28/09/2026 */}
 
 Before any flow message goes out, Cliqo's engine asks one last question: *should this contact receive this, now?* The rules below apply to **all** flows, automatically — they exist to protect the contact from message overload and your brand from burning out its own base.
 
+Quiet hours and the budget have a default that each flow can adjust under **Sending limits**, in the trigger panel inside the editor. The same block holds **Enter once per lifetime**: anyone who has already been through the flow doesn't enter again.
+
 ## Quiet hours
 
-Marketing messages **do not go out between 9 pm and 8 am** (Brasília time). A step that would come due in the middle of the night isn't lost: it **waits** and goes out when the window opens.
+By default, marketing messages **do not go out between 9 pm and 8 am**, in your account's time zone (Brasília time). A step that would come due in the middle of the night isn't lost: it **waits** and goes out when the window opens. Under **Quiet hours** you change the flow's window — a start equal to the end turns quiet hours off.
+
+The exception is the first message of a **New Signup** flow that goes out immediately: someone who signs up at 11 pm gets the welcome right away, because they have the store open. The following steps of the same flow respect quiet hours.
 
 ## Message budget
 
-Each contact receives **at most 3 marketing messages per 7-day period** — campaigns and flows combined. It's the brake against the classic scenario: someone is in the welcome flow, enters the abandoned cart flow, and still gets the week's campaign. Without the budget, that would be 6 messages in a few days; with it, the excess is held back.
+By default, a flow step **does not go out if the contact has already received 3 marketing messages in the last 7 days** — campaigns and flows combined. It's the brake against the classic scenario: someone is in the welcome flow, enters the abandoned cart flow, and still gets the week's campaign. Under **Weekly cap** you choose another cap for the flow (1, 2, 3, 5, 8 or 10).
+
+The cap applies to flow steps: campaigns count toward it, but are not blocked by it. And the step that hits the cap **does not wait** — it is skipped, and the contact moves on to the next step.
 
 ## Anti-collision
 
-After **any** marketing message, the contact gets **24 hours of silence** before the next one. Two automations that fired together don't arrive together — the second waits its turn.
+After any marketing message — from a campaign or from another flow —, the contact's next flow step waits **24 hours**. Two automations that fired together don't arrive together — the second waits its turn. Steps of the same flow follow the delays you designed. The other way around, an email campaign leaves out anyone who got a flow message in the last 24 hours.
 
 ## The exception: utility
 
-**Utility** messages — order confirmation, payment notice, delivery status — are exempt from the budget and from anti-collision: the customer is waiting for them. An urgent, transactional notice (like a Pix payment about to expire) can even break through quiet hours — holding that notice until 8 am would be worse for the customer.
+The rules above apply to every step you build in the editor: today, all of them count as marketing. **Utility** messages — order confirmation, delivery status — would be exempt from the budget and anti-collision, but they're not available yet: the **Automations › Transactional** screen is marked **Coming soon**.
 
 ## What this means in practice
 
-- A contact "didn't receive" a flow step? Before suspecting a bug, check the rules: they may be in the 24-hour silence, at the weekly cap, or waiting for 8 am. The live funnel shows who is **waiting now**.
+- A contact "didn't receive" a flow step? Before suspecting a bug, check the rules. Anyone in the 24-hour silence or waiting for quiet hours to end **waits** — the live funnel shows who is **waiting now**. Anyone who hit the weekly cap doesn't wait: that step was skipped, and the funnel shows the reason among those who *didn't receive*.
 - The rules don't discard messages for no reason: what can be postponed waits; what would lose its meaning (the person left the segment, lost consent) is suppressed with the reason recorded.
 
 ## The safety nets
 
-Two extra protections stop the engine before damage is done, and let you know:
+Three extra protections stop the engine before damage is done, and alert the Cliqo team:
 
 - **Enrollment breaker** — if an abnormal flood of contacts enters a flow at once (the typical symptom of a broken integration), the flow pauses **before** sending anything.
-- **Volume breaker** — if an account's flow sends explode beyond the usual pattern, everything pauses for investigation.
+- **Age brake** — if a step has been overdue for more than 24 hours (the typical case is reactivating a flow after a long pause), the flow pauses instead of delivering a stale message. Reactivating pauses it again while the backlog exists — write to us at [contato@cliqo.io](mailto:contato@cliqo.io) to decide what to do with those enrollments.
+- **Volume breaker** — if an account's flow sends go past the hourly cap, every flow in the account pauses for investigation.
 
-A flow paused by a breaker is flagged in the list, with the reason — resuming is your decision, never automatic.
+None of them resumes on its own: the flow only sends again once it is reactivated.
 
 ## Related articles
 

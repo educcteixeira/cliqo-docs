@@ -3,7 +3,7 @@ title: "Connect Loja Integrada"
 description: "Linking your Loja Integrada store to Cliqo: products, orders, and the webhook that keeps the catalogue current."
 ---
 
-{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: pendente */}
+{/* tipo: how-to · prioridade: P0 · idioma: EN · fonte: locales settings.json, api/integrations/webhook/lojaintegrada, packages/integrations/src/lojaintegrada.ts · revisão: conferido contra o código em 28/09/2026 */}
 
 Loja Integrada is one of Brazil's most widely used e-commerce platforms. Connecting it to Cliqo brings three things: your **product catalogue** (for emails with a product showcase), your **order history** (which feeds the RFM segmentation and attributed revenue), and a **webhook** that keeps the catalogue current without you doing anything.
 
@@ -17,11 +17,13 @@ You will need two credentials, and one of them depends on your plan.
 
 ## Connecting
 
-In **Settings → Integrations**, choose Loja Integrada and paste both keys. From then on Cliqo can read your catalogue and your orders.
+In **Settings → Integrations**, click **Connect new store**, choose **Loja Integrada**, paste both keys — *Store API key (chave_api)* and *Application Key (Cliqo)* — and click **Connect**. The keys are checked on the spot. From then on Cliqo can read your catalogue and your orders.
+
+Connecting does not bring the catalogue in by itself: on the connected store's card, click **Sync everything**. After that, **New only (delta)** brings just what changed.
 
 ## Pulling the orders
 
-The same screen has the action that **pulls orders from Loja Integrada** into Cliqo. This is what populates RFM — the segmentation that separates frequent buyers from people who drifted away.
+On the same screen, the **Update orders now** button **pulls orders from Loja Integrada** into Cliqo. This is what populates RFM — the segmentation that separates frequent buyers from people who drifted away. Besides the button, Cliqo pulls new orders on its own once a day.
 
 The first run sweeps your **entire history** and may take several passes: it reads in blocks and remembers where it stopped. While that first sweep runs, **no customer is enrolled into a flow because of those orders** — that would fire a post-purchase message about a months-old order. Only orders that arrive afterwards, day to day, reach the triggers.
 
@@ -35,9 +37,9 @@ The address is specific to your account and looks like this:
 https://app.cliqo.io/api/integrations/webhook/lojaintegrada/<your-id>
 ```
 
-You will find the full address, already carrying your identifier, under **Settings → Integrations**.
+You will find the full address, already carrying your identifier, under **Settings → Integrations**, in the store card's *Webhook URL* field.
 
-**About the security of that address:** Loja Integrada does not sign the notifications it sends — we verified this in May 2026, and it is not a Cliqo limitation. To compensate, you can set a **webhook token** under Settings → Integrations; when one exists, Cliqo only accepts notifications that present it. We recommend setting one.
+**About the security of that address:** Loja Integrada does not sign the notifications it sends — we verified this in May 2026, and it is not a Cliqo limitation.
 
 Receiving the same notification twice causes no harm: the product is stored by SKU, so reprocessing rewrites the same row.
 
@@ -49,7 +51,7 @@ That is the route for anyone on a plan without API access, or for a one-off load
 
 ## What the connection does not do
 
-- **It does not sync stock in real time.** The catalogue arrives through import and change notifications; there is no lookup at send time.
+- **It does not sync stock in real time.** The catalogue arrives when you sync, through file import and through change notifications; there is no lookup at send time.
 - **It does not change anything in your store.** The connection is read-only — Cliqo never creates, edits or cancels orders.
 - **It does not replace the pixel.** Orders tell you what was bought; the pixel tells you what was looked at and not bought. The two feed different segments.
 

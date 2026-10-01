@@ -1,0 +1,120 @@
+---
+title: "Conversations: replying to people who messaged you on WhatsApp"
+description: "Cliqo's inbox: who replied or messaged you on WhatsApp, Meta's 24-hour window, and how to reply, resend or start a conversation."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/Inbox.tsx, apps/web/src/routes/inbox-resend.ts, apps/web/src/lib/conversas.ts, apps/web/src/lib/use-pendentes.ts, apps/web/src/components/app-shell.tsx, apps/web/src/lib/o-que-a-tela-preenche.ts, api/whatsapp/send.js, api/lib/whatsapp-send.js, api/conversations/[id]/read.js · revisão: conferido contra o código em 28/09/2026 */}
+
+**Conversations** is where you handle, one by one, the people who talked to your brand on WhatsApp. It sits in the side menu as **Conversations**.
+
+Today the screen shows **WhatsApp only**. Email doesn't come in here.
+
+{/* print: Conversations screen with the "Needs a reply" queue on the left and an open conversation on the right, showing the "24h window" badge */}
+
+## Who shows up here
+
+The rule is simple: **sending a campaign doesn't open a conversation. A reply does.**
+
+- People who **replied** to a campaign or a flow, or who **messaged you** on their own, show up here.
+- People who only **received** the campaign don't. The send results live in the campaign tracking.
+- People **you** reached out to with **New conversation** also show up, marked **You started it · no reply yet**, until they reply.
+
+If you sent a WhatsApp campaign in the last 48 hours, a card at the top of the list sums up how many messages went out and how many people replied. **See full tracking →** takes you to the WhatsApp campaign tracking.
+
+## The three views
+
+| View | What it shows |
+|---|---|
+| **Needs a reply** | Conversations where the last message is from the customer and nobody has replied yet. This is the default queue. |
+| **All** | Everything, in groups: **Need you**, **Need you · window closed**, **Waiting on them**, **Resolved** and **Opted out**. |
+| **Asked to opt out** | People who replied SAIR (or PARAR, STOP, CANCELAR, DESCADASTRAR — the Portuguese opt-out words). |
+
+The **Needs a reply** queue is sorted by deadline, not by newest message: the conversation whose window closes first comes first. That way you don't lose someone who is about to drop out of the window.
+
+When you reply, the conversation leaves the queue on its own. You don't need to mark anything.
+
+## The number in the menu
+
+The number next to **Conversations** counts WhatsApp conversations where the customer spoke last **and the 24-hour window is still open**. That's what you can answer right now with free text, no template cost.
+
+So it can be **smaller** than the **Needs a reply** count: that view also includes people who wrote more than 24 hours ago. They are still waiting, but replying to them now takes an approved template.
+
+The number refreshes on its own about once a minute. Each conversation's unread dot clears when you open it.
+
+## The 24-hour window
+
+This is Meta's rule, not Cliqo's. The window opens when the **customer sends you a message** and stays open for **24 hours from their last message**. Your reply doesn't reopen the window.
+
+| Situation | What you can send |
+|---|---|
+| Window open | Free text, no template cost. If you prefer, **Send a template**. |
+| Window closed | Only a template approved by Meta. |
+
+The badge at the top of the conversation shows the time left, for example **24h window · 3h 20min**. It turns amber when less than 1 hour is left and changes to **24h window closed** when time runs out. In the list, a small clock shows the hours left.
+
+Cliqo also checks the window when sending: free text outside the window is refused, even if the screen is out of date.
+
+## Replying
+
+<Steps>
+  <Step title="Open the conversation">
+    Tap the conversation in the list. On a phone, the conversation fills the whole screen.
+  </Step>
+  <Step title="Write and send">
+    Type in the box at the bottom. **Enter** sends and **Shift+Enter** adds a new line. The limit is 4,000 characters.
+  </Step>
+  <Step title="Follow delivery">
+    The ticks next to the time show whether the message was sent, delivered or read. A red icon means it failed.
+  </Step>
+</Steps>
+
+To reply, you need the **Editor** role or higher on the account. A **Viewer** can see conversations but can't send.
+
+## When the window is closed
+
+The text box is replaced by a list, with a notice that the person must have messaged you in the last 24 hours.
+
+1. Under **Pick an approved template**, tap the template.
+2. Fill in every variable. The preview shows how the message will look.
+3. Tap **Send template**. To change it, use **Pick another**.
+
+Some templates appear greyed out, with the reason. For example, **Tracked link button — use it in a campaign**: that kind of template only works in a campaign. If no template is approved yet, create one under **Templates**.
+
+When the customer replies to the template, the window opens again and you're back to free text.
+
+## Resending a message that failed
+
+On one of your text messages that failed, **Resend** appears. It sends a new message with the same text. The failed one stays marked as failed.
+
+- With the window closed, **Resend** is disabled.
+- If the same text already went through after the failure, **Already resent** shows instead of the button. This avoids sending the same message twice.
+
+## Resolving a conversation without replying
+
+Not every message needs an answer. **Resolve**, at the top of the conversation, takes it out of the queue. It stays under **All**, in the **Resolved** group. **Reopen** puts it back in the queue.
+
+<Note>
+If the customer writes again in a resolved conversation, it stays under **Resolved**. Check that group now and then and tap **Reopen** to put the conversation back in the queue.
+</Note>
+
+## People who asked to opt out
+
+When someone replies with just the word SAIR (or one of the other words in the table above), the conversation moves to **Asked to opt out**, leaves the queue, and the text box locks with a notice that the contact opted out. This view stays on screen even when empty, so you can check who left before sending again.
+
+## Starting a conversation
+
+**New conversation**, at the top of the screen, opens the **Start a conversation** panel.
+
+1. Enter the number with country and area code (e.g. 5511999998888). If you forget the 55, Cliqo adds it.
+2. Under **Pick an approved template…**, choose the template and fill in the variables.
+3. Tap **Send and open**.
+
+Only an approved template works here, because the person hasn't opened the window yet. Cliqo refuses to send to someone who asked to opt out.
+
+You can also reach a conversation from the contact card under **Audience › Contacts**: the **WhatsApp** button opens that person's conversation, if one already exists.
+
+## Next steps
+
+- [Connect your WhatsApp number](/en/whatsapp/conectar-seu-numero)
+- [Create and get a message template approved](/en/whatsapp/modelos-de-mensagem)
+- [Opt-in and consent for WhatsApp](/en/whatsapp/opt-in)

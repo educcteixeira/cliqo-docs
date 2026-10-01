@@ -1,15 +1,15 @@
 ---
 title: "Understand consent and opt-in"
-description: "How Cliqo records each contact's authorization, per channel — and why importing a spreadsheet never becomes an opt-in."
+description: "How Cliqo records each contact's authorization, per channel — and why importing a spreadsheet never becomes an opt-in on its own."
 ---
 
-{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: conferido contra o código em 28/09/2026 */}
 
 Consent, in Cliqo, is not a checked box — it is a **record with proof**: who authorized, for which channel, when and through where. This article explains how that record works and what each contact origin unlocks.
 
 ## Consent is per channel
 
-Email and WhatsApp are **separate** authorizations. A contact can accept email and not accept WhatsApp; unsubscribing from one channel does not remove the other. On the contact profile (360 view), you see the state of each channel, and Gmail's one-click unsubscribe revokes **email only** — that is what the person asked for.
+Email and WhatsApp are **separate** authorizations. A contact can accept email and not accept WhatsApp; unsubscribing from one channel does not remove the other. On the contact profile (the panel that opens when you click a contact, **Consent** section), you see the state of each channel (**Email · marketing** and **WhatsApp · marketing**), and Gmail's one-click unsubscribe revokes **email only** — that is what the person asked for.
 
 ## What Cliqo records
 
@@ -21,17 +21,17 @@ For each consent: the channel, the date, and the **origin** — form inside the 
 
 | Origin | Creates an opt-in? |
 |---|---|
-| Form inside the email (AMP) | ✅ Yes, for the channel authorized in the form |
+| Form inside the email (AMP) | ✅ Yes — for email, when the form is submitted with the address; for WhatsApp, only with the WhatsApp box checked |
 | Store pop-up | ✅ Yes — email and WhatsApp are separate boxes, both unchecked by default |
 | Manual signup with the consent box checked | ✅ Yes |
-| Store purchase (checkout) | ✅ For utility messages about that order |
-| **Spreadsheet import** | ❌ **Never** |
+| Store purchase (checkout) | ✅ For email, when the store reports that the customer accepted its newsletter. Utility messages about the customer's own order don't depend on opt-in |
+| **Spreadsheet import** | ❌ **Never on its own** — only with your declaration in step 3 of the import, recorded as yours |
 
-## Why an import is never an opt-in
+## Why an import is never an opt-in on its own
 
-A CSV file proves nothing — any purchased list would arrive as "authorized". On import, what you do is **declare** the state of the base: if it was already opted in on your previous tool, that declaration unlocks marketing sends (and is recorded as your declaration, with a date). What the import does not do, by design: it does not trigger the welcome flow — an imported contact is not a contact who just signed up — and it does not create a silent opt-in for anyone who didn't have one.
+A CSV file proves nothing — any purchased list would arrive as "authorized". On import, what you do is **declare** the state of the base: if it was already opted in on your previous tool, that declaration unlocks marketing sends (and is recorded as your declaration, with a date). What the import does not do, by design: it does not trigger the welcome flow on its own — an imported contact is not a contact who just signed up — and it does not create a silent opt-in for anyone who didn't have one.
 
-For WhatsApp, the bar for that declaration is higher: check the WhatsApp opt-in column only if you have proof of each authorization. Blocks and reports drag down your number's quality rating with Meta — and that limits your future sends.
+For WhatsApp, the bar for that declaration is higher: check **WhatsApp marketing** only if you have proof of each authorization. Blocks and reports drag down your number's quality rating with Meta — and that limits your future sends.
 
 ## Email vs WhatsApp in practice
 

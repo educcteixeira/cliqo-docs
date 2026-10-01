@@ -3,7 +3,7 @@ title: "Como definir a audiência da campanha"
 description: "Listas, segmentos, exclusões e como a Cliqo remove duplicados e suprimidos antes do envio."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · fonte: aba Audiência + seletor de segmentos · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · fonte: aba Audiência + seletor de segmentos · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -11,7 +11,7 @@ Como montar a audiência somando listas e segmentos, excluir quem não deve rece
 
 ## Como o seletor funciona
 
-Na aba **Audiência**, o seletor agrupa as opções do jeito que você pensa:
+Na aba **Público**, o seletor agrupa as opções do jeito que você pensa:
 
 - **Listas** — as que você montou manualmente ou por importação.
 - **Engajamento** — segmentos prontos por comportamento de e-mail (engajados com AMP, abriram recentemente, inativos, converteram…).
@@ -19,19 +19,19 @@ Na aba **Audiência**, o seletor agrupa as opções do jeito que você pensa:
 - **Navegação** — comportamento na loja via pixel (carrinho sem compra, checkout abandonado…).
 - **Meus segmentos** — os que você criou.
 
-Cada opção mostra a contagem e quando ela foi calculada — o botão **Atualizar** recalcula na hora.
+Cada opção mostra a contagem de contatos; o selo no topo diz quando as contagens foram calculadas (ex.: "atualizado 2h atrás") e o botão **Atualizar** recalcula na hora. Acima dos grupos, **Mais usados** traz atalhos para o que você mais usa em campanhas, e a busca aceita nome ou #id.
 
 {/* print: seletor de audiência com grupos */}
 
 ## A conta final
 
-**A audiência é a união de tudo que você marcou, sem duplicados** — quem está em três segmentos conta uma vez. O resumo mostra os destinatários únicos e a sobreposição entre as fontes.
+**A audiência é a união de tudo que você marcou, sem duplicados** — quem está em três segmentos conta uma vez. O total de destinatários únicos fica no topo do passo, junto do **Próximo: Entrega**, e se repete no **Revisar**. Quando a soma das fontes passa do total, a tela diz quantos ficaram de fora (repetidos entre as fontes, descadastrados, inativos ou contagem desatualizada).
 
-Além disso, você pode **excluir da audiência** listas ou segmentos inteiros — por exemplo, enviar para "Abriram recentemente" excluindo "Compraram nos últimos 7 dias".
+Além disso, você pode **excluir segmentos inteiros** da audiência (**+ excluir segmento**, na linha "Excluir da audiência") — por exemplo, enviar para "Abriram recentemente" excluindo "Converteram". Listas não entram na exclusão.
 
 ## Quem sai sozinho, sem você fazer nada
 
-No momento do envio, a Cliqo remove automaticamente: descadastrados, reclamações e hard bounces (as [supressões](/pt-BR/gestao-de-dados/supressoes)), quem está na blocklist, quem não tem consentimento para o canal e quem já recebeu este mesmo disparo (em reenvios). O relatório da campanha lista **quantos saíram e por qual motivo** — transparência total sobre a diferença entre "selecionados" e "receberam".
+No momento do envio, a Cliqo remove automaticamente: descadastrados, reclamações e hard bounces (as [supressões](/pt-BR/gestao-de-dados/supressoes)), quem está na blocklist, quem recebeu mensagem de um fluxo nas últimas 24 horas e quem já recebeu este mesmo disparo (numa retomada). Quem não tem consentimento de marketing também sai quando a conta passa a exigir consentimento — por exemplo, depois de uma importação declarada sem opt-in. O relatório da campanha lista **quantos saíram e por qual motivo**, em **Excluídos do envio** — transparência sobre a diferença entre "selecionados" e "receberam".
 
 ## Dicas
 

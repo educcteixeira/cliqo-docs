@@ -1,0 +1,108 @@
+---
+title: "Saúde dos canais"
+description: "Um cartão por canal que responde se o seu WhatsApp e o seu e-mail estão em condição de enviar — e o que fazer quando não estão."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/SaudeDosCanais.tsx, lib/saude-do-numero.ts, lib/saude-do-email.ts, lib/aviso-de-amp.ts, routes/o-cracha-da-nota-da-meta.ts, saude-dos-canais.render.test.tsx, o-vermelho-diz-a-causa.render.test.tsx, locales analytics.json + whatsapp.json · revisão: conferido contra o código em 28/09/2026 */}
+
+A tela **Saúde dos canais** responde uma pergunta: *meus canais estão bem?* Ela junta, num lugar só, o estado do seu número de WhatsApp e do seu remetente de e-mail.
+
+É uma tela de **leitura**. Nada se ajusta aqui: conectar conta e número continua em **Configurações**. Cada cartão tem um botão que leva ao lugar certo.
+
+Para abrir: no menu lateral, **Relatórios › Saúde dos canais**.
+
+A tela mostra os canais da **marca ativa**. Se a sua conta tem mais de uma marca, troque a marca no seletor da barra superior para ver os canais dela.
+
+{/* print: a tela inteira, com os cartões de WhatsApp, E-mail e SMS */}
+
+## As cores
+
+Cada informação tem um ponto colorido ao lado:
+
+| Cor | O que quer dizer |
+|---|---|
+| Verde | Está bem. |
+| Âmbar | Atenção: ainda envia, mas algo piorou. |
+| Vermelho | Não dá para enviar agora, ou falta configurar. |
+| Cinza | A Cliqo não tem como saber daqui. Não é erro, e também não é "tudo bem". |
+
+## WhatsApp — Número e qualidade
+
+O cartão pergunta: **A Meta ainda confia neste número?** Ao lado vem o seu número. São quatro informações.
+
+**Estado** — o resumo do número. É o único item com as quatro cores:
+
+| Estado | Cor | Quando aparece |
+|---|---|---|
+| **Saudável** | Verde | Nota alta, sem falhas por spam e dentro do limite. |
+| **Em risco** | Âmbar | A nota caiu para **MÉDIA** ou **BAIXA**, ou houve falha por spam nos últimos 7 dias. |
+| **Restrito por 24 h** | Vermelho | O limite do dia foi atingido, **ou** a Meta restringiu o número. |
+| **Ainda não sabemos** | Cinza | A Meta ainda não mandou a nota do número. |
+
+<Note>
+Nota **BAIXA** aparece como **Em risco** (âmbar), não como vermelho. O vermelho fica só para quando o número não consegue enviar agora.
+</Note>
+
+**Nota da Meta** — **ALTA**, **MÉDIA** ou **BAIXA**. Um traço (**—**) quer dizer que a nota ainda não chegou. Se a Meta mandar uma nota que a Cliqo não conhece, ela aparece escrita como a Meta mandou.
+
+**Limite de envio** — quantas conversas o número pode iniciar em 24 horas, por exemplo **1.000 conversas / 24 h**. Nos números sem teto aparece **Ilimitado**.
+
+**Falhas por spam (7 d)** — quantas mensagens a Meta barrou por spam nos últimos 7 dias. Zero fica verde; qualquer número acima de zero fica âmbar.
+
+O botão **Ver detalhes** abre a página **Número e qualidade**, com o histórico, os sinais e o que fazer.
+
+{/* print: cartão do WhatsApp em estado Em risco */}
+
+### O que fazer em cada estado
+
+- **Saudável** — nada a fazer.
+- **Em risco** — abra **Ver detalhes**. A página mostra no histórico qual campanha derrubou a nota ou causou a falha por spam. Reveja o público e a frequência antes do próximo disparo. As dicas estão em [Número e qualidade](/pt-BR/whatsapp/numero-e-qualidade).
+- **Restrito por 24 h** — o cartão usa esse mesmo texto para duas causas diferentes. Abra **Ver detalhes**: a página do número diz qual é.
+  - *Seu WhatsApp chegou ao limite de 24h* — novos disparos ficam retidos até o limite liberar. Responder quem fala com você continua liberado, e a página tem o botão **Ir para Conversas**.
+  - *A Meta restringiu este número* — o bloqueio é da Meta, não do seu limite diário, e **não passa sozinho em 24h**. O motivo e o que ela pede ficam no WhatsApp Manager, da Meta.
+- **Ainda não sabemos** — a nota costuma chegar em alguns minutos. Se for disparar volume grande, espere ela aparecer.
+
+### Outras mensagens do cartão
+
+- **Nenhum número de WhatsApp conectado a esta marca.** — a marca ainda não tem número. O botão **Conectar em Configurações** leva a **Configurações › WhatsApp**.
+- **Este número está conectado pelo Twilio…** — o número funciona, mas o Twilio não informa a nota nem o limite à Cliqo. Esses dados ficam no painel do Twilio. Não há nada a consertar.
+- **Não conseguimos ler os dados da Meta agora.** — a Cliqo não conseguiu falar com a Meta. Isso **não** quer dizer que o número está bem nem mal. Toque em **Tentar de novo**.
+
+## E-mail — Entregabilidade
+
+O cartão pergunta: **O Gmail ainda confia neste remetente?** Ao lado vem o domínio do seu remetente. São três informações, todas com cor.
+
+| Item | Verde | Vermelho | Cinza |
+|---|---|---|---|
+| **Remetente** | **Configurado** | **Não configurado** | — |
+| **DKIM** | **Válido** | **Não configurado** | **Domínio não cadastrado** |
+| **Registro AMP no Gmail** | **Declarado** | — | **Não declarado**, **Não sabemos** ou **—** |
+
+**Remetente** — o e-mail que aparece como "De" nas suas campanhas.
+
+**DKIM** — a assinatura que prova ao Gmail que o e-mail saiu mesmo do seu domínio. A Cliqo confere o DKIM **do domínio do remetente**. *Domínio não cadastrado* quer dizer que esse domínio não está em **Configurações › Domínio**, então não há como saber.
+
+**Registro AMP no Gmail** — se o remetente foi registrado para e-mails interativos. *Declarado* é o que está anotado na sua conta; **quem aprova é o Google**, e a Cliqo não consulta o Google para confirmar. *Não sabemos* aparece quando esse endereço não tem registro na conta.
+
+O botão **Ver detalhes** abre **Configurações › Domínio**.
+
+Hoje o cartão não mostra taxa de bounce nem de reclamação.
+
+{/* print: cartão de E-mail com Remetente Configurado, DKIM Válido e AMP Não sabemos */}
+
+### O que fazer em cada caso
+
+- **Remetente: Não configurado** — em **Configurações › Envio**, preencha **Email do remetente (From)** e salve.
+- **DKIM: Não configurado** ou **Domínio não cadastrado** — em **Configurações › Domínio**, cadastre o domínio do remetente, crie os registros no seu DNS e verifique. O passo a passo está em [Como configurar seu domínio de envio (DNS)](/pt-BR/entregabilidade/configurar-dns).
+- **Registro AMP: Não declarado** ou **Não sabemos** — o e-mail sai normalmente, na versão comum, sem a parte interativa. O registro é feito com a Cliqo; veja [Como registrar o remetente para e-mails AMP](/pt-BR/email-interativo/registro-do-remetente).
+- **Não conseguimos ler o remetente agora.** — a leitura falhou. Isso não quer dizer que o domínio não está cadastrado. Toque em **Tentar de novo**.
+
+## SMS
+
+O cartão de SMS aparece como **Em breve**. O canal ainda está em preparação.
+
+## Próximos passos
+
+- [Número e qualidade: a nota do seu número na Meta](/pt-BR/whatsapp/numero-e-qualidade)
+- [Como configurar seu domínio de envio (DNS)](/pt-BR/entregabilidade/configurar-dns)
+- [Como registrar o remetente para e-mails AMP](/pt-BR/email-interativo/registro-do-remetente)

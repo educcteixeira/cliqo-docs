@@ -3,7 +3,7 @@ title: "How to set up your sending domain (DNS)"
 description: "Authorize Cliqo to send from your domain: DKIM, SPF and DMARC, with guided verification."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Configurações › Domínio + api/dns · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Configurações › Domínio + api/dns · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you will learn
 
@@ -17,32 +17,34 @@ How to authorize Cliqo to send email from your domain, so Gmail, Outlook and Yah
 ## Step 1 · Enter your domain
 
 1. Go to **Settings › Domain**.
-2. Type the domain that will sign your emails (e.g. `suamarca.com.br`) and generate the records.
+2. Type the domain that will sign your emails (e.g. `suamarca.com.br`) and click **Confirm** to generate the records.
 
 {/* print: Settings › Domain, step 1 */}
 
 ## Step 2 · Choose your DNS provider
 
-Select your provider to see its specific guide — the screen shows a direct link to each one's help pages (Registro.br, Locaweb, GoDaddy, Cloudflare).
+Select your provider — **RegistroBR**, **Locaweb/cPanel**, **GoDaddy**, **Cloudflare** or **Other** — and the screen shows a **Guide for…** link to that provider's help pages. **Other** has no guide: follow your provider's own help.
 
 ## Step 3 · Add the records
 
-Copy each record with the button next to it and create it in your DNS:
+Copy each record's name and value with the **Copy** button and create it in your DNS. The screen tells you how many records are required; the rest carry the **optional** tag:
 
 | Record | What it's for |
 |---|---|
-| **DKIM** (3 CNAMEs) | Cryptographic signature that proves the email is yours. **This is the essential one** — DKIM is what authenticates your sends. |
-| **SPF** (TXT) | Authorizes Cliqo to send on behalf of the domain. |
-| **DMARC** (TXT) | Authentication policy and reporting. `p=none` is sufficient — including for the AMP registration. |
+| **DKIM 1, 2 and 3** (3 CNAMEs) | Cryptographic signature that proves the email is yours. **This is the essential one** — DKIM is what authenticates your sends and gets the domain verified. |
+| **Return-Path (MX)** and **Return-Path (SPF)** (TXT) | Both live on a return subdomain — the screen shows the exact name (for example, `e.suamarca.com.br`). They route bounces back to Cliqo and authorize sending on behalf of the domain. For the MX, also fill in the **Priority** shown. |
+| **Root-domain SPF** (TXT, optional — the screen labels it "SPF (raiz, opcional)") | SPF on your main domain. It's optional: the SPF that authenticates Cliqo's sending is the Return-Path one. |
+| **DMARC** (TXT, optional) | Authentication policy and reporting. The screen suggests `p=none`, which is sufficient — including for the AMP registration. |
 
-> **Already have an SPF record?** Don't create a second one — two SPF records invalidate both. **Edit the existing one** and add `include:amazonses.com` on the same line.
+> **Already have an SPF record on your main domain?** If you add the root SPF, don't create a second one — two SPF records invalidate both. **Edit the existing one** and add `include:amazonses.com` on the same line.
 
 {/* print: record list with copy buttons */}
 
 ## Step 4 · Verify
 
-1. Click **Verify records**. Each row shows **Verified** or **Not found**.
+1. Click **Verify records**. Each row shows **verified** or **not found**.
 2. Propagation can take **up to 48 hours**. Partial records are normal at first — come back and verify again.
+3. Once the records are published, the domain badge may sit at **Confirming…** or **Finalizing…** for a while: the DNS is already right and the sending provider still has to confirm DKIM. The badge changes to **Verified** when that confirmation arrives.
 
 ## Result
 

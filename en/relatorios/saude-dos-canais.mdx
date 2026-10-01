@@ -1,0 +1,108 @@
+---
+title: "Channel health"
+description: "One card per channel that tells you whether your WhatsApp and your email are in shape to send — and what to do when they are not."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/SaudeDosCanais.tsx, lib/saude-do-numero.ts, lib/saude-do-email.ts, lib/aviso-de-amp.ts, routes/o-cracha-da-nota-da-meta.ts, saude-dos-canais.render.test.tsx, o-vermelho-diz-a-causa.render.test.tsx, locales analytics.json + whatsapp.json · revisão: conferido contra o código em 28/09/2026 */}
+
+The **Channel health** screen answers one question: *are my channels OK?* It brings together, in one place, the state of your WhatsApp number and of your email sender.
+
+It is a **read-only** screen. Nothing is adjusted here: connecting accounts and numbers stays in **Settings**. Each card has a button that takes you to the right place.
+
+To open it: in the side menu, **Reports › Channel health**.
+
+The screen shows the channels of the **active brand**. If your account has more than one brand, switch brands in the switcher on the top bar to see that brand's channels.
+
+{/* print: the whole screen, with the WhatsApp, Email and SMS cards */}
+
+## The colours
+
+Each piece of information has a coloured dot next to it:
+
+| Colour | What it means |
+|---|---|
+| Green | All good. |
+| Amber | Watch out: it still sends, but something got worse. |
+| Red | You cannot send right now, or something is missing. |
+| Grey | Cliqo has no way of knowing from here. It is not an error, and it is not "all good" either. |
+
+## WhatsApp — Number & quality
+
+The card asks: **Does Meta still trust this number?** Your number appears next to it. There are four pieces of information.
+
+**Status** — the summary for the number. It is the only item that uses all four colours:
+
+| Status | Colour | When it shows |
+|---|---|---|
+| **Healthy** | Green | High rating, no spam failures, within the limit. |
+| **At risk** | Amber | The rating dropped to **MEDIUM** or **LOW**, or there was a spam failure in the last 7 days. |
+| **Restricted for 24 h** | Red | The day's limit was reached, **or** Meta restricted the number. |
+| **Not known yet** | Grey | Meta has not sent the number's rating yet. |
+
+<Note>
+A **LOW** rating shows as **At risk** (amber), not red. Red is kept for when the number cannot send right now.
+</Note>
+
+**Meta rating** — **HIGH**, **MEDIUM** or **LOW**. A dash (**—**) means the rating has not arrived yet. If Meta sends a rating Cliqo does not know, it appears written the way Meta sent it.
+
+**Sending limit** — how many conversations the number can start in 24 hours, for example **1,000 conversations / 24 h**. Numbers with no cap show **Unlimited**.
+
+**Spam failures (7 d)** — how many messages Meta blocked as spam in the last 7 days. Zero is green; anything above zero is amber.
+
+The **See details** button opens the **Number & quality** page, with the history, the signals and what to do.
+
+{/* print: WhatsApp card in the At risk state */}
+
+### What to do in each status
+
+- **Healthy** — nothing to do.
+- **At risk** — open **See details**. The page's history shows which campaign pulled the rating down or caused the spam failure. Review the audience and the frequency before the next send. Tips are in [Number & quality](/en/whatsapp/numero-e-qualidade).
+- **Restricted for 24 h** — the card uses this same text for two different causes. Open **See details**: the number page tells you which one it is.
+  - *Your WhatsApp hit its 24h limit* — new sends are held until the limit frees up. Replying to people who message you stays open, and the page has a **Go to Conversations** button.
+  - *Meta has restricted this number* — the block comes from Meta, not your daily limit, and it **does not lift on its own in 24h**. The reason and what Meta asks for are in Meta's WhatsApp Manager.
+- **Not known yet** — the rating usually arrives within minutes. If you are about to send a large batch, wait for it to show up.
+
+### Other messages on the card
+
+- **No WhatsApp number connected to this brand.** — the brand has no number yet. The **Connect in Settings** button takes you to **Settings › WhatsApp**.
+- **This number is connected through Twilio…** — the number works, but Twilio does not share the rating or the limit with Cliqo. You will find them in your Twilio console. There is nothing to fix.
+- **We couldn't read Meta's data right now.** — Cliqo could not reach Meta. This does **not** mean the number is fine or in trouble. Tap **Try again**.
+
+## Email — Deliverability
+
+The card asks: **Does Gmail still trust this sender?** Your sender's domain appears next to it. There are three pieces of information, all with a colour.
+
+| Item | Green | Red | Grey |
+|---|---|---|---|
+| **Sender** | **Configured** | **Not configured** | — |
+| **DKIM** | **Valid** | **Not configured** | **Domain not registered** |
+| **Gmail AMP registration** | **Declared** | — | **Not declared**, **Unknown** or **—** |
+
+**Sender** — the email address shown as "From" on your campaigns.
+
+**DKIM** — the signature that proves to Gmail the email really left your domain. Cliqo checks the DKIM **of the sender's domain**. *Domain not registered* means that domain is not under **Settings › Domain**, so there is no way to tell.
+
+**Gmail AMP registration** — whether the sender was registered for interactive emails. *Declared* is what is recorded in your account; **Google is the one who approves**, and Cliqo does not check with Google to confirm. *Unknown* shows when that address has no registration record in the account.
+
+The **See details** button opens **Settings › Domain**.
+
+The card does not show bounce or complaint rates today.
+
+{/* print: Email card with Sender Configured, DKIM Valid and AMP Unknown */}
+
+### What to do in each case
+
+- **Sender: Not configured** — under **Settings › Sending**, fill in **From email** and save.
+- **DKIM: Not configured** or **Domain not registered** — under **Settings › Domain**, add the sender's domain, create the records in your DNS and verify. The step-by-step is in [How to set up your sending domain (DNS)](/en/entregabilidade/configurar-dns).
+- **AMP registration: Not declared** or **Unknown** — the email goes out normally, in the regular version, without the interactive part. Registration is done together with Cliqo; see [How to register your sender for AMP emails](/en/email-interativo/registro-do-remetente).
+- **We couldn't read the sender right now.** — the reading failed. This does not mean the domain is not registered. Tap **Try again**.
+
+## SMS
+
+The SMS card shows **Coming soon**. The channel is still in preparation.
+
+## Next steps
+
+- [Number & quality: your number's rating on Meta](/en/whatsapp/numero-e-qualidade)
+- [How to set up your sending domain (DNS)](/en/entregabilidade/configurar-dns)
+- [How to register your sender for AMP emails](/en/email-interativo/registro-do-remetente)

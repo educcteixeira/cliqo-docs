@@ -1,15 +1,15 @@
 ---
 title: "Entenda consentimento e opt-in"
-description: "Como a Cliqo registra a autorização de cada contato, por canal — e por que importar planilha nunca vira opt-in."
+description: "Como a Cliqo registra a autorização de cada contato, por canal — e por que importar planilha nunca vira opt-in sozinha."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: ledger de consents + política e-mail vs WhatsApp · revisão: conferido contra o código em 28/09/2026 */}
 
 Consentimento, na Cliqo, não é uma caixinha marcada — é um **registro com prova**: quem autorizou, para qual canal, quando e por onde. Este artigo explica como esse registro funciona e o que cada origem de contato destrava.
 
 ## Consentimento é por canal
 
-E-mail e WhatsApp são autorizações **separadas**. Um contato pode aceitar e-mail e não aceitar WhatsApp; descadastrar de um canal não remove o outro. Na ficha do contato (visão 360), você vê o estado de cada canal, e o descadastro em um clique do Gmail revoga **só o e-mail** — foi isso que a pessoa pediu.
+E-mail e WhatsApp são autorizações **separadas**. Um contato pode aceitar e-mail e não aceitar WhatsApp; descadastrar de um canal não remove o outro. Na ficha do contato (o painel que abre ao clicar num contato, seção **Consentimento**), você vê o estado de cada canal (**Email · marketing** e **WhatsApp · marketing**), e o descadastro em um clique do Gmail revoga **só o e-mail** — foi isso que a pessoa pediu.
 
 ## O que a Cliqo registra
 
@@ -21,17 +21,17 @@ Para cada consentimento: o canal, a data, e a **origem** — formulário dentro 
 
 | Origem | Gera opt-in? |
 |---|---|
-| Formulário dentro do e-mail (AMP) | ✅ Sim, do canal autorizado no formulário |
+| Formulário dentro do e-mail (AMP) | ✅ Sim — de e-mail, ao enviar o formulário com o endereço; de WhatsApp, só com a caixa de WhatsApp marcada |
 | Pop-up da loja | ✅ Sim — e-mail e WhatsApp são caixas separadas, ambas desmarcadas por padrão |
 | Cadastro manual com a caixa de consentimento marcada | ✅ Sim |
-| Compra na loja (checkout) | ✅ Para mensagens de utilidade do próprio pedido |
-| **Importação de planilha** | ❌ **Nunca** |
+| Compra na loja (checkout) | ✅ De e-mail, quando a loja informa que o cliente aceitou a newsletter. Mensagens de utilidade do próprio pedido não dependem de opt-in |
+| **Importação de planilha** | ❌ **Nunca sozinha** — só com a sua declaração no passo 3 da importação, registrada como sua |
 
-## Por que importação nunca é opt-in
+## Por que importação nunca é opt-in sozinha
 
-Um arquivo CSV não prova nada — qualquer lista comprada chegaria como "autorizada". Na importação, o que você faz é **declarar** o estado da base: se ela já era opt-in na sua ferramenta anterior, essa declaração destrava o envio de marketing (e fica registrada como sua declaração, com data). O que a importação não faz, de propósito: não dispara o fluxo de boas-vindas — contato importado não é contato que acabou de se cadastrar — e não cria opt-in silencioso para quem não tinha.
+Um arquivo CSV não prova nada — qualquer lista comprada chegaria como "autorizada". Na importação, o que você faz é **declarar** o estado da base: se ela já era opt-in na sua ferramenta anterior, essa declaração destrava o envio de marketing (e fica registrada como sua declaração, com data). O que a importação não faz, de propósito: não dispara sozinha o fluxo de boas-vindas — contato importado não é contato que acabou de se cadastrar — e não cria opt-in silencioso para quem não tinha.
 
-Para WhatsApp, a régua da declaração é mais alta: marque a coluna de opt-in de WhatsApp apenas se você tem a prova de cada autorização. Bloqueios e denúncias derrubam a nota do seu número na Meta — e isso limita seus envios futuros.
+Para WhatsApp, a régua da declaração é mais alta: marque **WhatsApp marketing** apenas se você tem a prova de cada autorização. Bloqueios e denúncias derrubam a nota do seu número na Meta — e isso limita seus envios futuros.
 
 ## E-mail vs WhatsApp na prática
 

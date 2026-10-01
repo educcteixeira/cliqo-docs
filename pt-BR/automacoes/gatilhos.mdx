@@ -1,9 +1,9 @@
 ---
 title: "Entenda os gatilhos e quem entra no fluxo"
-description: "Os cinco gatilhos disponíveis, quem cada um matricula — e as proteções que impedem disparos em massa acidentais."
+description: "Os seis gatilhos disponíveis, quem cada um matricula — e as proteções que impedem disparos em massa acidentais."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: motor de fluxos (gatilhos e matrícula) · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · fonte: motor de fluxos (gatilhos e matrícula) · revisão: conferido contra o código em 28/09/2026 */}
 
 O gatilho é a porta de entrada do fluxo. Entender **quem entra — e quem deliberadamente não entra** — evita as duas surpresas clássicas: "por que fulano não recebeu?" e "por que 6 mil pessoas receberam de uma vez?".
 
@@ -11,29 +11,32 @@ O gatilho é a porta de entrada do fluxo. Entender **quem entra — e quem delib
 
 | Gatilho | Quem entra |
 |---|---|
-| **Novo cadastro** | Quem acabou de se cadastrar **com consentimento**: pop-up, formulário dentro do e-mail ou cadastro manual com a caixa marcada. |
-| **Lista específica** | Quem for adicionado individualmente à lista escolhida. |
-| **Segmento personalizado** | Quem **entrar** no segmento a partir da ativação do fluxo. |
-| **Carrinho abandonado** | Quem deixou itens no carrinho e ficou inativo (exige o pixel). |
-| **Pós-compra** | Quem teve pedido pago, via integração da loja. |
+| **Novo Cadastro** | Quem acabou de se cadastrar **com consentimento**: pop-up, formulário dentro do e-mail, cadastro manual com a caixa marcada ou pela API. Em **De onde veio** você restringe quais origens entram (nenhuma marcada = todas). |
+| **Lista Específica** | Quem for adicionado individualmente à lista escolhida. |
+| **Segmento Personalizado** | Quem **entrar** no segmento a partir da ativação do fluxo. |
+| **Carrinho Abandonado** | Quem foi ao carrinho, não comprou e ficou sem atividade pelo tempo escolhido em **Esperar sem atividade** (15 minutos por padrão, até 24 horas). Exige o pixel. |
+| **Pós-Compra** | Quem teve pedido pago, via integração da loja. |
+| **Data / Aniversário** | Quem faz aniversário de uma data do contato — veja *Um caso especial: aniversário*, abaixo. |
+
+A gaveta **Novo fluxo** mostra os cinco primeiros; **Data / Aniversário** se escolhe no bloco de gatilho, dentro do editor.
 
 ## As proteções deliberadas
 
 Três comportamentos que parecem bug na primeira vez, mas são proteção:
 
-- **Importação nunca matricula.** Subir uma base de 6 mil contatos com um fluxo de boas-vindas ativo *não* dispara 6 mil boas-vindas — importado não é cadastro novo. O mesmo vale para adição **em massa** a uma lista com gatilho: só o vínculo individual matricula.
+- **Importação nunca matricula sozinha.** Subir uma base de 6 mil contatos com um fluxo de boas-vindas ativo *não* dispara 6 mil boas-vindas — importado não é cadastro novo. O mesmo vale para adição **em massa** a uma lista com gatilho: só o vínculo individual matricula. A única porta é explícita: no passo **Enviar boas-vindas para estes contatos?** da importação, você pode pôr os contatos **novos** daquele lote numa régua de segmento — com opt-in de e-mail marketing declarado na importação, e só entra quem se encaixar no segmento (as réguas de novo cadastro e de lista ainda aparecem como **Em breve** ali).
 - **Segmento começa do zero.** Ao ativar um fluxo com gatilho de segmento, quem **já estava** no segmento não entra — só quem entrar dali em diante. Senão, ativar o fluxo seria um disparo em massa disfarçado.
-- **Carrinho tem intervalo de repetição.** O mesmo cliente que abandona carrinho toda semana não recebe a régua toda semana: há um intervalo padrão de 7 dias entre matrículas (ajustável por fluxo).
+- **Carrinho tem intervalo de repetição.** O mesmo cliente que abandona carrinho toda semana não recebe a régua toda semana: há um intervalo de 7 dias entre matrículas. No gatilho de segmento o intervalo é de 30 dias; em **Data / Aniversário**, uma vez por ano.
 
 Se você **quer** enviar para uma base existente, o instrumento certo é uma campanha, não um fluxo.
 
 ## Como o contato sai
 
-Além de concluir os passos, o contato sai antecipadamente ao atingir o **objetivo** do fluxo — abrir, clicar ou comprar, conforme a configuração (as boas-vindas usam a primeira compra). Sai também quem se descadastra ou perde o consentimento do canal. O funil vivo mostra os dois destinos separados: *saíram ao converter* e *concluíram sem converter*.
+Além de concluir os passos, o contato sai antecipadamente quando **compra** — esse é o objetivo de saída dos fluxos. Sai também quem se descadastra ou perde o consentimento do canal. O funil vivo mostra os dois destinos separados: *saíram ao converter* e *concluíram sem converter*.
 
 ## Um caso especial: aniversário
 
-Aniversário não é um gatilho próprio — é um **segmento** sobre um [campo tipado](/pt-BR/gestao-de-dados/campos-tipados) de data, usado com o gatilho de segmento. É por isso que o tipo "data" do campo importa.
+Aniversário tem gatilho próprio: **Data / Aniversário**. Você escolhe o campo de data do contato que dispara (só campos do tipo Data aparecem — veja [campos tipados](/pt-BR/gestao-de-dados/campos-tipados)), **quando enviar** (no dia, ou 1, 3 ou 7 dias antes ou depois) e **a que horas**, no fuso da sua conta — o envio ainda respeita o horário de silêncio. Cada contato entra uma vez por ano. É por isso que o tipo "data" do campo importa.
 
 ## Artigos relacionados
 

@@ -3,6 +3,14 @@
   "theme": "mint",
   "name": "Central de Ajuda Cliqo",
   "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "appearance": {
+    "default": "light",
+    "strict": false
+  },
   "colors": {
     "primary": "#7C5CF6",
     "light": "#B794F6",
@@ -34,7 +42,9 @@
           {
             "group": "Campanhas de e-mail",
             "pages": [
+              "pt-BR/campanhas/lista-de-campanhas",
               "pt-BR/campanhas/criar-e-enviar",
+              "pt-BR/campanhas/modelos",
               "pt-BR/campanhas/audiencia",
               "pt-BR/campanhas/agendar-e-ritmo",
               "pt-BR/campanhas/pre-envio-e-teste",
@@ -55,8 +65,10 @@
               "pt-BR/gestao-de-dados/importar-contatos",
               "pt-BR/gestao-de-dados/campos-tipados",
               "pt-BR/gestao-de-dados/criar-segmentos",
+              "pt-BR/gestao-de-dados/tags",
               "pt-BR/gestao-de-dados/supressoes",
-              "pt-BR/gestao-de-dados/entenda-consentimento"
+              "pt-BR/gestao-de-dados/entenda-consentimento",
+              "pt-BR/gestao-de-dados/pedidos"
             ]
           },
           {
@@ -64,6 +76,8 @@
             "pages": [
               "pt-BR/relatorios/dashboard",
               "pt-BR/relatorios/visao-por-canal",
+              "pt-BR/relatorios/analises",
+              "pt-BR/relatorios/saude-dos-canais",
               "pt-BR/relatorios/entenda-metricas"
             ]
           },
@@ -83,6 +97,7 @@
               "pt-BR/whatsapp/opt-in",
               "pt-BR/whatsapp/modelos-de-mensagem",
               "pt-BR/whatsapp/enviar-em-massa",
+              "pt-BR/whatsapp/conversas",
               "pt-BR/whatsapp/numero-e-qualidade"
             ]
           },
@@ -90,14 +105,16 @@
             "group": "Pop-ups",
             "pages": [
               "pt-BR/popups/primeiros-passos",
-              "pt-BR/popups/criar-boas-vindas"
+              "pt-BR/popups/criar-boas-vindas",
+              "pt-BR/popups/criar-roleta"
             ]
           },
           {
             "group": "Lojas e integrações",
             "pages": [
               "pt-BR/lojas/instalar-o-pixel",
-              "pt-BR/lojas/conectar-loja-integrada"
+              "pt-BR/lojas/conectar-loja-integrada",
+              "pt-BR/lojas/conectar-shopify"
             ]
           },
           {
@@ -133,7 +150,9 @@
           {
             "group": "Email campaigns",
             "pages": [
+              "en/campanhas/lista-de-campanhas",
               "en/campanhas/criar-e-enviar",
+              "en/campanhas/modelos",
               "en/campanhas/audiencia",
               "en/campanhas/agendar-e-ritmo",
               "en/campanhas/pre-envio-e-teste",
@@ -154,8 +173,10 @@
               "en/gestao-de-dados/importar-contatos",
               "en/gestao-de-dados/campos-tipados",
               "en/gestao-de-dados/criar-segmentos",
+              "en/gestao-de-dados/tags",
               "en/gestao-de-dados/supressoes",
-              "en/gestao-de-dados/entenda-consentimento"
+              "en/gestao-de-dados/entenda-consentimento",
+              "en/gestao-de-dados/pedidos"
             ]
           },
           {
@@ -163,6 +184,8 @@
             "pages": [
               "en/relatorios/dashboard",
               "en/relatorios/visao-por-canal",
+              "en/relatorios/analises",
+              "en/relatorios/saude-dos-canais",
               "en/relatorios/entenda-metricas"
             ]
           },
@@ -182,6 +205,7 @@
               "en/whatsapp/opt-in",
               "en/whatsapp/modelos-de-mensagem",
               "en/whatsapp/enviar-em-massa",
+              "en/whatsapp/conversas",
               "en/whatsapp/numero-e-qualidade"
             ]
           },
@@ -189,14 +213,16 @@
             "group": "Pop-ups",
             "pages": [
               "en/popups/primeiros-passos",
-              "en/popups/criar-boas-vindas"
+              "en/popups/criar-boas-vindas",
+              "en/popups/criar-roleta"
             ]
           },
           {
             "group": "Stores and integrations",
             "pages": [
               "en/lojas/instalar-o-pixel",
-              "en/lojas/conectar-loja-integrada"
+              "en/lojas/conectar-loja-integrada",
+              "en/lojas/conectar-shopify"
             ]
           },
           {

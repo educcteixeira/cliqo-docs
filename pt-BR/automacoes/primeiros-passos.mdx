@@ -3,7 +3,7 @@ title: "Primeiros passos com fluxos"
 description: "Os fluxos prontos — boas-vindas, carrinho abandonado e pós-compra — e como ligá-los em poucos cliques."
 ---
 
-{/* tipo: primeiros passos · prioridade: P0 · fonte: Automações › Fluxos (modelos prontos + funil vivo) · revisão: pendente */}
+{/* tipo: primeiros passos · prioridade: P0 · fonte: Automações › Fluxos (modelos prontos + funil vivo) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## O que você vai aprender
 
@@ -15,31 +15,33 @@ Um fluxo (ou régua) trabalha sozinho: um **gatilho** coloca o contato dentro (u
 
 ## Os modelos prontos
 
-Em **Automações › Fluxos**, a galeria traz os fluxos validados, para ligar em poucos cliques e ajustar depois no canvas:
+Em **Automações › Fluxos**, a galeria **Modelos prontos** traz os fluxos validados, para ligar em poucos cliques e ajustar depois no canvas:
 
-- 👋 **Boas-vindas** — três e-mails distribuídos nos primeiros dias após o cadastro, até a primeira compra. Quem compra, sai — quem ainda não comprou segue recebendo a sequência.
-- 🛒 **Carrinho abandonado** — dispara pouco depois de o cliente sair do site com itens no carrinho (exige o pixel instalado); toque por e-mail e WhatsApp, com cupom no segundo contato.
-- ⭐ **Pós-compra** — "chegou tudo bem?" com avaliação respondida **dentro do e-mail** (exige a integração da loja ou pedidos chegando).
+- 👋 **Boas-vindas** — três e-mails: um logo após o cadastro, outro um dia depois e o terceiro dois dias depois do segundo, até a primeira compra. Quem compra, sai — quem ainda não comprou segue recebendo a sequência.
+- 🛒 **Carrinho abandonado** — dispara depois que o cliente fica sem atividade com itens no carrinho (15 minutos por padrão; exige o pixel instalado). Um dia depois do primeiro e-mail vem o segundo toque: outro e-mail para quem clicou no primeiro, WhatsApp para quem não clicou.
+- ⭐ **Pós-compra** — três e-mails a partir do pedido pago: a confirmação assim que o pedido chega à Cliqo, o "como foi sua experiência?" 7 dias depois e um "sentimos sua falta" 30 dias depois (exige a integração da loja).
 
-Cada card mostra o estado ("Usar modelo" ou "Em uso — ver fluxo"). Modelos marcados **Em breve** (abandono de navegação, queda de preço, recompra) ainda não estão disponíveis.
+Cada card mostra o estado ("Usar modelo" ou "Em uso — ver fluxo"). Modelos marcados **Em breve** (abandono de navegação, queda de preço, hora da recompra) ainda não estão disponíveis.
 
 {/* print: galeria de fluxos prontos */}
 
 ## Ativar o primeiro
 
 1. Escolha **Boas-vindas** — é o de menor pré-requisito.
-2. Revise os três e-mails (cada passo usa um template do editor — troque pelo seu se quiser).
+2. Escolha o template de cada um dos três e-mails: o passo chega marcado **Selecione um template →**, e sem template o fluxo não ativa.
 3. **Ativar fluxo.** A ativação valida tudo; se algum passo estiver incompleto (por exemplo, sem template), a tela aponta o bloco exato.
 
-Quem entra nas boas-vindas: contatos que **acabaram de se cadastrar** com consentimento (pop-up, formulário no e-mail, cadastro manual). **Base importada não entra** — importação não é cadastro novo ([entenda](/pt-BR/automacoes/gatilhos)).
+Quem entra nas boas-vindas: contatos que **acabaram de se cadastrar** com consentimento (pop-up, formulário no e-mail, cadastro manual, API). **Base importada não entra** — importação não é cadastro novo ([entenda](/pt-BR/automacoes/gatilhos)).
 
 ## Acompanhar: o funil vivo
 
-Cada fluxo ativo mostra seu funil em tempo real: quantos entraram, quantos estão **esperando agora** em cada passo, quantos receberam, abriram, clicaram — e, no fim, quem **saiu ao converter** versus quem concluiu sem converter. Fluxo pausado mostra os números congelados, marcados como tal.
+Cada fluxo ativo mostra seu funil em tempo real: quantos entraram, quantos estão **esperando agora** em cada passo, quantos foram enviados, abriram, clicaram — e, no fim, quem **saiu ao converter** versus quem concluiu sem converter. Fluxo pausado mostra os números congelados, marcados como tal.
 
 ## Pausar não é desativar
 
-**Pausar congela**: quem está dentro fica onde está e retoma do mesmo ponto quando você reativar. Um fluxo que já enviou mensagens não pode ser excluído — desative-o; o histórico dos relatórios continua íntegro.
+**Pausar congela**: quem está dentro fica onde está e retoma do mesmo ponto quando você reativar. Enquanto o fluxo está pausado, ninguém novo entra nele. Uma ressalva: se, durante a pausa, algum passo ficou vencido há mais de 24 horas, o motor não o dispara atrasado — ao reativar, o fluxo volta a pausar sozinho ([entenda](/pt-BR/automacoes/regras-do-motor)).
+
+Um fluxo que já enviou mensagens não pode ser excluído — pause-o; o histórico dos relatórios continua íntegro.
 
 ## Próximos passos
 

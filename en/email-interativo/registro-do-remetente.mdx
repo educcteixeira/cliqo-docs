@@ -3,11 +3,11 @@ title: "How to register your sender for AMP emails"
 description: "The approval process at Gmail and Yahoo — what is required, how long it takes, and how to keep the registration active."
 ---
 
-{/* tipo: como fazer / entenda · prioridade: P0 · idioma: EN · fonte: playbook AMP (registros reais aprovados) · revisão: pendente */}
+{/* tipo: como fazer / entenda · prioridade: P0 · idioma: EN · fonte: playbook AMP (registros reais aprovados) · revisão: conferido contra o código em 28/09/2026 */}
 
 ## What you'll learn
 
-Why Gmail requires a registration to render interactive emails, what it takes to get approved, and what changes after approval. **Cliqo conducts this process for you** — this article exists so you know what's happening and what to expect.
+Why Gmail requires a registration to render interactive emails, what it takes to get approved, and what changes after approval. Registration happens **with Google, outside the platform**: there's no button in Cliqo that starts it, and approval always comes from Google. This article exists so you know what's required and what to expect — to arrange your sender's registration, talk to us at [contato@cliqo.io](mailto:contato@cliqo.io).
 
 ## How registration works
 
@@ -19,7 +19,7 @@ Google only renders AMP from previously approved senders. Three rules define eve
 
 ## Before submitting
 
-What Google checks (and Cliqo verifies with you beforehand):
+What Google checks:
 
 - **Authenticated domain**: DKIM passing and aligned with the sender, SPF and DMARC configured. DMARC with a `p=none` policy **is sufficient** — you don't need to harden to quarantine/reject because of the registration.
 - **A sender with history**: an address that already sends regular volume with good reputation. A freshly created address tends to be silently refused — which is why registration comes *after* [warm-up](/en/entregabilidade/aquecimento), not before.
@@ -28,11 +28,16 @@ What Google checks (and Cliqo verifies with you beforehand):
 ## After approval
 
 - **Approval ≠ activation.** Propagation takes **up to 7 days**, and only emails sent *after* activation render interactive. Since Gmail decides at open time, an already-delivered email can start rendering interactive days later, without a resend.
-- **The registration must stay active**: first interactive campaign within 15 days of approval and at least a monthly cadence after that. A registration idle for months lapses silently — emails go back to arriving static, with no warning from Google. Cliqo monitors this cadence with you.
+- **The registration must stay active**: first interactive campaign within 15 days of approval and at least a monthly cadence after that. A registration idle for months lapses silently — emails go back to arriving static, with no warning from Google.
 
 ## How to follow it in Cliqo
 
-Registration status is **per sender address** and shows in the platform: when building a campaign, if the chosen sender isn't registered yet, the screen warns you — *"This address isn't registered for AMP sending. The interactive part will be ignored by Gmail."* — with a shortcut to start the registration. The email goes out normally in the HTML version in the meantime.
+Cliqo **doesn't query Google** — it has no way of knowing whether your sender was approved. What the platform shows, **per sender address**, is what it has on record: whether the address is marked as AMP-enabled. When building a campaign with an interactive block:
+
+- In the sender address list, addresses marked as enabled show a **⚡**. If you pick an address from the list that isn't marked, the screen warns you: *"This address isn't registered for AMP sending. The interactive part will be ignored by Gmail."*
+- In the **Review** step, the campaign states what can be said about the sender: *"Marked as AMP-enabled — Google is who approves it"*, *"This sender isn't marked as AMP-enabled"* or, when the address isn't in the sender list, *"We can't tell from here whether this sender is cleared for AMP"*.
+
+In every case the email goes out normally: if Gmail doesn't render the interactive part, the recipient gets the HTML version.
 
 ## FAQ
 

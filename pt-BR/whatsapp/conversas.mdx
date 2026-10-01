@@ -1,0 +1,120 @@
+---
+title: "Conversas: responder quem falou com você no WhatsApp"
+description: "A caixa de entrada da Cliqo: quem respondeu ou te chamou no WhatsApp, a janela de 24 horas da Meta e como responder, reenviar ou começar uma conversa."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Inbox.tsx, apps/web/src/routes/inbox-resend.ts, apps/web/src/lib/conversas.ts, apps/web/src/lib/use-pendentes.ts, apps/web/src/components/app-shell.tsx, apps/web/src/lib/o-que-a-tela-preenche.ts, api/whatsapp/send.js, api/lib/whatsapp-send.js, api/conversations/[id]/read.js · revisão: conferido contra o código em 28/09/2026 */}
+
+**Conversas** é onde você atende, uma a uma, as pessoas que falaram com a sua marca no WhatsApp. Ela fica no menu lateral, com o nome **Conversas**.
+
+Hoje a tela mostra **só WhatsApp**. E-mail não chega aqui.
+
+{/* print: tela Conversas com a fila "Precisa de resposta" à esquerda e uma conversa aberta à direita, mostrando o selo "Janela 24h" */}
+
+## Quem aparece aqui
+
+A regra é simples: **envio de campanha não abre conversa. Resposta abre.**
+
+- Quem **respondeu** uma campanha ou um fluxo, ou **te chamou** por conta própria, aparece aqui.
+- Quem só **recebeu** a campanha não aparece. O resultado do envio fica no acompanhamento da campanha.
+- Quem **você** abordou pelo botão **Nova conversa** também aparece, com a marca **Você começou · sem resposta**, até a pessoa responder.
+
+Se você disparou uma campanha de WhatsApp nas últimas 48 horas, um cartão no topo da lista resume quantas mensagens saíram e quantas pessoas responderam. **Ver acompanhamento completo →** leva ao acompanhamento das campanhas de WhatsApp.
+
+## As três visões
+
+| Visão | O que mostra |
+|---|---|
+| **Precisa de resposta** | Conversas em que a última mensagem é do cliente e ninguém respondeu ainda. É a fila padrão. |
+| **Todas** | Tudo, em grupos: **Precisam de você**, **Precisam de você · janela fechada**, **Aguardando**, **Resolvidas** e **Descadastradas**. |
+| **Pediram para sair** | Quem respondeu SAIR (ou PARAR, STOP, CANCELAR, DESCADASTRAR). |
+
+A fila **Precisa de resposta** vem ordenada por prazo, não pela mensagem mais nova: primeiro a conversa cuja janela fecha antes. Assim você não perde quem está quase saindo da janela.
+
+Quando você responde, a conversa sai da fila sozinha. Não precisa marcar nada.
+
+## O número no menu
+
+O número ao lado de **Conversas** conta as conversas de WhatsApp em que o cliente falou por último **e a janela de 24 horas ainda está aberta**. É o que dá para responder agora com texto livre, sem custo de template.
+
+Por isso ele pode ser **menor** que o número da visão **Precisa de resposta**: a visão também inclui quem escreveu há mais de 24 horas. Essa pessoa continua esperando, mas responder a ela já exige modelo aprovado.
+
+O número se atualiza sozinho mais ou menos a cada minuto. A bolinha de mensagens não lidas de cada conversa zera quando você abre a conversa.
+
+## A janela de 24 horas
+
+É uma regra da Meta, não da Cliqo. A janela abre quando o **cliente te manda uma mensagem** e fica aberta por **24 horas contadas da última mensagem dele**. A sua resposta não reabre a janela.
+
+| Situação | O que você pode enviar |
+|---|---|
+| Janela aberta | Texto livre, sem custo de modelo. Se preferir, **Enviar um template**. |
+| Janela fechada | Só um modelo aprovado pela Meta. |
+
+O selo no topo da conversa mostra o tempo que resta, por exemplo **Janela 24h · 3h 20min**. Ele fica âmbar quando falta menos de 1 hora e muda para **Janela 24h fechada** quando o prazo acaba. Na lista, um reloginho mostra as horas restantes.
+
+A Cliqo confere a janela também na hora de enviar: texto livre fora da janela é recusado, mesmo que a tela esteja desatualizada.
+
+## Responder
+
+<Steps>
+  <Step title="Abra a conversa">
+    Toque na conversa na lista. No celular, a conversa ocupa a tela inteira.
+  </Step>
+  <Step title="Escreva e envie">
+    Escreva na caixa de baixo. **Enter** envia e **Shift+Enter** pula linha. O limite é de 4.000 caracteres.
+  </Step>
+  <Step title="Acompanhe a entrega">
+    Os tiques ao lado da hora mostram se a mensagem foi enviada, entregue ou lida. Um ícone vermelho indica falha.
+  </Step>
+</Steps>
+
+Para responder, você precisa do papel **Editor** ou acima na conta. Quem é **Leitor** vê as conversas, mas não envia.
+
+## Quando a janela está fechada
+
+A caixa de texto dá lugar a uma lista com o aviso de que a pessoa precisa ter falado com você nas últimas 24 horas.
+
+1. Em **Escolha um template aprovado**, toque no modelo.
+2. Preencha todas as variáveis. A prévia mostra como a mensagem vai ficar.
+3. Toque em **Enviar template**. Para trocar, use **Escolher outro**.
+
+Alguns modelos aparecem apagados, com o motivo. Por exemplo, **Botão de link rastreado — use em uma campanha**: esse tipo de modelo só funciona numa campanha. Se nenhum modelo estiver aprovado, crie um em **Modelos**.
+
+Quando o cliente responder o modelo, a janela abre de novo e você volta ao texto livre.
+
+## Reenviar uma mensagem que falhou
+
+Numa mensagem de texto sua que falhou, aparece **Reenviar**. Ele envia uma mensagem nova com o mesmo texto. A que falhou continua marcada como falha.
+
+- Com a janela fechada, **Reenviar** fica desativado.
+- Se o mesmo texto já saiu com sucesso depois da falha, aparece **Já reenviada** no lugar do botão. Isso evita mandar a mesma mensagem duas vezes.
+
+## Resolver uma conversa sem responder
+
+Nem toda mensagem pede resposta. **Resolver**, no topo da conversa, tira a conversa da fila. Ela continua em **Todas**, no grupo **Resolvidas**. **Reabrir** traz a conversa de volta para a fila.
+
+<Note>
+Se o cliente escrever de novo numa conversa resolvida, ela continua em **Resolvidas**. Confira esse grupo de vez em quando e toque em **Reabrir** para devolver a conversa à fila.
+</Note>
+
+## Quem pediu para sair
+
+Quando alguém responde só a palavra SAIR (ou uma das outras da tabela acima), a conversa vai para **Pediram para sair**, some da fila e a caixa de texto trava com um aviso de que o contato se descadastrou. Essa visão continua na tela mesmo vazia, porque serve para você conferir quem saiu antes de disparar de novo.
+
+## Começar uma conversa
+
+**Nova conversa**, no topo da tela, abre o painel **Iniciar conversa**.
+
+1. Digite o número com país e DDD (ex.: 5511999998888). Se esquecer o 55, a Cliqo coloca.
+2. Em **Escolha um modelo aprovado…**, escolha o modelo e preencha as variáveis.
+3. Toque em **Enviar e abrir**.
+
+Só modelo aprovado funciona aqui, porque a pessoa ainda não abriu a janela. A Cliqo recusa o envio para quem pediu para sair.
+
+Você também chega a uma conversa pelo cartão do contato em **Público › Contatos**: o botão **WhatsApp** abre a conversa daquela pessoa, se ela já existir.
+
+## Próximos passos
+
+- [Conectar seu número de WhatsApp](/pt-BR/whatsapp/conectar-seu-numero)
+- [Criar e aprovar um modelo de mensagem](/pt-BR/whatsapp/modelos-de-mensagem)
+- [Opt-in e consentimento para WhatsApp](/pt-BR/whatsapp/opt-in)

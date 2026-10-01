@@ -1,9 +1,9 @@
 ---
 title: "How to connect your WhatsApp number"
-description: "Connecting through the official Meta API: prerequisites, the guided signup and business verification."
+description: "Connecting through the official Meta API: prerequisites, the connection form, the webhook and business verification."
 ---
 
-{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: modelo Meta client-direct (ADRs) — passos do lado da Meta NÃO-VERIFICÁVEIS no código; VALIDAR com o fluxo real de onboarding · revisão: pendente */}
+{/* tipo: como fazer · prioridade: P0 · idioma: EN · fonte: tela Configurações › WhatsApp (WhatsAppSettingsPanel.tsx + locales whatsappSettings) e modelo Meta client-direct (ADRs) — o Passo 1 foi conferido contra a tela em 27/09 (#1956) e tem guarda (artigo-conexao-whatsapp.guard.test.ts): no Step 1, NEGRITO = rótulo da tela em EN; passos do lado da Meta (menus do App Dashboard e do Business Manager, passos 2-4) seguem NÃO-VERIFICÁVEIS no código · revisão: passo 1 conferido contra o código; lado da Meta pendente */}
 
 ## What you will learn
 
@@ -14,10 +14,24 @@ How to connect your company's WhatsApp Business account to Cliqo, through the of
 - **Administrator access** to the company's Meta Business Manager — if the company doesn't have one yet, creating it is part of the process.
 - **A phone number for the channel** — landline or mobile, able to receive a verification call or SMS. Important: a number that is already active in the WhatsApp app (regular or Business) must be unlinked before it can become an API number.
 - **Company details** — legal name, address and website, for Meta's verification.
+- **An app of your own on Meta** (in the App Dashboard), with WhatsApp added — that is where the App Secret and the Phone number ID that Cliqo asks for in Step 1 come from.
 
-## Step 1 · Start the connection with Cliqo
+## Step 1 · Connect the number in Cliqo
 
-The connection is **conducted together with the Cliqo team** (reach us via Settings › WhatsApp or through support): in Meta's signup you log in with your own account and authorize — and the WABA is created (or connected, if it already exists) **in your portfolio**, not in Cliqo's. This guidance exists because the steps on Meta's side change frequently, and a mistake here (a stuck number, a declined name) costs days.
+You make the connection yourself, in Settings › WhatsApp, with the credentials of *your own* Meta app — the account and the number stay in your portfolio, not in Cliqo's. If you prefer, the Cliqo team can do the connection together with you: reach us through support.
+
+Fill in the four fields of the form:
+
+- **Access token** — the system user token, generated in Business Manager, under System users. Use a permanent token: it does not expire.
+- **App Secret** — the secret of your Meta app. This is what signs the webhook: without the right App Secret, Meta rejects incoming messages.
+- **Phone number ID** — digits only; it is in App Dashboard → WhatsApp → API Setup.
+- **Account ID (WABA)** — digits only; it is the business account that holds the number.
+
+Then click **Connect Twilio**. The button still carries the name of the old transport, but it is the one that saves the Meta connection. Before saving, Cliqo checks with Meta that the token reaches that Phone number ID — if it doesn't, nothing is saved and the screen shows the error.
+
+Once the connection is saved, the **One step left, in the Meta dashboard** block appears, with two values to copy: the **Webhook URL** and the **Verify token**. In App Dashboard → WhatsApp → Configuration → Webhook, paste both and subscribe to the `messages` field. Without the webhook, Conversations does not receive your customers' messages.
+
+The paths inside Meta's dashboard are the ones Cliqo's own screen points to. Meta changes these menus often, and we cannot check them from here — if a name doesn't match, reach out to us.
 
 {/* print: WhatsApp screen in Settings */}
 
@@ -31,7 +45,7 @@ In Meta's WhatsApp Manager, register the **company's payment method**. That card
 
 ## Step 4 · Verify the company
 
-**Business Verification** confirms the legal name with documents. It is what unlocks the higher sending limits — an unverified number stays on the starting tier of recipients per day. The status shows in [Number & quality](/en/whatsapp/numero-e-qualidade).
+**Business Verification** confirms the legal name with documents. It is what unlocks the higher sending limits — an unverified number stays on the starting tier of recipients per day.
 
 ## Result
 

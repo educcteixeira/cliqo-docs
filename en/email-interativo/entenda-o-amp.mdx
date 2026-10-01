@@ -3,7 +3,7 @@ title: "Understand AMP for email"
 description: "What interactive email is, where it renders, how the fallback works, and why no one receives a broken email."
 ---
 
-{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: compiler + playbook AMP · revisão: pendente */}
+{/* tipo: entenda · prioridade: P0 · idioma: EN · fonte: compiler + playbook AMP · revisão: conferido contra o código em 28/09/2026 */}
 
 AMP for Email is the technology, created by Google, that lets an email behave like an application: buttons that respond, carousels that slide, forms that submit — all inside the inbox, without opening a new tab. It's the foundation of Cliqo.
 
@@ -25,7 +25,7 @@ Interactive coverage is never 100% even among Gmail users — corporate accounts
 
 ## The three versions of every send
 
-Every Cliqo send goes out with three parts, generated automatically:
+Every send with an interactive block goes out with three parts, generated automatically:
 
 | Part | Who sees it |
 |---|---|
@@ -33,7 +33,9 @@ Every Cliqo send goes out with three parts, generated automatically:
 | **Interactive (AMP)** | Gmail and Yahoo, with a registered sender |
 | **Responsive HTML** | Everyone else (Outlook, Apple Mail…) |
 
-Before any send, the interactive part goes through Google's official validator in the correct email dialect. If anything is off-spec, Cliqo sends the safety version (HTML) and flags it in the report — it never sends invalid AMP.
+A template without interactive blocks goes out with only the plain text and the HTML — there's no interactive part to send.
+
+Before every send, the interactive part goes through Google's official validator in the correct email dialect. If anything is off-spec, Cliqo sends the safety version (HTML) and flags it in the report — it never sends invalid AMP.
 
 ## What you can do inside the email
 

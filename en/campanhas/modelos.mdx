@@ -1,0 +1,106 @@
+---
+title: "Templates: the email gallery and your own templates"
+description: "Where the interactive starting points and your saved templates live, and how to turn a template into a campaign."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: routes/Templates.tsx, builder-studio/components/TopBar.tsx, routes/Start.tsx, components/templates/mover-para-lixeira.tsx, lib/starters-interativos.ts, locales/{pt-BR,en}/templates.json · revisão: conferido contra o código em 28/09/2026 · Usar este modelo, Salvar como modelo e a rotina que não reescreve em 30/09/2026 (#3301: Templates.tsx needsRegen e ?duplicate=, TopBar.tsx onSalvarComoModelo) */}
+
+**Templates** is the screen where you pick the starting point for an email. At the top is the **gallery** of ready-made interactive templates, with your brand's logo and colors. Below are **your templates**, the ones you created or renamed in the editor.
+
+To open it, click **Templates** in the side menu.
+
+{/* print: Templates screen on the Email tab, with the gallery and the My templates section */}
+
+## The screen's tabs
+
+- **Email** — the gallery and your email templates. This article covers it.
+- **WhatsApp (Meta)** — WhatsApp message templates, which Meta approves before you can send. They're explained in [How to create and get a message template approved (Meta)](/en/whatsapp/modelos-de-mensagem). Accounts still on the older WhatsApp provider see a **WhatsApp** tab (instead of, or alongside, the Meta tab).
+
+## The gallery
+
+The first time you open the screen, you'll see **"Initializing your template gallery…"**: Cliqo copies the gallery templates into your brand, already with your logo and colors. If the account's colors haven't been set yet, the screen shows the **Set up your brand** notice with a **Set up →** shortcut to Settings › Brand.
+
+To find a template, use the categories (**All**, **E-commerce**, **Payment**, **Engagement**, **Survey**, **Welcome**; **Travel** has no templates today) or the **Search templates…** box.
+
+| Category | Examples |
+|---|---|
+| E-commerce | Interactive Catalog, Abandoned Cart, Newsletter / Highlights |
+| Engagement | Discount Wheel, Digital Scratch Card, Recommendation Quiz, Photo Quiz |
+| Survey | NPS Survey, Satisfaction Survey, Review Collection |
+| Welcome | Confetti Welcome, Welcome Wheel |
+| Payment | 1-Click Pix, Multi Checkout (Pix+Card+Boleto) |
+
+What each card shows:
+
+- **A preview** of the email and what it does. On a computer, hovering shows the **"Customers can:"** list.
+- **⚡ Interactive in the inbox** — the customer answers, picks or buys without leaving the inbox. Only templates that really have interaction get this badge (the black **AMP** badge shows on every card and doesn't tell you that). **Cashback / Giftback** and **Find the Trophy** don't: they're announcements with a button or link.
+- **✅ New** on recently launched templates; the rest show as **Legacy**.
+- **Test** — sends the template to one or more of your email addresses (see below).
+- **Edit** — opens the template in the editor.
+
+While the gallery is being prepared, the card's button shows **Coming soon**. Wait a few seconds or refresh the page.
+
+<Note>
+**Payment** templates charge through the account's payment provider (Settings › Payments). Without an active provider, the customer sees "Pagamento indisponível no momento" (payment unavailable at the moment) when trying to pay.
+</Note>
+
+## Send a test
+
+In **Test**, pick a test list or type the address in **Recipient email** and click **Send test**. The test goes out from the active brand's default sender. Open it in Gmail on the web to see the interactive version; other email apps show the plain version.
+
+## Use a template to start a campaign
+
+There are two paths. Both lead to the same editor.
+
+**From the Templates screen**
+
+<Steps>
+  <Step title="Open the template">
+    In **Templates**, click **Edit** on the card.
+  </Step>
+  <Step title="Check the name">
+    At the top of the editor, the **Template name** field already has the template's name. Change it if you want to keep your version separate from the gallery (see My templates, below). Without a name, the editor won't save.
+  </Step>
+  <Step title="Go to sending">
+    Click **Configure sending**. Cliqo saves the template and opens the campaign setup with it already selected. From there, follow [How to create and send a campaign](/en/campanhas/criar-e-enviar).
+  </Step>
+</Steps>
+
+**From the Campaigns screen**
+
+Click **New campaign** › **Email campaign**. On the **"How do you want to create the email?"** screen, choose **Interactive templates**. The gallery opens in picking mode (**"Choose an interactive template"**); click **Use this template →** on the one you want. This path opens a **copy** of the template: whatever you change stays in the campaign's email, and the template stays as it was.
+
+<Tip>
+In the editor, **Save** keeps the email and creates a draft in Campaigns (you'll see "Draft created in Campaigns."). To keep a copy in Templates and use it in other campaigns, click **Save as template**, give it a name and click **Save template**. The open email and its campaign don't change. On screens narrower than 1536 px (most laptops), **Save as template** shows only as an icon, next to **Save**; on hover it says *"Keep a copy in Templates, to reuse"*.
+</Tip>
+
+## My templates
+
+Below the gallery is the **My templates** section: *"The ones you created or renamed. They open straight in the editor."* Each card shows the preview, the name, the subject (or "no subject") and the creation date. Click the card to open it in the editor.
+
+The gallery cards are Cliqo's base copy in your brand. Cliqo does not rewrite a template that is already ready in your account, even if you changed it. The **"Templates updated!"** notice shows when the gallery gets a template that wasn't ready in your account yet. To keep your own version apart from the gallery, **change its name** in the editor and save: the template moves to My templates and the gallery gets the base copy back. Or use **Save as template**, which creates the copy with the name you choose.
+
+### Remove a template from the list
+
+On a My templates card, click the trash icon (on a computer it shows when you hover) and confirm with **Move to trash**. Nothing is deleted right away: the template stays recoverable in **Trash**, in your avatar menu.
+
+<Note>
+A template in use in a campaign (drafts included) or an automation can't go to the trash. The screen warns *"Can't move it: this template is in use in N place(s)"*. Swap the template there first. Keep in mind that a template saved with the editor's **Save** is usually in the draft it created.
+</Note>
+
+## Each brand has its own templates
+
+If your account has more than one brand, everything on this screen belongs to the **active brand** in the top-bar selector:
+
+- Each brand's gallery is its own copy, with that brand's logo and colors.
+- **My templates** shows only that brand's templates. Switch brands and the list changes.
+- A template you create in the editor is born in the active brand.
+- In the campaign setup, the template picker also lists only the active brand's templates.
+
+That way, one brand's email never goes out looking like another's. More on brands in [Understand accounts, brands, and members](/en/primeiros-passos/contas-marcas-membros).
+
+## Next steps
+
+- [How to create and send a campaign](/en/campanhas/criar-e-enviar)
+- [Understand AMP for email](/en/email-interativo/entenda-o-amp)
+- [How to create and get a message template approved (Meta)](/en/whatsapp/modelos-de-mensagem)
