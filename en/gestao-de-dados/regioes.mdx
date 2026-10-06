@@ -1,0 +1,107 @@
+---
+title: "Regions: where you sell and who you can reach there"
+description: "The map of states and the list of cities on the Regions screen: what each number counts, why some places show no value, and how to build a segment from a city or a state."
+---
+
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, locales regioes.json e contacts.json · revisão: conferido contra o código em 06/10/2026 */}
+
+The **Regions** screen shows where your sales come from, by state and by city, and how many of those people you can reach by email and by WhatsApp. Use it to decide where a local campaign, a shipping offer or a single-city segment is worth it.
+
+To open it: in the side menu, **Audience › Regions**.
+
+{/* print: Regions screen on a computer, with the map of states on the left and the list of cities on the right */}
+
+## The three controls
+
+At the top of the screen:
+
+- **Period**: **7 d**, **30 d** or **90 d**. It opens on 30 days and always ends today.
+- **Metric**: **Revenue**, **Orders** or **Contacts**. It opens on Revenue.
+- **Layer**: the map colors the **States**. The **Bubbles** layer is marked **soon**.
+
+Right below, a strip says how much of the total has a known address, for example "**82%** of revenue with an address". That is the share of your sales Cliqo could locate. What is left out are orders with no delivery address, or with an address Cliqo did not recognize.
+
+## The map
+
+On a computer, the map of states sits on the left and the list on the right.
+
+- **The darker the state, the higher the value** of the chosen metric. There are four shades, comparing the states with each other.
+- An even lighter shade marks a state that **has sales but shows no number** (the reason is in **Why some places show no number**, further down).
+- A gray state has no data for the chosen metric.
+- **Click a state** and the list switches to the **States** tab, with that state's row highlighted.
+
+On a phone, the list comes first. Tap **Show on map** to open the map.
+
+{/* print: Regions screen on a phone, with the Show on map button above the list */}
+
+<Note>
+The base map comes from Google. The colors and numbers are drawn in your browser: Cliqo does not send your sales data or your customers' data to Google.
+</Note>
+
+If the map does not open, the screen says **The map didn't load right now. The list has the same numbers.** Nothing is lost: carry on with the list.
+
+## The list
+
+Two tabs: **Cities** (the one that opens) and **States**. Places are sorted from largest to smallest by the chosen metric.
+
+Each row shows:
+
+- the name of the city (with the state abbreviation) or of the state;
+- the value of the metric in the period;
+- **buyers**: how many different people bought with delivery there;
+- **reachable**: how many of them you can contact by **email** and by **WhatsApp**;
+- the **Build segment** button.
+
+With the **Contacts** metric, the row counts **contacts** instead of buyers.
+
+## Build a segment from a place
+
+**Build segment** opens the segment builder with the **Bought with delivery to** condition already filled in: the city or state of that row, **in the last N days**, using the same period shown on the screen. The segment counts the same people the row shows as buyers.
+
+The button appears on the **Revenue** and **Orders** metrics. On **Contacts** it does not, because the segment is built from orders, not from the contact record.
+
+After saving, use the segment as the audience of a campaign. More in [How to create segments](/en/gestao-de-dados/criar-segmentos).
+
+## How Cliqo counts
+
+| Number | What goes in |
+|---|---|
+| **Revenue** and **Orders** | Orders from your connected store, by **delivery address**, created in the period. Paid orders and Pix payments still within their deadline count. |
+| **Buyers** | People with a **paid** order in the period, delivered to that place. |
+| **Contacts** | Where each contact is: by the delivery address of their most recent order; with no order, by the **Cidade** (city) and **Estado** (state) fields of the contact record. It does not depend on the period. |
+| **Reachable by email** | Active contact, not on the suppression list. |
+| **Reachable by WhatsApp** | The same, plus marketing consent on WhatsApp. |
+
+Three points that explain differences:
+
+- **A sale seen only by the pixel does not count.** The pixel carries no address. Revenue and Orders by region depend on orders from a connected store, with a delivery address.
+- **Revenue and buyers follow slightly different rules.** A pending Pix adds to revenue, but the person only becomes a buyer when the order is paid. Revenue follows the same rule as the Home screen; buyers follow the same rule as the segment.
+- **The numbers belong to the active brand.** In an account with more than one brand, switch brands to see the other one.
+
+## Why some places show no number
+
+To protect your customers, **a place with fewer than 5 buyers shows no number**. With so few people, the value would reveal how much one specific person spent.
+
+- On the **States** tab and on the map, the state appears as **has sales, no number**.
+- On the **Cities** tab, those cities are added up into a single row at the end: **Other cities (N)** and their total. If even together they do not reach 5 buyers, the row says **fewer than 5 buyers each**.
+
+These places have no **Build segment** button.
+
+## The "Where you sell" card on the Home screen
+
+The **Home** screen has the **Where you sell** card, with the five cities with the highest revenue in the period chosen there. Each city shows its revenue, the reachable people and the **Build segment** button. **See Regions** opens the full screen.
+
+On the card, **Build segment** only appears when the Home screen's period ends today.
+
+## When the screen does not show the places
+
+- **Import your contacts' city or ZIP code to see where you sell.** It appears when less than 30% of the total has a known address: with so little, the map would mislead. The most complete path is to connect your store, in **Settings → Integrations**, because orders already carry the delivery address. For the **Contacts** metric, you can also [import your contacts](/en/gestao-de-dados/importar-contatos) with columns named **Cidade** and **Estado** (those exact names; the state can be the abbreviation or the full name). A ZIP code alone, with no city and state, does not place the contact on the map yet.
+- **No sales recorded in this window.** No store order arrived in the period. A sale seen only by the pixel does not count: regions come from the orders of your connected store, which carry the delivery address. Check the integration in **Settings → Integrations** or try **90 d**.
+- **No sales with an address in this window.** There is no place to show in the chosen period.
+- **We couldn't read the regions right now. It's a read failure, not a lack of sales.** Use **Try again**.
+
+## Next steps
+
+- [How to create segments](/en/gestao-de-dados/criar-segmentos)
+- [Orders: where they come from and what each column shows](/en/gestao-de-dados/pedidos)
+- [Understand the Home screen](/en/relatorios/dashboard)

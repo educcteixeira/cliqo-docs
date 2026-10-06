@@ -3,7 +3,7 @@ title: "A lista de Campanhas"
 description: "Onde ficam todas as suas campanhas de e-mail e de WhatsApp: abas, busca, colunas, o menu ⋮ e o que fazer com uma campanha agendada."
 ---
 
-{/* tipo: referência · prioridade: P1 · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) */}
+{/* tipo: referência · prioridade: P1 · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) · agendada de WhatsApp editável em 01/10/2026 (lib/agendada-editavel.ts, routes/MensagensWhatsapp.tsx) */}
 
 A tela **Campanhas** mostra todos os seus disparos em massa, de e-mail e de WhatsApp, num lugar só. Daqui você acha uma campanha, vê como ela foi e começa uma nova.
 
@@ -96,6 +96,8 @@ Na aba **Rascunho**, a lista muda de formato e não mostra números. As colunas 
 
 Se o envio de uma campanha agendada foi recusado, ela volta para rascunho com o aviso **Não saiu:** e o motivo (por exemplo, *ninguém na audiência pode receber*). Corrija e agende ou envie de novo.
 
+Uma marca sem domínio próprio verificado não envia e-mail: a campanha não pode ser testada nem enviada, e uma agendada volta para rascunho com esse motivo. Configure o domínio em **Configurações → Domínio** ([Como configurar o DNS](/pt-BR/entregabilidade/configurar-dns)).
+
 ## O menu ⋮
 
 O menu **⋮** no fim de cada linha muda conforme a campanha:
@@ -103,8 +105,8 @@ O menu **⋮** no fim de cada linha muda conforme a campanha:
 | Campanha | Opções |
 |---|---|
 | Rascunho | **Editar** · **Duplicar** · **Excluir** |
-| Agendada de e-mail, até 2 minutos antes da hora | **Ver relatório** · **Editar** · **Duplicar** · **Excluir** |
-| Agendada de WhatsApp, enviando, enviada ou com falha | **Ver relatório** · **Duplicar** · **Excluir** |
+| Agendada (e-mail ou WhatsApp), até 2 minutos antes da hora | **Ver relatório** · **Editar** · **Duplicar** · **Excluir** |
+| Enviando, enviada ou com falha | **Ver relatório** · **Duplicar** · **Excluir** |
 
 - **Duplicar** cria uma cópia da campanha em **Rascunho**, no mesmo canal, com o mesmo conteúdo, a mesma audiência e as mesmas tags. O nome ganha **(cópia)** no fim. A cópia não leva a data do agendamento. Numa campanha de WhatsApp, ela leva o modelo de mensagem, as variáveis e o link do botão. Se você ligou **Ignorar o descanso neste envio** na original, a cópia volta a seguir o descanso da conta.
 - **Excluir** pede confirmação e tira a campanha da lista.
@@ -126,7 +128,7 @@ Numa campanha de **e-mail** agendada, **⋮ › Editar** abre a montagem com o a
 A edição vale até **2 minutos antes** da hora marcada. Depois disso a campanha pode já estar saindo: o **Editar** some do menu, e uma edição que já estava aberta não é gravada (a tela avisa). Para impedir o envio nesse ponto, use **⋮ › Excluir** antes da hora. Campanha excluída não é enviada.
 </Warning>
 
-Numa campanha de WhatsApp agendada, exclua e crie outra em **Nova campanha › Campanha de WhatsApp**.
+Numa campanha de **WhatsApp** agendada, **⋮ › Editar** abre o passo a passo de WhatsApp com o agendamento carregado e uma faixa no topo com a data e a hora. Você pode mudar o modelo, as variáveis, o público ou a hora e clicar em **Salvar rascunho**: a campanha segue agendada, com o que você mudou. Para tirar o agendamento, clique em **Tirar o agendamento**, na faixa: a campanha volta para **Rascunho** e não sai no horário. Os mesmos **2 minutos** do aviso acima valem aqui.
 
 Quem é dono ou administrador da conta pode restaurar uma campanha excluída em **Lixeira**, no menu da sua conta (o círculo com suas iniciais). Ela volta exatamente como estava. Uma campanha agendada volta agendada. Se a hora marcada já passou, ela entra na fila de envio.
 

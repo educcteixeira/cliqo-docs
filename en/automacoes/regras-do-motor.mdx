@@ -1,13 +1,13 @@
 ---
 title: "Understand the engine's sending rules"
-description: "Quiet hours, the message budget and anti-collision — the rules that apply to every flow, and why."
+description: "Quiet hours and the daily message cap — the rules that apply to every flow, and why."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · idioma: EN · revisão: conferido contra o código em 28/09/2026 */}
+{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · idioma: EN · revisão: conferido contra o código em 01/10/2026 */}
 
 Before any flow message goes out, Cliqo's engine asks one last question: *should this contact receive this, now?* The rules below apply to **all** flows, automatically — they exist to protect the contact from message overload and your brand from burning out its own base.
 
-Quiet hours and the budget have a default that each flow can adjust under **Sending limits**, in the trigger panel inside the editor. The same block holds **Enter once per lifetime**: anyone who has already been through the flow doesn't enter again.
+Quiet hours and the daily cap have a default that each flow can adjust under **Sending limits**, in the trigger panel inside the editor. The same block holds **Enter once per lifetime**: anyone who has already been through the flow doesn't enter again.
 
 ## Quiet hours
 
@@ -15,23 +15,21 @@ By default, marketing messages **do not go out between 9 pm and 8 am**, in your 
 
 The exception is the first message of a **New Signup** flow that goes out immediately: someone who signs up at 11 pm gets the welcome right away, because they have the store open. The following steps of the same flow respect quiet hours.
 
-## Message budget
+## Daily cap, per channel
 
-By default, a flow step **does not go out if the contact has already received 3 marketing messages in the last 7 days** — campaigns and flows combined. It's the brake against the classic scenario: someone is in the welcome flow, enters the abandoned cart flow, and still gets the week's campaign. Under **Weekly cap** you choose another cap for the flow (1, 2, 3, 5, 8 or 10).
+By default, a marketing flow step **waits until the next day if the contact has already received 5 marketing messages today on that channel** — campaigns and flows combined. Email and WhatsApp count separately: an email doesn't hold back a WhatsApp message, and vice versa. "Today" is in your account's time zone. Under **Daily cap, per channel** you choose another cap for the flow (1, 2, 3, 5, 8 or 10).
 
-The cap applies to flow steps: campaigns count toward it, but are not blocked by it. And the step that hits the cap **does not wait** — it is skipped, and the contact moves on to the next step.
+The step that hits the cap **is not skipped**: it waits for the next day and goes out (respecting quiet hours). The cap applies to flow steps: campaigns count toward it, but are not blocked by it.
 
-## Anti-collision
-
-After any marketing message — from a campaign or from another flow —, the contact's next flow step waits **24 hours**. Two automations that fired together don't arrive together — the second waits its turn. Steps of the same flow follow the delays you designed. The other way around, an email campaign leaves out anyone who got a flow message in the last 24 hours.
+There is no longer a wait between messages: the automation goes out right away, even if the contact got a campaign minutes before. Someone who abandoned their cart gets the reminder **and** the newsletter. And a campaign doesn't leave anyone out for having received an automation either.
 
 ## The exception: utility
 
-The rules above apply to every step you build in the editor: today, all of them count as marketing. **Utility** messages — order confirmation, delivery status — would be exempt from the budget and anti-collision, but they're not available yet: the **Automations › Transactional** screen is marked **Coming soon**.
+The rules above apply to every step you build in the editor: today, all of them count as marketing. **Utility** messages — order confirmation, delivery status — would be exempt from the daily cap, but they're not available yet: the **Automations › Transactional** screen is marked **Coming soon**.
 
 ## What this means in practice
 
-- A contact "didn't receive" a flow step? Before suspecting a bug, check the rules. Anyone in the 24-hour silence or waiting for quiet hours to end **waits** — the live funnel shows who is **waiting now**. Anyone who hit the weekly cap doesn't wait: that step was skipped, and the funnel shows the reason among those who *didn't receive*.
+- A contact "didn't receive" a flow step? Before suspecting a bug, check the rules. Anyone waiting for quiet hours to end or for the next day (daily cap) **waits** — the live funnel shows who is **waiting now**, with the reason.
 - The rules don't discard messages for no reason: what can be postponed waits; what would lose its meaning (the person left the segment, lost consent) is suppressed with the reason recorded.
 
 ## The safety nets

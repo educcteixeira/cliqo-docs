@@ -1,13 +1,13 @@
 ---
 title: "Entenda as regras de envio do motor"
-description: "Horário silencioso, orçamento de mensagens e anticolisão — as regras que valem para todo fluxo, e por quê."
+description: "Horário silencioso e o teto diário de mensagens — as regras que valem para todo fluxo, e por quê."
 ---
 
-{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · revisão: conferido contra o código em 28/09/2026 */}
+{/* tipo: entenda · prioridade: P0 · fonte: árbitro do motor de fluxos · revisão: conferido contra o código em 01/10/2026 */}
 
 Antes de cada mensagem de fluxo sair, o motor da Cliqo faz uma última pergunta: *este contato deveria receber isto, agora?* As regras abaixo valem para **todos** os fluxos, automaticamente — elas existem para proteger o contato de excesso de mensagens e a sua marca de queimar a própria base.
 
-O horário silencioso e o orçamento têm um padrão que cada fluxo pode ajustar em **Limites de envio**, no painel do gatilho, dentro do editor. No mesmo bloco fica **Entrar 1× na vida**: quem já passou pelo fluxo não entra de novo.
+O horário silencioso e o teto diário têm um padrão que cada fluxo pode ajustar em **Limites de envio**, no painel do gatilho, dentro do editor. No mesmo bloco fica **Entrar 1× na vida**: quem já passou pelo fluxo não entra de novo.
 
 ## Horário silencioso
 
@@ -15,23 +15,21 @@ Por padrão, mensagens de marketing **não saem entre 21h e 8h**, no fuso da sua
 
 A exceção é a primeira mensagem de um fluxo de **Novo Cadastro** que sai na hora: quem se cadastra às 23h recebe as boas-vindas na hora, porque está com a loja aberta. Os passos seguintes do mesmo fluxo respeitam o silêncio.
 
-## Orçamento de mensagens
+## Teto diário, em cada canal
 
-Por padrão, um passo de fluxo **não sai se o contato já recebeu 3 mensagens de marketing nos últimos 7 dias** — somando campanhas e fluxos. É o freio contra o cenário clássico: a pessoa está no fluxo de boas-vindas, entra no de carrinho abandonado e ainda recebe a campanha da semana. Em **Máximo por semana** você escolhe outro teto para o fluxo (1, 2, 3, 5, 8 ou 10).
+Por padrão, um passo de fluxo de marketing **espera para o dia seguinte se o contato já recebeu 5 mensagens de marketing hoje naquele canal** — somando campanhas e fluxos. E-mail e WhatsApp contam separados: um e-mail não segura um WhatsApp, e vice-versa. O "hoje" é o do fuso da sua conta. Em **Máximo por dia, em cada canal** você escolhe outro teto para o fluxo (1, 2, 3, 5, 8 ou 10).
 
-O teto vale para os passos de fluxo: a campanha conta para ele, mas não é barrada por ele. E o passo que bate no teto **não espera** — ele é pulado, e o contato segue para o próximo passo.
+O passo que bate no teto **não é pulado**: ele espera o dia seguinte e sai (respeitando o horário silencioso). O teto vale para os passos de fluxo: a campanha conta para ele, mas não é barrada por ele.
 
-## Anticolisão
-
-Depois de qualquer mensagem de marketing — de uma campanha ou de outro fluxo —, o próximo passo de fluxo do contato espera **24 horas**. Duas automações que dispararam juntas não chegam juntas — a segunda espera a vez. Os passos do mesmo fluxo seguem os intervalos que você desenhou. No sentido inverso, a campanha de e-mail deixa de fora quem recebeu mensagem de fluxo nas últimas 24 horas.
+Não existe mais espera entre mensagens: a automação sai na hora, mesmo que o contato tenha recebido uma campanha minutos antes. Quem abandonou o carrinho recebe o lembrete **e** a newsletter. E a campanha também não deixa ninguém de fora por ter recebido uma automação.
 
 ## A exceção: utilidade
 
-As regras acima valem para todo passo que você monta no editor: hoje, todos contam como marketing. Mensagens de **utilidade** — confirmação de pedido, status de entrega — ficariam fora do orçamento e da anticolisão, mas ainda não estão disponíveis: a tela **Automações › Transacional** está marcada **Em breve**.
+As regras acima valem para todo passo que você monta no editor: hoje, todos contam como marketing. Mensagens de **utilidade** — confirmação de pedido, status de entrega — ficariam fora do teto diário, mas ainda não estão disponíveis: a tela **Automações › Transacional** está marcada **Em breve**.
 
 ## O que isso significa na prática
 
-- Um contato "não recebeu" um passo do fluxo? Antes de suspeitar de erro, olhe as regras. Quem está no silêncio das 24 h ou aguardando o fim do horário de silêncio **espera** — o funil vivo mostra quem está **esperando agora**. Quem bateu no teto da semana não espera: aquele passo foi pulado, e o funil mostra o motivo entre os que *não receberam*.
+- Um contato "não recebeu" um passo do fluxo? Antes de suspeitar de erro, olhe as regras. Quem está aguardando o fim do horário de silêncio ou o dia seguinte (teto diário) **espera** — o funil vivo mostra quem está **esperando agora**, com o motivo.
 - As regras não descartam mensagens à toa: o que é adiável espera; o que perderia o sentido (a pessoa saiu do segmento, perdeu o consentimento) é suprimido com o motivo registrado.
 
 ## As redes de segurança

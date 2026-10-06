@@ -3,7 +3,7 @@ title: "The Campaigns list"
 description: "Where all your email and WhatsApp campaigns live: tabs, search, columns, the ⋮ menu and what to do with a scheduled campaign."
 ---
 
-{/* tipo: referência · prioridade: P1 · idioma: EN · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) */}
+{/* tipo: referência · prioridade: P1 · idioma: EN · fonte: routes/Campaigns.tsx, routes/as-colunas-de-cada-canal.ts, routes/paginacao-da-lista.ts, routes/a-fila-nao-e-agendamento.ts, routes/a-campanha-que-nao-saiu.ts, components/seletor-de-canal.tsx, lib/liberar-onda.ts, lib/labels.ts, api/cron/dispatch-scheduled.js, api/lib/whatsapp-scheduled-dispatch.js, locales/{pt-BR,en}/campaigns.json · revisão: conferido contra o código em 28/09/2026 · Duplicar e rascunho de WhatsApp em 30/09/2026 (lib/campaign-dispatch.ts payloadDaCopia, routes/nova-campanha-por-canal.tsx) · agendada de WhatsApp editável em 01/10/2026 (lib/agendada-editavel.ts, routes/MensagensWhatsapp.tsx) */}
 
 The **Campaigns** screen shows all your bulk sends, email and WhatsApp, in one place. From here you find a campaign, see how it did and start a new one.
 
@@ -96,6 +96,8 @@ On the **Draft** tab the list changes shape and shows no numbers. The columns ar
 
 If the send of a scheduled campaign was refused, it goes back to draft with the notice **Not sent:** and the reason (for example, *no one in the audience can receive it*). Fix it and schedule or send it again.
 
+A brand without its own verified domain doesn't send email: the campaign can't be tested or sent, and a scheduled one goes back to draft with that reason. Set up the domain in **Settings → Domain** ([How to set up DNS](/en/entregabilidade/configurar-dns)).
+
 ## The ⋮ menu
 
 The **⋮** menu at the end of each row depends on the campaign:
@@ -103,8 +105,8 @@ The **⋮** menu at the end of each row depends on the campaign:
 | Campaign | Options |
 |---|---|
 | Draft | **Edit** · **Duplicate** · **Delete** |
-| Scheduled email, up to 2 minutes before its time | **View report** · **Edit** · **Duplicate** · **Delete** |
-| Scheduled WhatsApp, sending, sent or failed | **View report** · **Duplicate** · **Delete** |
+| Scheduled (email or WhatsApp), up to 2 minutes before its time | **View report** · **Edit** · **Duplicate** · **Delete** |
+| Sending, sent or failed | **View report** · **Duplicate** · **Delete** |
 
 - **Duplicate** makes a copy of the campaign under **Draft**, in the same channel, with the same content, the same audience and the same tags. The name gets **(copy)** at the end. The copy does not keep the scheduled date. For a WhatsApp campaign, it keeps the message template, the variables and the button link. If you turned on **Ignore the rest period for this send** in the original, the copy goes back to following the account's rest period.
 - **Delete** asks you to confirm and removes the campaign from the list.
@@ -126,7 +128,7 @@ For a scheduled **email** campaign, **⋮ › Edit** opens the campaign builder 
 Editing works until **2 minutes before** the set time. After that the campaign may already be sending: **Edit** leaves the menu, and an edit that was already open is not saved (the screen tells you). To stop the send at that point, use **⋮ › Delete** before the set time. A deleted campaign is not sent.
 </Warning>
 
-For a scheduled WhatsApp campaign, delete it and create another under **New campaign › WhatsApp campaign**.
+For a scheduled **WhatsApp** campaign, **⋮ › Edit** opens the WhatsApp step-by-step with the schedule loaded and a banner at the top showing the date and time. You can change the template, the variables, the audience or the time and click **Save draft**: the campaign stays scheduled, with your changes. To remove the schedule, click **Remove the schedule** in the banner: the campaign goes back to **Draft** and won't send at that time. The same **2 minutes** from the warning above apply here.
 
 The account owner or an admin can restore a deleted campaign from **Trash**, in your account menu (the circle with your initials). It comes back exactly as it was. A scheduled campaign comes back scheduled. If its set time has already passed, it joins the send queue.
 

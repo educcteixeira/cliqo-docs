@@ -1,0 +1,107 @@
+---
+title: "Regiões: onde você vende e quem você alcança lá"
+description: "O mapa dos estados e a lista de cidades da tela Regiões: o que cada número conta, por que algumas praças não mostram valor e como montar um segmento a partir de uma cidade ou de um estado."
+---
+
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, locales regioes.json e contacts.json · revisão: conferido contra o código em 06/10/2026 */}
+
+A tela **Regiões** mostra de onde vêm as suas vendas, por estado e por cidade, e quantas dessas pessoas você consegue alcançar por e-mail e por WhatsApp. Serve para decidir onde vale uma campanha local, uma oferta de frete ou um segmento só de uma praça.
+
+Para abrir: no menu lateral, **Público › Regiões**.
+
+{/* print: tela Regiões no computador, com o mapa dos estados à esquerda e a lista de cidades à direita */}
+
+## Os três controles
+
+No topo da tela:
+
+- **Período**: **7 d**, **30 d** ou **90 d**. Abre em 30 dias e termina sempre hoje.
+- **Métrica**: **Receita**, **Pedidos** ou **Contatos**. Abre em Receita.
+- **Camada**: o mapa pinta os **Estados**. A camada **Bolhas** aparece marcada como **em breve**.
+
+Logo abaixo, uma faixa diz quanto do total tem endereço conhecido, por exemplo "**82%** da receita com endereço". É a parte das suas vendas que a Cliqo conseguiu localizar. O que fica de fora são pedidos sem endereço de entrega, ou com um endereço que a Cliqo não reconheceu.
+
+## O mapa
+
+No computador, o mapa dos estados fica à esquerda e a lista, à direita.
+
+- **Quanto mais escuro o estado, maior o valor** da métrica escolhida. São quatro tons, comparando os estados entre si.
+- Um tom ainda mais claro marca o estado que **tem venda, mas não mostra número** (o motivo está em **Por que algumas praças não mostram número**, mais abaixo).
+- Estado em cinza não tem dado para a métrica escolhida.
+- **Clique num estado** e a lista troca para a aba **Estados**, com a linha dele destacada.
+
+No celular, a lista vem primeiro. Toque em **Ver no mapa** para abrir o mapa.
+
+{/* print: tela Regiões no celular, com o botão Ver no mapa acima da lista */}
+
+<Note>
+O mapa de fundo é do Google. As cores e os números são desenhados no seu navegador: a Cliqo não envia ao Google os dados das suas vendas nem dos seus clientes.
+</Note>
+
+Se o mapa não abrir, a tela avisa **O mapa não carregou agora. A lista tem os mesmos números.** Nada se perde: siga pela lista.
+
+## A lista
+
+Duas abas: **Cidades** (a que abre) e **Estados**. As praças vêm da maior para a menor, pela métrica escolhida.
+
+Cada linha traz:
+
+- o nome da cidade (com a sigla do estado) ou do estado;
+- o valor da métrica no período;
+- **compradores**: quantas pessoas diferentes compraram com entrega ali;
+- **alcançáveis**: quantas delas você pode contatar por **e-mail** e por **WhatsApp**;
+- o botão **Montar segmento**.
+
+Com a métrica **Contatos**, a linha conta **contatos** no lugar de compradores.
+
+## Montar um segmento de uma praça
+
+**Montar segmento** abre o construtor de segmento já com a condição **Comprou com entrega em** preenchida: a cidade ou o estado da linha, **nos últimos N dias**, com o mesmo período que está na tela. O segmento conta as mesmas pessoas que a linha mostra como compradores.
+
+O botão aparece nas métricas **Receita** e **Pedidos**. Em **Contatos** ele não aparece, porque o segmento é montado pelo pedido, não pelo cadastro.
+
+Depois de salvar, use o segmento como público de uma campanha. Mais em [Como criar segmentos](/pt-BR/gestao-de-dados/criar-segmentos).
+
+## Como a Cliqo conta
+
+| Número | O que entra |
+|---|---|
+| **Receita** e **Pedidos** | Pedidos da loja conectada, pelo **endereço de entrega**, criados no período. Entram os pagos e os Pix ainda dentro do prazo. |
+| **Compradores** | Pessoas com pedido **pago** no período, entregue naquela praça. |
+| **Contatos** | Onde cada contato está: pelo endereço de entrega do pedido mais recente; sem pedido, pelos campos **Cidade** e **Estado** do cadastro. Não depende do período. |
+| **Alcançáveis por e-mail** | Contato ativo e fora das supressões. |
+| **Alcançáveis por WhatsApp** | O mesmo, mais o consentimento de marketing no WhatsApp. |
+
+Três pontos que explicam diferenças:
+
+- **Venda vista só pelo pixel não entra.** O pixel não traz endereço. Receita e Pedidos por região dependem dos pedidos de uma loja conectada, com endereço de entrega.
+- **Receita e compradores usam réguas um pouco diferentes.** Um Pix pendente soma na receita, mas a pessoa só vira compradora quando o pedido é pago. A receita segue a mesma regra da tela Início; os compradores, a mesma do segmento.
+- **Os números são da marca ativa.** Em conta com mais de uma marca, troque a marca para ver a outra.
+
+## Por que algumas praças não mostram número
+
+Para proteger os seus clientes, **praça com menos de 5 compradores não mostra número**. Com tão pouca gente, o valor diria quanto uma pessoa específica gastou.
+
+- Na aba **Estados** e no mapa, o estado aparece como **tem venda, sem número**.
+- Na aba **Cidades**, essas cidades são somadas numa linha só, no fim: **Outros municípios (N)** e o total delas. Se nem juntas chegam a 5 compradores, a linha diz **menos de 5 compradores cada**.
+
+Essas praças não têm o botão **Montar segmento**.
+
+## O card "Onde você vende", na tela Início
+
+A tela **Início** traz o card **Onde você vende**, com as cinco cidades de maior receita no período escolhido lá. Cada cidade mostra a receita, os alcançáveis e o botão **Montar segmento**. **Ver Regiões** abre a tela completa.
+
+No card, **Montar segmento** só aparece quando o período da tela Início termina hoje.
+
+## Quando a tela não mostra as praças
+
+- **Importe cidade ou CEP dos seus contatos para ver onde você vende.** Aparece quando menos de 30% do total tem endereço conhecido: com tão pouco, o mapa enganaria. O caminho mais completo é conectar a sua loja, em **Configurações → Integrações**, porque os pedidos já trazem o endereço de entrega. Para a métrica **Contatos**, também vale [importar os contatos](/pt-BR/gestao-de-dados/importar-contatos) com as colunas **Cidade** e **Estado** (com esses nomes; o estado pode vir como sigla ou por extenso). Só o CEP, sem cidade e estado, ainda não coloca o contato no mapa.
+- **Nenhuma venda registrada nesta janela.** Não chegou pedido da loja no período. Venda vista só pelo pixel não entra: as regiões vêm dos pedidos da loja conectada, que trazem o endereço de entrega. Confira a integração em **Configurações → Integrações** ou experimente **90 d**.
+- **Nenhuma venda com endereço nesta janela.** Não há praça para mostrar no período escolhido.
+- **Não deu para ler as regiões agora. É falha de leitura, não falta de venda.** Use **Tentar de novo**.
+
+## Próximos passos
+
+- [Como criar segmentos](/pt-BR/gestao-de-dados/criar-segmentos)
+- [Pedidos: de onde vêm e o que cada coluna mostra](/pt-BR/gestao-de-dados/pedidos)
+- [Entenda a tela Início](/pt-BR/relatorios/dashboard)
