@@ -49,7 +49,7 @@ Sobre os campos:
 - `whatsapp_opt_in: true` sem telefone → `400 WHATSAPP_OPTIN_WITHOUT_PHONE`.
 - `source` — texto livre de origem (até 50 caracteres), exibido no perfil do contato.
 - `mode` — o que fazer quando o contato **já existe**; padrão `update`. Veja a tabela abaixo.
-- `custom_fields` — gravado exatamente como veio (sem normalização neste caminho). Mande as chaves já em `snake_case` minúsculo e datas como `AAAA-MM-DD`, iguais às que o import e os formulários criam — senão você cria um campo paralelo.
+- `custom_fields` — gravado exatamente como veio (sem normalização neste caminho). Mande as chaves já em `snake_case` minúsculo e datas como `AAAA-MM-DD`, iguais às que o import e os formulários criam — senão você cria um campo paralelo. Exceção: chave que é tag do sistema (`nome`, `primeiro_nome`, `email`, `link_descadastro`, `link_ver_online`, `company_name`, `endereco`, `data_do_envio`, `cupom_codigo`, `cupom_validade`) grava em `<chave>_1` (`endereco` → `endereco_1`), porque `{{endereco}}` no e-mail é o endereço da loja, e um valor em `endereco` nunca apareceria. Se você mandar as duas, a `<chave>_1` explícita vence.
 
 Erro que vale tratar explicitamente: **`409 CONTACT_SUPPRESSED`** — o endereço descadastrou ou foi suprimido. **Não** contorne mudando o e-mail: a supressão protege o destinatário e a sua reputação de remetente, tenha vindo de um descadastro, de uma reclamação de spam, de um bounce forte ou da blocklist.
 
@@ -108,7 +108,7 @@ Onde ele difere do `POST /v1/contacts`, de propósito:
 
 - **`opt_in: false` não faz nada**, exatamente como no endpoint de um só. Ele não é uma recusa; recusa é o contato se descadastrar. Um sistema que manda `false` para todo mundo que nunca respondeu não pode descadastrar a sua base inteira por acidente.
 - **Contato suprimido não devolve `409`** — ele aparece em `skipped` com o motivo e o resto do lote segue. Mesma regra (a guarda de supressão roda primeiro), contabilidade diferente.
-- **Os valores de `custom_fields` são gravados como texto** e as chaves são normalizadas como no import de CSV (`snake_case` minúsculo; `Data de Nascimento` vira `data_de_nascimento`). Mande as chaves já em `snake_case` minúsculo, iguais às que você usa no `POST /v1/contacts`, ou você cria um campo paralelo.
+- **Os valores de `custom_fields` são gravados como texto** e as chaves são normalizadas como no import de CSV (`snake_case` minúsculo; `Data de Nascimento` vira `data_de_nascimento`). Mande as chaves já em `snake_case` minúsculo, iguais às que você usa no `POST /v1/contacts`, ou você cria um campo paralelo. Chave que é tag do sistema grava em `<chave>_1`, como no `POST /v1/contacts`.
 - **O consentimento é por item e nunca é inventado**: sem `opt_in: true` no item, nenhum consentimento de e-mail é registrado. `whatsapp_opt_in: true` exige um `phone_whatsapp` válido em E.164; um número inválido conta em `invalid_phones` e o contato é gravado sem o canal.
 - **Uma falha do nosso lado no meio do lote devolve `503 BATCH_WRITE_FAILED`**, e o que já foi gravado permanece gravado. Repetir a chamada inteira é seguro — a escrita é idempotente por e-mail.
 

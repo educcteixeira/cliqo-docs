@@ -1,0 +1,57 @@
+---
+title: "How to create a Discovery quiz"
+description: "The quiz editor: the questions and the fields each answer saves to, the result with a destination per answer, the optional coupon, publishing and what becomes a segment."
+---
+
+{/* type: task · priority: P1 · source: apps/web/src/routes/PopupQuiz.tsx, lib/popup-quiz.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, components/campos/novo-campo.tsx, packages/popup-kit/templates/03-quiz-descoberta/html.html + js.js, api/interest.js (camposDaPeca), locales campaigns.json · review: checked against the code on 16/10/2026 */}
+
+The **Discovery quiz** is a pop-up that asks 1 to 3 questions before asking for the email. Each answer is saved to a contact field and becomes a segment filter right away. At the end, the visitor sees a result that leads to the page you choose.
+
+## Before you start
+
+- [Pixel installed and brand domain verified](/en/popups/primeiros-passos).
+- The company name with CNPJ and the privacy policy address — without them the pop-up won't publish.
+- If you'll give a coupon, the code created in your store. Cliqo shows the code but doesn't create it in the store.
+
+To open it: in the side menu, **Pop-ups**. In the gallery, under **Know the customer**, choose **Discovery quiz › Use this template**. The editor has four steps — **Choose · Customise · Behaviour · Review & activate** — and opens on **Customise**, with the preview beside it. In the preview, the **Question 1**, **Email** and **Result** buttons show each screen.
+
+## Customise
+
+**Pop-up name** — only you see it; it's the name in the list and in reports. Under **Opening**, the **Title** is required (up to 60 characters) and the **Supporting line** is optional (up to 140). Both show on the first question's screen.
+
+### The questions
+
+Each card is a question, with 2 to 4 options. The pop-up has 1 to 3 questions: **+ Question** adds one and **×** deletes it.
+
+- **Saves to field** — the contact field where the answer is kept. Only **list** fields show up (Audience › Fields). **+ Create list field…** creates one right there.
+- **Options** — the text the visitor reads. Next to it, in grey, is the **value saved to the field**: the text without emoji, accents or punctuation ("🍷 Reds" saves `reds`). That's the value you use in the segment.
+- **Sets the result** — tick the question whose answer picks the result.
+
+When you publish, the question's options are added to the field's options. The field never loses an option: what it already had stays.
+
+<Note>
+The new answer wins. A contact who retakes the quiz and changes the answer moves to the new answer's segment. Only the question fields work this way: name, email, consent and the regular extra fields still only fill what was empty.
+</Note>
+
+The pop-up won't move on if a question has no text, no field or fewer than 2 options; if two questions save to the same field; or if two options in the same question save the same value. **N things missing — see** takes you to each one.
+
+### The result
+
+- The result's **Title**, **Line** and **Button**.
+- **Destination per answer** — each option of the question that sets the result gets its own link (a product, a collection, a promotion). An option without a link goes to the destination in the **Behaviour** step. Off, all of them go there.
+- **Coupon in the result** — optional. On, enter the **Code** and how long it's **Valid for** (30 minutes to 72 hours). Without a coupon, the pop-up doesn't promise a coupon anywhere.
+
+### Brand, company and what you ask
+
+- **Your brand** and **Company details** — the same as the wheel's.
+- **What you ask** — the email is always required; the phone is optional. Up to 3 extra questions, besides the quiz's.
+
+## Behaviour
+
+The same step as the other pop-ups: **Moment**, the list for whoever fills it in, **How often** and **Where it shows**. For the quiz, the default is **once a week**.
+
+If another pop-up (welcome or wheel) has already shown during the visit, the quiz doesn't show in the same visit.
+
+## Publish and follow up
+
+In **Review & activate**, **Publish to the store**. The pop-up's report is in **Reports › By campaign**, **Pop-up** tab. To use the answers, create a segment with the condition **contact field → equals** and the saved value (for example, `categoria_preferida` equals `reds`).

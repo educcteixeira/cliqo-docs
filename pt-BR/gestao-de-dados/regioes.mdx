@@ -1,15 +1,15 @@
 ---
 title: "Regiões: onde você vende e quem você alcança lá"
-description: "O mapa dos estados e a lista de cidades da tela Regiões: o que cada número conta, por que algumas praças não mostram valor e como montar um segmento a partir de uma cidade ou de um estado."
+description: "O mapa de bolhas e de estados e a lista de cidades da tela Regiões: o que cada número conta, como buscar e filtrar, por que algumas praças não mostram valor e como montar um segmento a partir de uma cidade ou de um estado."
 ---
 
-{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, locales regioes.json e contacts.json · revisão: conferido contra o código em 06/10/2026 */}
+{/* tipo: entenda · prioridade: P1 · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, lib/bolhas-das-cidades.ts, index.css, locales regioes.json e contacts.json · revisão: conferido contra o código em 08/10/2026 */}
 
 A tela **Regiões** mostra de onde vêm as suas vendas, por estado e por cidade, e quantas dessas pessoas você consegue alcançar por e-mail e por WhatsApp. Serve para decidir onde vale uma campanha local, uma oferta de frete ou um segmento só de uma praça.
 
 Para abrir: no menu lateral, **Público › Regiões**.
 
-{/* print: tela Regiões no computador, com o mapa dos estados à esquerda e a lista de cidades à direita */}
+{/* print: tela Regiões no computador, com o mapa de bolhas à esquerda e a lista de cidades à direita */}
 
 ## Os três controles
 
@@ -17,13 +17,22 @@ No topo da tela:
 
 - **Período**: **7 d**, **30 d** ou **90 d**. Abre em 30 dias e termina sempre hoje.
 - **Métrica**: **Receita**, **Pedidos** ou **Contatos**. Abre em Receita.
-- **Camada**: o mapa pinta os **Estados**. A camada **Bolhas** aparece marcada como **em breve**.
+- **Camada**: **Bolhas** (a que abre) ou **Estados**. Sem cidades para mostrar, só a camada **Estados** aparece.
 
 Logo abaixo, uma faixa diz quanto do total tem endereço conhecido, por exemplo "**82%** da receita com endereço". É a parte das suas vendas que a Cliqo conseguiu localizar. O que fica de fora são pedidos sem endereço de entrega, ou com um endereço que a Cliqo não reconheceu.
 
 ## O mapa
 
-No computador, o mapa dos estados fica à esquerda e a lista, à direita.
+No computador, o mapa fica à esquerda e a lista, à direita, na mesma altura.
+
+**Na camada Bolhas**, cada cidade é uma bolha no lugar dela:
+
+- **Quanto maior a bolha, maior o valor** da métrica escolhida. São quatro tamanhos, comparando as cidades entre si.
+- As seis cidades de maior valor ganham o nome ao lado e um pulso. Quando dois nomes não cabem juntos, um some; ele volta ao aproximar o mapa.
+- **Clique numa bolha** e abre um balão com o valor, os compradores e os alcançáveis da cidade, e o botão **Montar segmento**. A linha da cidade fica marcada na lista. Clique fora do balão, ou no **×**, para fechar.
+- **Clique num estado** e a lista mostra só as cidades dele. Clique de novo no mesmo estado para tirar o filtro.
+
+**Na camada Estados**, o mapa pinta os estados:
 
 - **Quanto mais escuro o estado, maior o valor** da métrica escolhida. São quatro tons, comparando os estados entre si.
 - Um tom ainda mais claro marca o estado que **tem venda, mas não mostra número** (o motivo está em **Por que algumas praças não mostram número**, mais abaixo).
@@ -44,19 +53,28 @@ Se o mapa não abrir, a tela avisa **O mapa não carregou agora. A lista tem os 
 
 Duas abas: **Cidades** (a que abre) e **Estados**. As praças vêm da maior para a menor, pela métrica escolhida.
 
+Acima da lista:
+
+- **Buscar cidade…** (ou **Buscar estado…**, na aba Estados): acha pelo nome, com ou sem acento.
+- **Estado: todos**: escolha um estado para ver só as cidades dele. O filtro aparece como uma etiqueta com **×** para tirar. É o mesmo filtro do clique num estado, na camada Bolhas.
+- A contagem do que está na lista, por exemplo "**35 cidades**".
+
+No celular, a lista mostra as 10 primeiras. **Mostrar todas** abre o resto.
+
 Cada linha traz:
 
 - o nome da cidade (com a sigla do estado) ou do estado;
 - o valor da métrica no período;
 - **compradores**: quantas pessoas diferentes compraram com entrega ali;
-- **alcançáveis**: quantas delas você pode contatar por **e-mail** e por **WhatsApp**;
-- o botão **Montar segmento**.
+- **alcançáveis**: quantas delas você pode contatar por **e-mail** e por **WhatsApp**.
+
+**Clique numa linha** para marcá-la: o botão **Montar segmento** aparece nela. Na camada Bolhas, a bolha da cidade fica marcada no mapa.
 
 Com a métrica **Contatos**, a linha conta **contatos** no lugar de compradores.
 
 ## Montar um segmento de uma praça
 
-**Montar segmento** abre o construtor de segmento já com a condição **Comprou com entrega em** preenchida: a cidade ou o estado da linha, **nos últimos N dias**, com o mesmo período que está na tela. O segmento conta as mesmas pessoas que a linha mostra como compradores.
+O botão **Montar segmento** fica na linha marcada da lista e no balão da bolha. Ele abre o construtor de segmento já com a condição **Comprou com entrega em** preenchida: a cidade ou o estado da linha, **nos últimos N dias**, com o mesmo período que está na tela. O segmento conta as mesmas pessoas que a linha mostra como compradores.
 
 O botão aparece nas métricas **Receita** e **Pedidos**. Em **Contatos** ele não aparece, porque o segmento é montado pelo pedido, não pelo cadastro.
 
@@ -80,10 +98,10 @@ Três pontos que explicam diferenças:
 
 ## Por que algumas praças não mostram número
 
-Para proteger os seus clientes, **praça com menos de 5 compradores não mostra número**. Com tão pouca gente, o valor diria quanto uma pessoa específica gastou.
+Para proteger os seus clientes, **praça com menos de 5 compradores não mostra número** (na métrica **Contatos**, menos de 5 contatos). Com tão pouca gente, o valor diria quanto uma pessoa específica gastou.
 
 - Na aba **Estados** e no mapa, o estado aparece como **tem venda, sem número**.
-- Na aba **Cidades**, essas cidades são somadas numa linha só, no fim: **Outros municípios (N)** e o total delas. Se nem juntas chegam a 5 compradores, a linha diz **menos de 5 compradores cada**.
+- Na aba **Cidades**, essas cidades são somadas numa linha só, no fim: **Outros municípios (N)** e o total delas. Se nem juntas chegam a 5 compradores, a linha diz **menos de 5 compradores cada** (na métrica Contatos, **menos de 5 contatos cada**).
 
 Essas praças não têm o botão **Montar segmento**.
 
@@ -92,6 +110,8 @@ Essas praças não têm o botão **Montar segmento**.
 A tela **Início** traz o card **Onde você vende**, com as cinco cidades de maior receita no período escolhido lá. Cada cidade mostra a receita, os alcançáveis e o botão **Montar segmento**. **Ver Regiões** abre a tela completa.
 
 No card, **Montar segmento** só aparece quando o período da tela Início termina hoje.
+
+Quando não chegou nenhum pedido no período, o card vira **Onde está a sua base**: as cidades com mais contatos, pela cidade do cadastro, contando a base inteira (não depende do período). Ele explica que voltará a mostrar onde você vende quando os pedidos da loja chegarem à Cliqo.
 
 ## Quando a tela não mostra as praças
 

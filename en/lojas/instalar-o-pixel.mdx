@@ -53,8 +53,8 @@ You do not have to tag anything. Once installed, the pixel identifies the page t
 | Page view | All visitors |
 | Product view | Browsed without buying |
 | Category browsing | Category interest |
-| Add to cart (the pixel records the visit to the cart page) | Almost bought |
-| Checkout started (the pixel records the visit to the checkout page) | Checkout abandonment |
+| Cart page visit | Almost bought |
+| Checkout page visit | Checkout abandonment |
 
 Beyond those, the pixel measures **scroll depth** on product pages (25%, 50%, 75%, 90%) and **real time on page** — interest signals that open rate cannot capture.
 
@@ -122,6 +122,24 @@ Two obligations that are yours, not Cliqo's:
 2. **If your store shows a cookie notice, the pixel belongs in it.**
 
 None of this blocks using it — it is the same framing as any analytics tool. It just has to be written down.
+
+### When the visitor declines
+
+If the visitor declines marketing cookies, the pixel keeps counting visits but **does not link the browsing to any customer**: events stay anonymous. It understands the refusal on its own in two cases:
+
+- **Google Consent Mode v2** (your cookie notice sends `ad_storage` or `analytics_storage` = `denied`);
+- **Shopify**, through the store's own customer privacy setting.
+
+If your cookie notice is something else, tell the pixel when the visitor declines:
+
+```html
+<script>
+  window._cliqo = window._cliqo || [];
+  window._cliqo.push(['consent', { marketing: false }]);
+</script>
+```
+
+If they accept later, send `{ marketing: true }`.
 
 ## When to stop waiting and ask for help
 

@@ -1,15 +1,15 @@
 ---
 title: "Regions: where you sell and who you can reach there"
-description: "The map of states and the list of cities on the Regions screen: what each number counts, why some places show no value, and how to build a segment from a city or a state."
+description: "The bubble and state maps and the list of cities on the Regions screen: what each number counts, how to search and filter, why some places show no value, and how to build a segment from a city or a state."
 ---
 
-{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, locales regioes.json e contacts.json · revisão: conferido contra o código em 06/10/2026 */}
+{/* tipo: entenda · prioridade: P1 · idioma: EN · fonte: apps/web/src/routes/Regioes.tsx, components/regioes/regioes-card.tsx, components/regioes/mapa-estados.tsx, lib/regioes-contrato.ts, lib/google-maps.ts, components/app-shell.tsx, routes/Overview.tsx, api/regioes/mapa.js, api/lib/mapa-contrato.js, api/lib/field-coerce.js, packages/db/sql/628_regioes_mapa_uf.sql, 631_regioes_mapa_municipio.sql, 629_segmento_por_praca_de_entrega.sql, lib/bolhas-das-cidades.ts, index.css, locales regioes.json e contacts.json · revisão: conferido contra o código em 08/10/2026 */}
 
 The **Regions** screen shows where your sales come from, by state and by city, and how many of those people you can reach by email and by WhatsApp. Use it to decide where a local campaign, a shipping offer or a single-city segment is worth it.
 
 To open it: in the side menu, **Audience › Regions**.
 
-{/* print: Regions screen on a computer, with the map of states on the left and the list of cities on the right */}
+{/* print: Regions screen on a computer, with the bubble map on the left and the list of cities on the right */}
 
 ## The three controls
 
@@ -17,13 +17,22 @@ At the top of the screen:
 
 - **Period**: **7 d**, **30 d** or **90 d**. It opens on 30 days and always ends today.
 - **Metric**: **Revenue**, **Orders** or **Contacts**. It opens on Revenue.
-- **Layer**: the map colors the **States**. The **Bubbles** layer is marked **soon**.
+- **Layer**: **Bubbles** (the one that opens) or **States**. With no cities to show, only the **States** layer appears.
 
 Right below, a strip says how much of the total has a known address, for example "**82%** of revenue with an address". That is the share of your sales Cliqo could locate. What is left out are orders with no delivery address, or with an address Cliqo did not recognize.
 
 ## The map
 
-On a computer, the map of states sits on the left and the list on the right.
+On a computer, the map sits on the left and the list on the right, at the same height.
+
+**On the Bubbles layer**, each city is a bubble in its place:
+
+- **The bigger the bubble, the higher the value** of the chosen metric. There are four sizes, comparing the cities with each other.
+- The six cities with the highest value get their name next to them and a pulse. When two names don't fit together, one is hidden; it comes back when you zoom in.
+- **Click a bubble** to open a balloon with the city's value, buyers and reachable people, and the **Build segment** button. The city's row is marked in the list. Click outside the balloon, or on the **×**, to close it.
+- **Click a state** and the list shows only its cities. Click the same state again to clear the filter.
+
+**On the States layer**, the map colors the states:
 
 - **The darker the state, the higher the value** of the chosen metric. There are four shades, comparing the states with each other.
 - An even lighter shade marks a state that **has sales but shows no number** (the reason is in **Why some places show no number**, further down).
@@ -44,19 +53,28 @@ If the map does not open, the screen says **The map didn't load right now. The l
 
 Two tabs: **Cities** (the one that opens) and **States**. Places are sorted from largest to smallest by the chosen metric.
 
+Above the list:
+
+- **Search city…** (or **Search state…**, on the States tab): finds by name, with or without accents.
+- **State: all**: pick a state to see only its cities. The filter shows as a tag with an **×** to clear it. It is the same filter as clicking a state on the Bubbles layer.
+- The count of what is in the list, for example "**35 cities**".
+
+On a phone, the list shows the first 10. **Show all** opens the rest.
+
 Each row shows:
 
 - the name of the city (with the state abbreviation) or of the state;
 - the value of the metric in the period;
 - **buyers**: how many different people bought with delivery there;
-- **reachable**: how many of them you can contact by **email** and by **WhatsApp**;
-- the **Build segment** button.
+- **reachable**: how many of them you can contact by **email** and by **WhatsApp**.
+
+**Click a row** to mark it: the **Build segment** button appears on it. On the Bubbles layer, the city's bubble is marked on the map.
 
 With the **Contacts** metric, the row counts **contacts** instead of buyers.
 
 ## Build a segment from a place
 
-**Build segment** opens the segment builder with the **Bought with delivery to** condition already filled in: the city or state of that row, **in the last N days**, using the same period shown on the screen. The segment counts the same people the row shows as buyers.
+The **Build segment** button sits on the marked row of the list and in the bubble's balloon. It opens the segment builder with the **Bought with delivery to** condition already filled in: the city or state of that row, **in the last N days**, using the same period shown on the screen. The segment counts the same people the row shows as buyers.
 
 The button appears on the **Revenue** and **Orders** metrics. On **Contacts** it does not, because the segment is built from orders, not from the contact record.
 
@@ -80,10 +98,10 @@ Three points that explain differences:
 
 ## Why some places show no number
 
-To protect your customers, **a place with fewer than 5 buyers shows no number**. With so few people, the value would reveal how much one specific person spent.
+To protect your customers, **a place with fewer than 5 buyers shows no number** (on the **Contacts** metric, fewer than 5 contacts). With so few people, the value would reveal how much one specific person spent.
 
 - On the **States** tab and on the map, the state appears as **has sales, no number**.
-- On the **Cities** tab, those cities are added up into a single row at the end: **Other cities (N)** and their total. If even together they do not reach 5 buyers, the row says **fewer than 5 buyers each**.
+- On the **Cities** tab, those cities are added up into a single row at the end: **Other cities (N)** and their total. If even together they do not reach 5 buyers, the row says **fewer than 5 buyers each** (on the Contacts metric, **fewer than 5 contacts each**).
 
 These places have no **Build segment** button.
 
@@ -92,6 +110,8 @@ These places have no **Build segment** button.
 The **Home** screen has the **Where you sell** card, with the five cities with the highest revenue in the period chosen there. Each city shows its revenue, the reachable people and the **Build segment** button. **See Regions** opens the full screen.
 
 On the card, **Build segment** only appears when the Home screen's period ends today.
+
+When no order arrived in the period, the card becomes **Where your base is**: the cities with the most contacts, by the city on the contact record, counting the whole base (it does not depend on the period). It explains that it will go back to showing where you sell once the store's orders reach Cliqo.
 
 ## When the screen does not show the places
 

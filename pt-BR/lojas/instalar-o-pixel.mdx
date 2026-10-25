@@ -53,8 +53,8 @@ Você não precisa marcar nada. Depois de instalado, o pixel identifica o tipo d
 | Visualização de página | Todos os visitantes |
 | Visualização de produto | Navegou sem comprar |
 | Navegação por categoria | Interesse por categoria |
-| Adição ao carrinho (o pixel registra a visita à página do carrinho) | Quase comprou |
-| Início de checkout (o pixel registra a visita à página de checkout) | Abandono de checkout |
+| Visita ao carrinho | Quase comprou |
+| Visita ao checkout | Abandono de checkout |
 
 Além desses, o pixel mede **profundidade de rolagem** em páginas de produto (25%, 50%, 75%, 90%) e o **tempo real na página** — sinais de interesse que a taxa de abertura não captura.
 
@@ -122,6 +122,24 @@ Duas obrigações que são suas, não da Cliqo:
 2. **Se a sua loja exibe aviso de cookies, o pixel entra nele.**
 
 Nada disso impede o uso — é o mesmo enquadramento de qualquer ferramenta de análise. Só precisa estar escrito.
+
+### Quando o visitante recusa
+
+Se o visitante recusa os cookies de marketing, o pixel continua contando as visitas, mas **não liga a navegação a nenhum cliente**: os eventos seguem anônimos. Ele entende a recusa sozinho em dois casos:
+
+- **Google Consent Mode v2** (o aviso de cookies manda `ad_storage` ou `analytics_storage` = `denied`);
+- **Shopify**, pela privacidade do cliente da própria loja.
+
+Se o seu aviso de cookies é outro, avise o pixel quando o visitante recusar:
+
+```html
+<script>
+  window._cliqo = window._cliqo || [];
+  window._cliqo.push(['consent', { marketing: false }]);
+</script>
+```
+
+Se ele aceitar depois, mande `{ marketing: true }`.
 
 ## Quando parar de esperar e pedir ajuda
 

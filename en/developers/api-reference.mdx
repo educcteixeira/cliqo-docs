@@ -49,7 +49,7 @@ Field notes:
 - `whatsapp_opt_in: true` without a phone → `400 WHATSAPP_OPTIN_WITHOUT_PHONE`.
 - `source` — free-text origin label (max 50 chars), shown in the contact's profile.
 - `mode` — what to do when the contact **already exists**; defaults to `update`. See the table below.
-- `custom_fields` — stored exactly as sent (no normalization on this path). Send keys already in lowercase `snake_case` and dates as `YYYY-MM-DD`, matching the fields created by import and forms — otherwise you create a parallel field.
+- `custom_fields` — stored exactly as sent (no normalization on this path). Send keys already in lowercase `snake_case` and dates as `YYYY-MM-DD`, matching the fields created by import and forms — otherwise you create a parallel field. Exception: a key that is a system merge tag (`nome`, `primeiro_nome`, `email`, `link_descadastro`, `link_ver_online`, `company_name`, `endereco`, `data_do_envio`, `cupom_codigo`, `cupom_validade`) is stored as `<key>_1` (`endereco` → `endereco_1`), because `{{endereco}}` in an email is the store's address and a value under `endereco` would never show. If you send both, your explicit `<key>_1` wins.
 
 Error worth handling explicitly: **`409 CONTACT_SUPPRESSED`** — the address unsubscribed or was suppressed. Do **not** work around it by mutating the email — the suppression protects the recipient and your sender reputation, whether it came from an unsubscribe, a spam complaint, a hard bounce or a blocklist entry.
 
@@ -108,7 +108,7 @@ Where it differs from `POST /v1/contacts`, on purpose:
 
 - **`opt_in: false` does nothing**, exactly like the single endpoint. It is not a refusal; a refusal is the contact unsubscribing. A system that sends `false` for everyone who never answered must not unsubscribe your whole base by accident.
 - **A suppressed contact does not return `409`** — it shows up in `skipped` with the reason and the rest of the batch proceeds. Same rule (the suppression guard runs first), different accounting.
-- **`custom_fields` values are stored as text** and keys are normalised like the CSV import (`lowercase_snake_case`; `Birth Date` becomes `birth_date`). Send keys already in lowercase `snake_case`, matching the ones you use on `POST /v1/contacts`, or you create a parallel field.
+- **`custom_fields` values are stored as text** and keys are normalised like the CSV import (`lowercase_snake_case`; `Birth Date` becomes `birth_date`). Send keys already in lowercase `snake_case`, matching the ones you use on `POST /v1/contacts`, or you create a parallel field. System merge tag keys are stored as `<key>_1`, as on `POST /v1/contacts`.
 - **Consent is per item and never invented**: without `opt_in: true` on the item, no e-mail consent is recorded. `whatsapp_opt_in: true` needs a valid E.164 `phone_whatsapp`; an invalid number counts in `invalid_phones` and the contact is stored without the channel.
 - **A failure on our side mid-batch returns `503 BATCH_WRITE_FAILED`**, and whatever was written stays written. Retrying the whole call is safe — the write is idempotent by e-mail.
 

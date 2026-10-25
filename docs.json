@@ -107,7 +107,9 @@
             "pages": [
               "pt-BR/popups/primeiros-passos",
               "pt-BR/popups/criar-boas-vindas",
-              "pt-BR/popups/criar-roleta"
+              "pt-BR/popups/criar-roleta",
+              "pt-BR/popups/criar-quiz",
+              "pt-BR/popups/criar-raspadinha"
             ]
           },
           {
@@ -216,7 +218,9 @@
             "pages": [
               "en/popups/primeiros-passos",
               "en/popups/criar-boas-vindas",
-              "en/popups/criar-roleta"
+              "en/popups/criar-roleta",
+              "en/popups/criar-quiz",
+              "en/popups/criar-raspadinha"
             ]
           },
           {

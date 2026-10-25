@@ -1,0 +1,57 @@
+---
+title: "Como criar um Quiz de descoberta"
+description: "O editor do quiz: as perguntas e os campos onde cada resposta grava, o resultado com o destino por resposta, o cupom opcional, a publicação e o que vira segmento."
+---
+
+{/* tipo: tarefa · prioridade: P1 · fonte: apps/web/src/routes/PopupQuiz.tsx, lib/popup-quiz.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, components/campos/novo-campo.tsx, packages/popup-kit/templates/03-quiz-descoberta/html.html + js.js, api/interest.js (camposDaPeca), locales campaigns.json · revisão: conferido contra o código em 16/10/2026 */}
+
+O **Quiz de descoberta** é um pop-up que faz de 1 a 3 perguntas antes de pedir o e-mail. Cada resposta é gravada num campo do contato e vira filtro de segmento na hora. No fim, o visitante vê um resultado que leva para a página que você escolher.
+
+## Antes de começar
+
+- [Pixel instalado e domínio da marca verificado](/pt-BR/popups/primeiros-passos).
+- A razão social com CNPJ e o endereço da política de privacidade — sem eles a peça não publica.
+- Se for dar cupom, o código criado na sua loja. A Cliqo mostra o código, mas não o cria na loja.
+
+Para abrir: no menu lateral, **Pop-ups**. Na galeria, em **Conhecer o cliente**, escolha **Quiz de descoberta › Usar este modelo**. O editor tem quatro passos — **Escolher · Personalizar · Comportamento · Revisar & ativar** — e abre em **Personalizar**, com a prévia ao lado. Na prévia, os botões **Pergunta 1**, **E-mail** e **Resultado** mostram cada tela.
+
+## Personalizar
+
+**Nome da peça** — só você vê; é o nome na lista e nos relatórios. Em **Abertura**, o **Título** é obrigatório (até 60 caracteres) e a **Frase de apoio** é opcional (até 140). Os dois aparecem na tela da primeira pergunta.
+
+### As perguntas
+
+Cada cartão é uma pergunta, com de 2 a 4 opções. A peça tem de 1 a 3 perguntas: **+ Pergunta** acrescenta e o **×** apaga.
+
+- **Grava no campo** — o campo do contato onde a resposta fica. Só aparecem campos do tipo **lista** (Público › Campos). **+ Criar campo de lista…** cria um ali mesmo.
+- **Opções** — o texto que o visitante lê. Ao lado, em cinza, fica o **valor gravado no campo**: o texto sem emoji, acento ou pontuação ("🍷 Tintos" grava `tintos`). É esse valor que você usa no segmento.
+- **Define o resultado** — marque a pergunta cuja resposta escolhe o resultado.
+
+Quando você publica, as opções da pergunta entram nas opções do campo. O campo nunca perde opção: o que ele já tinha continua lá.
+
+<Note>
+A resposta nova vale. Quem refaz o quiz e muda de resposta passa para o segmento da resposta nova. Só os campos das perguntas mudam assim: nome, e-mail, consentimento e os campos extras comuns continuam só preenchendo o que estava vazio.
+</Note>
+
+A peça não avança se uma pergunta está sem texto, sem campo ou com menos de 2 opções; se duas perguntas gravam no mesmo campo; ou se duas opções da mesma pergunta gravam o mesmo valor. **Faltam N coisas — ver** leva até cada uma.
+
+### O resultado
+
+- **Título**, **Frase** e **Botão** do resultado.
+- **Destino por resposta** — cada opção da pergunta que define o resultado ganha um link próprio (um produto, uma coleção, uma promoção). Opção sem link vai para o destino do passo **Comportamento**. Desligado, todas vão para esse destino.
+- **Cupom no resultado** — opcional. Ligado, informe o **Código** e por quanto tempo ele **Vale** (de 30 minutos a 72 horas). Sem cupom, a peça não promete cupom em lugar nenhum.
+
+### Marca, empresa e o que você pergunta
+
+- **Sua marca** e **Dados da empresa** — iguais aos da roleta.
+- **O que você pergunta** — o e-mail é sempre obrigatório; o celular é opcional. Até 3 perguntas extras, além das do quiz.
+
+## Comportamento
+
+O mesmo passo das outras peças: **Momento**, a lista de quem preencher, **De quanto em quanto tempo** e **Onde aparece**. No quiz, o padrão é **1× por semana**.
+
+Se outra peça (boas-vindas ou roleta) já apareceu na visita, o quiz não aparece na mesma visita.
+
+## Publicar e acompanhar
+
+Em **Revisar & ativar**, **Publicar na loja**. O relatório da peça fica em **Relatórios › Por campanha**, aba **Pop-up**. Para usar as respostas, crie um segmento com a condição **campo do contato → é igual a** e o valor gravado (por exemplo, `categoria_preferida` é igual a `tintos`).

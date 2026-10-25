@@ -1,0 +1,78 @@
+---
+title: "Como criar uma Raspadinha"
+description: "O editor da raspadinha: prêmios e chances, cupons, a capa, o que o visitante preenche, a publicação e onde ver o resultado."
+---
+
+{/* tipo: tarefa · prioridade: P1 · fonte: apps/web/src/routes/PopupRaspadinha.tsx, lib/popup-raspadinha.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, packages/popup-kit/templates/08-raspadinha/html.html + js.js, locales campaigns.json · revisão: conferido contra o código em 18/10/2026 (#3960) */}
+
+A **Raspadinha** é um pop-up em que o visitante informa o e-mail, raspa uma capa com o dedo (ou o mouse) e vê o prêmio que ganhou. Todo mundo ganha: você define os prêmios, o cupom de cada um e a chance de cada prêmio sair. É a mesma mecânica da [Roleta premiada](/pt-BR/popups/criar-roleta), com outra revelação.
+
+## Antes de começar
+
+- [Pixel instalado e domínio da marca verificado](/pt-BR/popups/primeiros-passos).
+- A razão social com CNPJ e o endereço da política de privacidade — sem eles a peça não publica.
+- Os cupons criados na sua loja. A Cliqo mostra o código ao ganhador, mas não cria o cupom na loja.
+
+Para abrir: no menu lateral, **Pop-ups**. Na galeria, em **Capturar leads**, escolha **Raspadinha › Usar este modelo**. O editor tem quatro passos — **Escolher · Personalizar · Comportamento · Revisar & ativar** — e abre em **Personalizar**, com a prévia ao lado. A prévia roda a peça de verdade e tem três passos: **E-mail · Raspar · Prêmio**. Dá para raspar nela.
+
+## Personalizar
+
+**Nome da peça** — só você vê; é o nome na lista e nos relatórios. Em **O que a peça promete**, o **Título** (até 60 caracteres) e o **Botão** (até 30) são obrigatórios; a **Frase de apoio** é opcional (até 140).
+
+### Prêmios
+
+Cada linha de **Prêmios** é um prêmio possível:
+
+| Coluna | O que é |
+|---|---|
+| **Prêmio** | O nome que o ganhador lê ("Frete grátis") — até 18 caracteres |
+| **Complemento** | A linha embaixo do prêmio ("na primeira compra") — até 30 caracteres, opcional |
+| **Código** | O cupom que o ganhador recebe |
+| **Peso** | Quanto o prêmio pesa no sorteio |
+| **Chance** | A chance calculada, em % — muda na hora quando você mexe em qualquer peso |
+
+Os pesos não precisam somar 100: a chance é calculada entre eles. A raspadinha tem de 1 a 6 prêmios — um prêmio só também vale. **+ Prêmio** acrescenta; a lixeira apaga.
+
+<Warning>
+Não existe prêmio "não ganhou", de propósito: quem perde tende a deixar e-mail falso, e isso prejudica a entrega da sua base inteira. Dê chance alta ao desconto pequeno e chance baixa ao desconto grande.
+</Warning>
+
+A peça não avança se um prêmio está sem nome ou sem cupom, se dois prêmios têm o mesmo cupom, se algum peso é negativo ou se todos os pesos estão em zero. Enquanto falta algo, **Continuar** fica travado, e **Faltam N coisas — ver** leva até cada campo.
+
+### A capa
+
+- **Cor da capa** — nasce com a cor principal da marca e acompanha a marca enquanto você não escolher outra. **Usar a cor da marca** desfaz a escolha. O texto da capa é branco, então a cor precisa de contraste suficiente; capa clara demais trava a publicação.
+- **Texto da capa** — o que aparece antes de raspar ("RASPE AQUI"), até 20 caracteres. Obrigatório.
+- **Título do passo de raspar** — o título acima da capa, até 40 caracteres.
+
+### Marca, empresa e o que você pergunta
+
+- **Sua marca** — **Cor principal** e **Cor dos títulos**, com contraste suficiente sobre o branco.
+- **Dados da empresa** — **Razão social e CNPJ** e **Endereço da política de privacidade**, obrigatórios.
+- **O que você pergunta** — o **E-mail** sempre; o celular (com o consentimento de WhatsApp) e até 3 perguntas extras são opcionais. **Por quanto tempo o cupom vale** é o relógio que o ganhador vê; ajuste a validade na sua loja também.
+
+## Comportamento
+
+O mesmo da roleta: **Momento**, a lista em que o contato entra, **De quanto em quanto tempo** (na raspadinha o padrão é **1× por mês**), **Onde aparece** e **Para onde leva** — o endereço do botão **Usar na loja →** depois do prêmio. O checkout é sempre bloqueado.
+
+## Revisar & ativar
+
+O **Resumo** mostra os prêmios com a chance de cada um, os cupons, a capa, o destino, a exibição, a lista e o prazo do cupom. **Publicar na loja** põe a peça no ar nas páginas do domínio verificado da marca.
+
+## O que o visitante vê
+
+1. Informa o e-mail (e o que mais você pediu), marca o consentimento e toca no botão.
+2. A raspadinha só abre depois que o contato foi gravado. Se o envio falhar, o visitante vê uma mensagem e pode tentar de novo.
+3. O prêmio é sorteado nesse momento, pelas chances da tabela. Quem recarrega a página no mesmo navegador cai no mesmo prêmio.
+4. Ele raspa a capa. Com mais da metade raspada, o prêmio aparece sozinho, com confete. **Revelar sem raspar** fica sempre disponível, para quem usa teclado ou prefere menos movimento.
+5. O ganhador vê o prêmio, o cupom com botão de copiar, o relógio da validade e o botão para a loja.
+
+## Onde ver o resultado
+
+Em **Relatórios › Por campanha**, canal **Pop-up**, **Ver relatório →** na linha da raspadinha: contatos captados, exibições, cupons usados e o funil da peça.
+
+## Próximos passos
+
+- [Primeiros passos com pop-ups](/pt-BR/popups/primeiros-passos)
+- [Como criar uma Roleta premiada](/pt-BR/popups/criar-roleta)
+- [Entenda consentimento e opt-in](/pt-BR/gestao-de-dados/entenda-consentimento)

@@ -1,0 +1,78 @@
+---
+title: "How to create a Scratch card"
+description: "The scratch card editor: prizes and odds, coupons, the cover, what the visitor fills in, publishing and where to see the results."
+---
+
+{/* type: task · priority: P1 · source: apps/web/src/routes/PopupRaspadinha.tsx, lib/popup-raspadinha.ts, lib/popup-modelos.ts, components/popup-passos.tsx, components/popup-ui.tsx, components/popup-o-que-pergunta.tsx, packages/popup-kit/templates/08-raspadinha/html.html + js.js, locales campaigns.json · review: checked against the code on 2026-10-18 (#3960) */}
+
+The **Scratch card** is a pop-up where the visitor leaves an email, scratches a cover with a finger (or the mouse) and sees the prize they won. Everyone wins: you set the prizes, the coupon for each one and the odds of each prize coming up. It's the same mechanics as the [Prize wheel](/en/popups/criar-roleta), with a different reveal.
+
+## Before you start
+
+- [Pixel installed and the brand domain verified](/en/popups/primeiros-passos).
+- The company name with CNPJ and the privacy policy address — without them the pop-up won't publish.
+- The coupons created in your store. Cliqo shows the code to the winner but doesn't create the coupon in the store.
+
+To open it: in the side menu, **Pop-ups**. In the gallery, under **Capture leads**, choose **Scratch card › Use this template**. The editor has four steps — **Choose · Customise · Behaviour · Review & activate** — and opens on **Customise**, with the preview alongside. The preview runs the real pop-up and has three steps: **Email · Scratch · Prize**. You can scratch it.
+
+## Customise
+
+**Pop-up name** — only you see it; it's the name in the list and in reports. Under **What the pop-up promises**, the **Title** (up to 60 characters) and the **Button** (up to 30) are required; the **Supporting line** is optional (up to 140).
+
+### Prizes
+
+Each row under **Prizes** is a possible prize:
+
+| Column | What it is |
+|---|---|
+| **Prize** | The name the winner reads ("Free shipping") — up to 18 characters |
+| **Detail** | The line under the prize ("on your first order") — up to 30 characters, optional |
+| **Code** | The coupon the winner gets |
+| **Weight** | How much the prize weighs in the draw |
+| **Odds** | The calculated chance, in % — it updates as soon as you change any weight |
+
+Weights don't have to add up to 100: the odds are worked out between them. A scratch card has 1 to 6 prizes — a single prize is fine too. **+ Prize** adds one; the bin deletes.
+
+<Warning>
+There's no "you lost" prize, on purpose: losers tend to leave fake emails, and that hurts deliverability for your whole list. Give high odds to the small discount and low odds to the big one.
+</Warning>
+
+The pop-up won't move on if a prize has no name or no coupon, if two prizes share a coupon, if a weight is negative or if every weight is zero. While something is missing, **Continue** stays locked, and **N things missing — see** takes you to each field.
+
+### The cover
+
+- **Cover colour** — starts with the brand's primary colour and follows the brand until you pick another. **Use the brand colour** undoes the choice. The cover text is white, so the colour needs enough contrast; a cover that's too light blocks publishing.
+- **Cover text** — what shows before scratching ("SCRATCH HERE"), up to 20 characters. Required.
+- **Scratch step title** — the title above the cover, up to 40 characters.
+
+### Brand, company and what you ask
+
+- **Your brand** — **Primary colour** and **Headline colour**, with enough contrast on white.
+- **Company details** — **Company name and CNPJ** and **Privacy policy address**, required.
+- **What you ask** — the **Email** always; the phone (with the WhatsApp consent) and up to 3 extra questions are optional. **How long the coupon is valid** is the clock the winner sees; set the validity in your store too.
+
+## Behaviour
+
+The same as the wheel: **Timing**, the list the contact joins, **How often** (for the scratch card the default is **once a month**), **Where it shows** and **Where it leads** — the address of the **Use in store →** button after the prize. Checkout is always blocked.
+
+## Review & activate
+
+The **Summary** shows the prizes with their odds, the coupons, the cover, the destination, the display, the list and the coupon deadline. **Publish to the store** puts the pop-up live on the pages of the brand's verified domain.
+
+## What the visitor sees
+
+1. Leaves the email (and whatever else you asked), ticks the consent and taps the button.
+2. The scratch card only opens after the contact has been saved. If sending fails, the visitor sees a message and can try again.
+3. The prize is drawn at that moment, by the odds in the table. Reloading the page in the same browser lands on the same prize.
+4. They scratch the cover. Once more than half is scratched, the prize shows by itself, with confetti. **Reveal without scratching** is always available, for keyboard users and people who prefer less motion.
+5. The winner sees the prize, the coupon with a copy button, the validity clock and the button to the store.
+
+## Where to see the results
+
+In **Reports › By campaign**, channel **Pop-up**, **View report →** on the scratch card's row: contacts captured, impressions, coupons used and the pop-up's funnel.
+
+## Next steps
+
+- [Getting started with pop-ups](/en/popups/primeiros-passos)
+- [How to create a Prize wheel](/en/popups/criar-roleta)
+- [Understand consent and opt-in](/en/gestao-de-dados/entenda-consentimento)
